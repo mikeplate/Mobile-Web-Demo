@@ -1,0 +1,53 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Fetch from my site</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" media="screen">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script src="../lib/jquery.tmpl.min.js"></script>
+<style>
+table#template {
+	display: none;
+}
+</style>
+<script type="text/javascript">
+$(window).ready(function() {
+	// Tell jQuery about our template
+	$.template("data-template", $("#template"));
+});
+
+function Update() {
+	$.getJSON("my-data.json", function(result) {
+		for (var i = 0; i < result.length; i++) {
+			var data = result[i];
+			$.tmpl("data-template", data).appendTo("#output");
+		}
+	});
+}
+</script>
+</head>
+<body>
+	<h1>Fetch from my site <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>Important events</dt>
+		<dd>
+			<table id="output">
+				<tr>
+					<th>Date</th>
+					<th>Text</th>
+					<th>Priority</th>
+				</tr>
+			</table>
+			<p><input type="button" id="update" onclick="Update();" value="Update from my site" /></p>
+		</dd>
+	</dl>
+	<table id="template">
+		<tr>
+			<td>${date}</td>
+			<td>${text}</td>
+			<td>${prio}</td>
+		</tr>
+	</table>
+</body>
+</html>

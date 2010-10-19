@@ -1,0 +1,97 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Fetch from other site</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" media="screen">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script src="../lib/jquery.tmpl.min.js"></script>
+<style>
+div.tweet {
+	padding: 5px;
+	margin-bottom: 5px;
+	border-bottom: solid 1px #CCC;
+}
+div.avatar {
+	width: 48px;
+	height: 48px;
+	float: left;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+div.info {
+	line-height: 150%;
+	font-size: 11pt;
+}
+div.text {
+	clear: left;
+	font-size: 11pt;
+}
+</style>
+<script type="text/javascript">
+$(window).ready(function() {
+	// Tell jQuery about our template
+	$.template("data-template", $("#template"));
+	
+	// Fetch data from Twitter immediately
+	Update();
+});
+
+// JavaScript does not have any good formatting function for dates, so make our own
+function FormatDateTime(date) {
+	var year = date.getFullYear();
+	var month = date.getMonth()+1;
+	var day = date.getDate();
+	var hour = date.getHours();
+	var min = date.getMinutes();
+	
+	// Always format in YYYY-MM-DD
+	var str = year + "-" + (month<10 ? "0":"") + month + "-" + (day<10 ? "0":"") + day;
+	str += " " + (hour<10 ? "0":"") + hour + ":" + (min<10 ? "0":"") + min;
+	return str;
+}
+
+function Update() {
+	$("#output").html("");
+	$("#update").val("Getting data. Please wait...")
+	$.getJSON("http://search.twitter.com/search.json?q=mobile+web&lang=en&callback=?", function(result) {
+		for (var i = 0; i < result.results.length; i++) {
+			var data = result.results[i];
+			
+			// Fix date so it looks a little better for us
+			var date = new Date(data.created_at);
+			data.display_date = FormatDateTime(date);
+			
+			// Render the data via the template
+			$.tmpl("data-template", data).appendTo("#output");
+		}
+		$("#update").val("Update from Twitter");
+	});
+}
+</script>
+</head>
+<body>
+	<h1>Fetch from other site <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>Twitter</dt>
+		<dd id="output">
+		</dd>
+		<dd>
+			<input type="button" id="update" onclick="Update();" value="Update from Twitter" />
+		</dd>
+	</dl>
+	<script id="template" type="text/x-jquery-tmpl">
+	<div class="tweet">
+		<div class="avatar" style="background: url(${profile_image_url}) no-repeat;">&nbsp;</div>
+		<div class="info">
+			${from_user}<br />
+			${display_date}
+		</div>
+		<div class="text">${text}</div>
+	</div>
+	</script>
+</body>
+</html>

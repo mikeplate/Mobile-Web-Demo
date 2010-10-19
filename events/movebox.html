@@ -1,0 +1,88 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Moving</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<link rel="stylesheet" href="../style.css" type="text/css" media="screen" />
+<style>
+div#Box {
+	background-color: #ED8;
+	font-weight: bold;
+	text-align: center;
+	padding: 10px;
+	margin: auto;
+	width: 100px;
+	height: 100px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+	var box = document.getElementById("Box");
+	box.style.left = box.offsetLeft + "px";
+	box.style.top = box.offsetTop + "px";
+	box.style.position = "absolute";
+	
+	if (typeof(box.ontouchstart)!="undefined") {
+		box.addEventListener("touchstart", onStart, false);
+		box.addEventListener("touchmove", onMove, false);
+		box.addEventListener("touchend", onEnd, false);
+	}
+	else if (box.addEventListener) {
+		box.addEventListener("mousedown", onStart, false);
+		box.addEventListener("mousemove", onMove, false);
+		box.addEventListener("mouseup", onEnd, false);
+	}
+	else {
+		box.attachEvent("onmousedown", onStart);
+		box.attachEvent("onmousemove", onMove);
+		box.attachEvent("onmouseup", onEnd);
+	}
+});
+
+var startOffsetX, startOffsetY;
+var moving = false;
+
+function getPos(ev) {
+	return { 
+		x: ev.touches ? ev.touches[0].clientX : ev.clientX, 
+		y: ev.touches ? ev.touches[0].clientY : ev.clientY
+	};
+}
+
+function onStart(ev) {
+	moving = true;
+	var box = document.getElementById("Box");
+	var pos = getPos(ev);
+	startOffsetX = pos.x - box.offsetLeft;
+	startOffsetY = pos.y - box.offsetTop;
+	if (ev.preventDefault)
+		ev.preventDefault();
+}
+
+function onMove(ev) {
+	if (moving) {
+		var pos = getPos(ev);
+		var x = pos.x - startOffsetX;
+		var y = pos.y - startOffsetY;
+		var box = document.getElementById("Box");
+		box.style.left = x+"px";
+		box.style.top = y+"px";
+		if (ev.preventDefault)
+			ev.preventDefault();
+	}
+}
+
+function onEnd(ev) {
+	if (moving) {
+		moving = false;
+	}
+}
+</script>
+</head>
+<body>
+	<h1>Moving <a href="index.html">Back</a></h1>
+	<p>Move the box with finger or mouse</p>
+	<div id="Box">This is the box</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+[
+	{
+		"date": "2010-11-02",
+		"text": "Tottenham-Milan",
+		"prio": "High"
+	},
+	{
+		"date": "2010-11-06",
+		"text": "Bolton-Tottenham",
+		"prio": "Low"
+	},
+	{
+		"date": "2010-11-09",
+		"text": "Tottenham-Sunderland",
+		"prio": "Normal"
+	},
+	{
+		"date": "2010-11-13",
+		"text": "Tottenham-Blackburn",
+		"prio": "Normal"
+	},
+	{
+		"date": "2010-11-20",
+		"text": "Arsenal-Tottenham",
+		"prio": "High"
+	},
+	{
+		"date": "2010-11-24",
+		"text": "Tottenham-Werder Bremen",
+		"prio": "High"
+	},
+	{
+		"date": "2010-11-28",
+		"text": "Tottenham-Liverpool",
+		"prio": "Normal"
+	}
+]

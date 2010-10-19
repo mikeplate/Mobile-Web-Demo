@@ -1,0 +1,101 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Touching</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<link rel="stylesheet" href="../style.css" type="text/css" media="screen" />
+<script type="text/javascript">
+$(document).ready(function() {
+	$(document)
+		.bind("touchstart", onEvent)
+		.bind("touchmove", onEvent)
+		.bind("touchend", onEvent)
+		.bind("mousedown", onEvent)
+		.bind("mousemove", onEvent)
+		.bind("mouseup", onEvent);
+		
+	$("#PreventBox").bind("click", onPreventBox);
+});
+
+function EventOutput() {
+	var last = "";
+	var count = 0;
+	var text = "";
+	
+	this.add = function(name) {
+		if (last == name) {
+			count++;
+		}
+		else {
+			if (last.length > 0) {
+				text += last;
+				if (count > 1)
+					text += "("+count+")";
+				text += " ";
+			}
+			
+			last = name;
+			count = 1;
+		}
+	}
+	
+	this.clear = function() {
+		last = "";
+		count = 0;
+		text = "";
+	}
+	
+	this.toString = function() {
+		var str = text;
+		if (last.length > 0) {
+			str += last;
+			if (count > 1)
+				str += "("+count+")";
+		}
+		return str;
+	}
+}
+
+var touchOutput = new EventOutput();
+var mouseOutput = new EventOutput();
+var prevent = false;
+
+function onEvent(ev) {
+	var prefix = ev.type.substring(0, 5);
+	if (prefix=="touch") {
+		touchOutput.add(ev.type.substring(5));
+		$("#TouchOutput").text(touchOutput.toString());
+	}
+	else if (prefix=="mouse") {
+		mouseOutput.add(ev.type.substring(5));
+		$("#MouseOutput").text(mouseOutput.toString());
+	}
+	if (prevent && ev.target.tagName!="INPUT" && ev.target.tagName!="LABEL" && ev.target.tagName!="A")
+		ev.preventDefault();
+}
+
+function onPreventBox(ev) {
+	prevent = document.getElementById("PreventBox").checked;
+	$("#TouchOutput").text("");
+	touchOutput.clear();
+	$("#MouseOutput").text("");
+	mouseOutput.clear();
+}
+</script>
+</head>
+<body>
+	<h1>Touching <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>
+			<div style="float:right;">
+			<input id="PreventBox" type="checkbox" /><label for="PreventBox">Prevent</label>
+			</div>
+			Touch events
+		</dt>
+		<dd id="TouchOutput"></dd>
+		<dt>Mouse events</dt>
+		<dd id="MouseOutput"></dd>
+	</dl>
+</body>
+</html>

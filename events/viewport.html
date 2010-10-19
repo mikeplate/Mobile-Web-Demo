@@ -1,0 +1,50 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Viewport</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<link rel="stylesheet" href="../style.css" type="text/css" media="screen">
+<script type="text/javascript">
+var resizeEvents = 0;
+var scrollEvents = 0;
+var orientationEvents = 0;
+
+$(document).ready(function() { 
+	showInfo();
+	$("#screenInfo").text(screen.width + " x " + screen.height);
+	$(window).bind("resize", function() { resizeEvents++; showInfo(); });
+	$(window).bind("scroll", function() { scrollEvents++; showInfo(); });
+	$(window).bind("orientationchange", function() { orientationEvents++; showInfo(); });
+});
+
+function showInfo() {
+	$("#sizeInfo").text(window.innerWidth + " x " + window.innerHeight + " / "
+		+ document.documentElement.clientWidth + " x " + document.documentElement.clientHeight);
+	$("#eventInfo").text(resizeEvents + " resize, " + scrollEvents + " scroll");
+	$("#orientationInfo").text(window.orientation + " (" + orientationEvents + " events)");
+}
+</script>
+</head>
+<body>
+	<h1>Viewport <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>Screen</dt>
+		<dd id="screenInfo"></dd>
+		<dt>Window / Document</dt>
+		<dd id="sizeInfo"></dd>
+		<dt>Events</dt>
+		<dd id="eventInfo"></dd>
+		<dt>Orientation</dt>
+		<dd id="orientationInfo"></dd>
+		<dt>More text</dt>
+		<dd>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eu arcu a lacus auctor euismod. Praesent sagittis tempus dolor in venenatis. 
+			In hac habitasse platea dictumst. Vestibulum scelerisque lectus eget sapien varius mollis. Nam tortor diam, porta vitae elementum sed, vestibulum elementum est. 
+			Quisque ac dui leo, sollicitudin luctus odio. Sed pharetra blandit felis ac ullamcorper. Fusce tristique leo ac mauris sagittis quis viverra sapien venenatis. 
+			Nulla mi eros, tristique ac sollicitudin fermentum, pharetra quis mauris. Duis auctor purus non risus convallis et condimentum nisl aliquet. 
+			Vestibulum euismod mattis tempor. Pellentesque tristique bibendum nisi, vel blandit nibh tempor ut. Aenean. 		
+		</dd>
+	</dl>
+</body>
+</html>

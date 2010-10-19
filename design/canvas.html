@@ -1,0 +1,41 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Image sprites</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" media="screen">
+<style>
+</style>
+<script>
+function paint() {
+	var painting = document.getElementById("painting");
+	var c = painting.getContext("2d");
+	c.fillStyle = "#6666AA";
+	c.fillRect(0, 0, 150, 100);
+	c.fillStyle = "#0099AA";
+	c.lineWidth = 2;
+	c.strokeStyle = "#000099";
+	addEllipsePath(c, 196, 100, 100, 75);
+	c.fill();
+	c.stroke();
+}
+
+function addEllipsePath(context, cx, cy, r1, r2) {
+	context.save();
+	context.translate(cx, cy);
+	context.scale(r1, r2);
+	context.arc(0, 0, 1, 0, 2*Math.PI, 0);
+	context.restore();
+}
+</script>
+</head>
+<body onload="paint();">
+	<h1>Canvas <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>Geometry</dt>
+		<dd>
+			<canvas id="painting" width="300" height="200"></canvas>
+		</dd>
+	</dl>
+</body>
+</html>

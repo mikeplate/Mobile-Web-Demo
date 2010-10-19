@@ -1,0 +1,151 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Local sql database</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" media="screen" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script src="../lib/jquery.json-2.2.min.js"></script>
+<script src="../lib/jquery.tmpl.min.js"></script>
+<style>
+table#template {
+	display: none;
+}
+table {
+	border-collapse: collapse;
+	margin-bottom: 10px;
+}
+th {
+	text-align: left;
+	padding: 3px;
+	background-color: #DDD;
+}
+td {
+	padding: 3px;
+}
+tr {
+	
+}
+tbody:nth-child(odd) tr {
+	background-color: #DDD;
+}
+</style>
+<script type="text/javascript">
+var db = null;
+
+$(window).ready(function() {
+	// Tell jQuery about our template
+	$.template("data-template", $("#template"));
+	
+	// Ensure that local sql database is available
+	if (typeof(window.openDatabase)!="undefined") {
+		// Open the database and, if it didn't exist, create the table we will use
+		db = window.openDatabase("local-sql-demo", "1.0", "Local sql database demo", 100000);
+		db.transaction(function(context) {
+			context.executeSql("CREATE TABLE IF NOT EXISTS items (itemId INTEGER PRIMARY KEY, "+
+				"itemDate TEXT, itemName TEXT, itemPriority INT)");
+		});
+		
+		// Read all rows from the table
+		db.transaction(function(context) {
+			context.executeSql("SELECT * FROM items", [], function(context, result) {
+				for (var i = 0; i < result.rows.length; i++) {
+					var row = result.rows.item(i);
+					var data = {
+						date: row.itemDate,
+						text: row.itemName,
+						prio: row.itemPriority>0 ? "High" : (row.itemPriority<0 ? "Low":"Normal")
+					};
+					$.tmpl("data-template", data).appendTo("#output");
+				}
+			});
+		});
+		
+		$("#date").val(FormatDate(new Date()));
+	}
+	else {
+		$("#output").text("No local sql database available");
+		$("#add,#delete").fadeOut();
+	}
+});
+
+// JavaScript does not have any good formatting function for dates, so make our own
+function FormatDate(date) {
+	var year = date.getFullYear();
+	var month = date.getMonth()+1;
+	var day = date.getDate();
+	
+	// Always format in YYYY-MM-DD
+	return year + "-" + (month<10 ? "0":"") + month + "-" + (day<10 ? "0":"") + day;
+}
+
+function AddData() {
+	// Build a single object with properties from the input fields
+	var data = {
+		date: $("#date").val(),
+		text: $("#text").val(),
+		prio: $("#prio").val()
+	};
+	
+	// Output the data inside the template to show it immediately
+	$("#template").tmpl(data).appendTo("#output");
+	
+	// Add to database via INSERT command
+	db.transaction(function(context) {
+		var prioNum = 0;
+		if (data.prio=="High")
+			prioNum = 1;
+		else if (data.prio=="Low")
+			prioNum = -1;
+			
+		context.executeSql("INSERT INTO items (itemDate, itemName, itemPriority) VALUES (?, ?, ?)",
+			[data.date, data.text, prioNum]);
+	});
+}
+
+function DeleteAll() {
+	// Show message and get confirmation before deleting everything
+	if (!confirm("Are you sure?"))
+		return;
+	
+	// Delete all rows from the table
+	db.transaction(function(context) {
+		context.executeSql("DELETE FROM items");
+	});	
+		
+	// Take the easy approach and reload to get everything up to date
+	window.location.reload();
+}
+</script>
+</head>
+<body>
+	<h1>Local sql database <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>Item form</dt>
+		<dd>
+			<p>Date: <input type="text" id="date" size="20" /></p>
+			<p>Text: <input type="text" id="text" size="20" value="Something to remember" /></p>
+			<p>Priority: <select id="prio"><option>High</option><option selected="selected">Normal</option><option>Low</option></select></p>
+			<p><input type="button" id="add" onclick="AddData();" value="Add" /></p>
+		</dd>
+		<dt>Items table</dt>
+		<dd>
+			<table id="output">
+				<tr>
+					<th>Date</th>
+					<th>Text</th>
+					<th>Priority</th>
+				</tr>
+			</table>
+			<p><input type="button" id="delete" onclick="DeleteAll();" value="Delete All Data" /></p>
+		</dd>
+	</dl>
+	<table id="template">
+		<tr>
+			<td>${date}</td>
+			<td>${text}</td>
+			<td>${prio}</td>
+		</tr>
+	</table>
+</body>
+</html>
