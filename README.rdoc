@@ -1,0 +1,16 @@
+= Mobile Web - Demo
+
+== Overview
+
+The purpose of this web site is to demonstrate the mobile web, what features are available and what you need to
+consider when developing web solutions for mobile devices. The web pages and code here is only a compliment to
+books or other educational surroundings since there is not much text explaining what is shown.
+
+Besides touching (or clicking) around the site and trying out web pages, perhaps in different devices to see
+what might differ, you are also supposed to "View Source" and check out the html, css and JavaScript that made
+it all possible.
+
+Note that although the site was made for the mobile web, all web pages are compatible with those old devices
+known as "computers".
+
+Use this web application live at http://mobileweb.mikeplate.com
