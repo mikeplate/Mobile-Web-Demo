@@ -1,0 +1,84 @@
+<?php
+require("image-sprites.inc");
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Image sprites</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" />
+<style>
+img {
+	-moz-box-shadow: 2px 2px 6px #000;
+	-webkit-box-shadow: 2px 2px 6px #000;
+	box-shadow: 2px 2px 6px #000;
+	margin: 10px;
+}
+.rot1 {
+	-moz-transform: rotate(-10deg);
+	-webkit-transform: rotate(-10deg);
+	transform: rotate(-10deg);
+}
+.rot2 {
+	-moz-transform: rotate(5deg);
+	-webkit-transform: rotate(5deg);
+	transform: rotate(5deg);
+}
+.rot3 {
+	-moz-transform: rotate(-3deg);
+	-webkit-transform: rotate(-3deg);
+	transform: rotate(-3deg);
+}
+.rot4 {
+	-moz-transform: rotate(12deg);
+	-webkit-transform: rotate(12deg);
+	transform: rotate(12deg);
+}
+.image {
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	background: url(image-sprites.php?album1.jpg,album2.jpg,album3.jpg,album4.jpg) no-repeat;
+	-moz-box-shadow: 2px 2px 6px #000;
+	-webkit-box-shadow: 2px 2px 6px #000;
+	box-shadow: 2px 2px 6px #000;
+	margin: 10px;
+}
+.image1 {
+	background-position: 0px;
+}
+.image2 {
+	background-position: -100px;
+}
+.image3 {
+	background-position: -200px;
+}
+.image4 {
+	background-position: -300px;
+}
+</style>
+</head>
+<body>
+	<h1>Images sprites <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>Separate images</dt>
+		<dd>
+			<img src="album1.jpg" width="100" height="100" class="rot1" />
+			<img src="album2.jpg" width="100" height="100" class="rot2" />
+			<img src="album3.jpg" width="100" height="100" class="rot3" />
+			<img src="album4.jpg" width="100" height="100" class="rot4" />
+		</dd>
+		<dt>One image</dt>
+		<dd>
+			<img src="image-sprites.php?album1.jpg,album2.jpg,album3.jpg,album4.jpg" width="400" height="100" class="rot3" />
+		</dd>
+		<dt>One image, separated as sprites</dt>
+		<dd>
+			<div class="image image1 rot2"></div>
+			<div class="image image2 rot1"></div>
+			<div class="image image3 rot4"></div>
+			<div class="image image4 rot3"></div>
+		</dd>
+	</dl>
+</body>
+</html>
