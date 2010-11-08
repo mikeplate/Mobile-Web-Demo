@@ -1,0 +1,43 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Template Rounded</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<link rel="stylesheet" href="rounded.css" type="text/css" />
+<script type="text/javascript">
+$(document).ready(function() {
+	var today = new Date();
+	var year = today.getFullYear();
+	var month = "0" + (today.getMonth()+1);
+	month = month.substring(month.length-2);
+	var day = "0" + today.getDate();
+	day = day.substring(day.length-2);
+	$("#footer").text("Today is " + today.getFullYear() + "-" + month + "-" + day);
+	
+	for (var i = 0; i < 20; i++) {
+		$("ul.list").append("<li>This is row " + i + "</li>");
+	}
+	
+	$("#footer").click(function() {
+		window.scrollTo(0, 0);
+	});
+});
+</script>
+</head>
+<body>
+	<h1>Template Rounded</h1>
+	<div class="menu">
+	<table class="menu">
+		<tr>
+			<td style="width: 33%;">Name</td>
+			<td style="width: 33%;">Count</td>
+			<td style="width: 33%;">Date</td>
+		</tr>
+	</table>
+	</div>
+	<ul class="list">
+	</ul>
+	<h6 id="footer"></h6>
+</body>
+</html>

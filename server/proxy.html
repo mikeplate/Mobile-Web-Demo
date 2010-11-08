@@ -1,0 +1,37 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Proxy</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" media="screen" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script src="../lib/jquery.tmpl.min.js"></script>
+<script type="text/javascript">
+$(window).ready(function() {
+	// Tell jQuery about our template
+	$.template("data-template", $("#template"));
+	
+	var url = encodeURIComponent("http://libris.kb.se/xsearch?query=html&format=json&format_level=brief&n=100");
+	$.getJSON("proxy.php?url=" + url, function(fromServer) {
+		var books = fromServer.xsearch.list;
+		for (var i = 0; i < books.length; i++) {
+			var book = books[i];
+			
+			// Render the data via the template
+			$.tmpl("data-template", book).appendTo("#output");
+		}
+	}, function(err) { alert(err); });
+});
+</script>
+</head>
+<body>
+	<h1>Proxy <a href="index.html">Back</a></h1>
+	<dl id="output">
+	</dl>
+	
+	<script id="template" type="text/x-jquery-tmpl">
+		<dt>${title}</dt>
+		<dd>${creator}</dd>
+	</script>
+</body>
+</html>
