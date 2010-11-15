@@ -190,7 +190,7 @@ function askValue(label, value, whenOk) {
 		dlg.fadeOut("slow");
 		
 		// Check if OK button was clicked to close the dialog box
-		if (event.srcElement.value=="OK") {
+		if (event.target.value=="OK") {
 			// Retrieve the value that the user typed in the dialog box field
 			value = dlg.find("input[type='text']").val();
 			
