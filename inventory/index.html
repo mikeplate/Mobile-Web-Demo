@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.1" />
+<title>Inventory</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script src="../lib/jquery.json-2.2.min.js"></script>
+<script src="../lib/jquery.tmpl.min.js"></script>
+<script src="inventory.js" charset="utf-8"></script>
+</head>
+<body>
+
+<ul class="toolbar">
+	<li><a href="javascript:onReset();">Reset</a></li>
+	<li><a href="javascript:onDeleteAll();">Delete All</a></li>
+	<li><a href="javascript:onAdd();">Add</a></li>
+</ul>
+
+<ul id="list" class="content">
+</ul>
+
+<h6><a href="../">Back to overview of demos</a></h6>
+
+<script id="itemTemplate" type="text/x-jquery-tmpl">
+	<li>
+		<ol id="item${id}">
+			<li><a href="javascript:onCount(${id});">${count}</a></li>
+			<li><a href="javascript:onName(${id});">${name}</a></li>
+			<li><a href="javascript:onIncreasePack(${id});">+12</a></li>
+			<li><a href="javascript:onIncrease(${id});">+1</a></li>
+		</ol>
+	</li>
+</script>
+
+<div id="askValueTemplate" style="display: none;">
+	<div class="dialog">
+		<label>${title}</label>
+		<input type="text" value="${value}" />
+		<input type="button" value="OK" />
+		<input type="button" value="Cancel" />
+	</div>
+</div>
+
+</body>

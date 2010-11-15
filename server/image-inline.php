@@ -11,7 +11,7 @@ require("image-inline.inc");
 <head>
 <title>Images inline</title>
 <meta name="viewport" content="user-scalable=yes, width=device-width" />
-<link rel="stylesheet" href="../style.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../style.css" type="text/css" />
 </head>
 <body>
 	<h1>Images inline <a href="index.html">Back</a></h1>
