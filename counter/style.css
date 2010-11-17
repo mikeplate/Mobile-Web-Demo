@@ -1,0 +1,58 @@
+/* The page has a black background */
+body {
+	margin: 10px;
+	font-family: Arial, sans-serif;
+	background-color: #000;
+}
+
+/* All div elements will have large font and the same border radius */
+div {
+	font-size: 50px;
+	text-align: center;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;
+}
+
+/* Top box is the current counter value, in light gray */
+div#counter {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border: solid 2px #FFF;
+	background-color: #CCC;
+}
+
+/* Toolbar has two buttons */
+div.toolbar {
+	margin-top: 10px;	
+}
+div.button {
+	width: 50%;
+	float: left;
+	cursor: pointer;
+}
+div#decreaseButton {
+	background-color: #C33;	
+	border: solid 2px #FFF;
+	margin-right: 5px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+div#increaseButton {
+	background-color: #3C3;
+	border: solid 2px #FFF;
+	margin-left: 5px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+/* The footer is an H6 element with a link */
+h6 {
+	clear: left;
+	padding-top: 10px;
+	text-align: right;
+	font-size: 15px;
+}
+h6 a {
+	color: #666;
+}
