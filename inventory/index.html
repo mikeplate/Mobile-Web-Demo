@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="user-scalable=no, initial-scale=1.1" />
+<meta name="viewport" content="user-scalable=no, width=device-width" />
 <title>Inventory</title>
 <link rel="stylesheet" type="text/css" href="style.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
@@ -13,9 +13,9 @@
 <body>
 
 <ul class="toolbar">
-	<li><a href="javascript:onReset();">Reset</a></li>
-	<li><a href="javascript:onDeleteAll();">Delete All</a></li>
-	<li><a href="javascript:onAdd();">Add</a></li>
+	<li id="reset"><a>Reset</a></li>
+	<li id="deleteAll"><a>Delete All</a></li>
+	<li id="add"><a>Add</a></li>
 </ul>
 
 <ul id="list" class="content">
@@ -26,10 +26,10 @@
 <script id="itemTemplate" type="text/x-jquery-tmpl">
 	<li>
 		<ol id="item${id}">
-			<li><a href="javascript:onCount(${id});">${count}</a></li>
-			<li><a href="javascript:onName(${id});">${name}</a></li>
-			<li><a ontouchstart="onIncreasePack(${id});" xhref="javascript:onIncreasePack(${id});">+12</a></li>
-			<li><a href="javascript:onIncrease(${id});">+1</a></li>
+			<li class="countcolumn"><a ontouchstart="onCount(${id});" onmousedown="onCount(${id});">${count}</a></li>
+			<li class="namecolumn"><a ontouchstart="onName(${id});" onmousedown="onName(${id});">${name}</a></li>
+			<li class="incpackcolumn"><a ontouchstart="onIncreasePack(${id});" onmousedown="onIncreasePack(${id});">+10</a></li>
+			<li class="inccolumn"><a ontouchstart="onIncrease(${id});" onmousedown="onIncrease(${id});">+1</a></li>
 		</ol>
 	</li>
 </script>

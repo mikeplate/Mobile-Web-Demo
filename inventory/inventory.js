@@ -16,16 +16,27 @@ $(document).ready(function() {
 	// If no data is found, put some sample data into the inventory to better explain
 	// the first interface that the user sees.
 	if (inventory.length == 0) {
-		inventory.push({ id:nextId, name:"Table", count:18 });
-		nextId++;
-		inventory.push({ id:nextId, name:"Chair", count:7 });
-		nextId++;
-		inventory.push({ id:nextId, name:"Bookshelf", count:3 });
+		inventory.push({ id:1, name:"Table", count:18 });
+		inventory.push({ id:2, name:"Chair", count:7 });
+		inventory.push({ id:3, name:"Bookshelf", count:3 });
+		nextId = 4;
+	}
+	else {
+		// Find the highest id in the inventory and add one to that. That will be the nextId.
+		for (var pos = 0; pos < inventory.length; pos++) {
+			if (inventory[pos].id > nextId)
+				nextId = inventory[pos].id;
+		}
 		nextId++;
 	}
 	
 	// Use template and output all items in the web page
 	$.tmpl("itemTemplate", inventory).appendTo("#list");
+	
+	// Catch button events
+	$("li#reset").bind("mousedown", onReset).bind("touchstart", onReset);
+	$("li#deleteAll").bind("mousedown", onDeleteAll).bind("touchstart", onDeleteAll);
+	$("li#add").bind("mousedown", onAdd).bind("touchstart", onAdd);
 	
 	// Catch resize event to keep any showing dialog box in the center of the screen (desktop only)
 	$(window).resize(function() {
@@ -65,9 +76,10 @@ function onAdd() {
 	askValue("Name of new item", "", function(value) {
 		// Create new item object and set startup values
 		var item = {};
-		item.id = nextId++;
+		item.id = nextId;
 		item.name = value;
 		item.count = 0;
+		nextId++;
 		
 		// Add new item object to inventory array
 		inventory.push(item);
@@ -149,7 +161,7 @@ function onIncreasePack(id) {
 	var item = getItem(id);
 	
 	// Add a dozen to the count
-	item.count += 12;
+	item.count += 10;
 	
 	// Update the count value in the box on the web page
 	$("#item" + id + " li:nth-child(1) a").text(item.count);

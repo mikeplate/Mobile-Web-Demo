@@ -3,6 +3,14 @@ body {
 	margin: 0px;
 	font-family: Arial, sans-serif;
 	background-color: #000;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+* {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
 }
 ul, ol {
 	padding: 0px;
@@ -24,27 +32,21 @@ ul.toolbar {
 }
 ul.toolbar>li {
 	float: left;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
 	width: 33.33%;
 }
-ul.toolbar>li:first-child {
+ul.toolbar>li#reset {
 	padding-right: 6px;
 }
-ul.toolbar>li:last-child {
+ul.toolbar>li#add {
 	padding-left: 6px;
 }
 ul.toolbar>li>a {
 	display: inline-block;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
 	width: 100%;
 
-	height: 44px;
+	height: 50px;
 	text-align: center;
-	padding-top: 12px;
+	padding-top: 16px;
 	background-color: #EEE;
 	background-image: -moz-linear-gradient(-90deg, #EEE 0%, #CCC 90%);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #EEE), color-stop(0.9, #CCC));
@@ -52,6 +54,7 @@ ul.toolbar>li>a {
 	border-radius: 6px;
 	font-weight: bold;
 	text-shadow: 1px 1px 0px #FFF;
+	cursor: pointer;
 }
 
 /***** Content *****/
@@ -63,56 +66,48 @@ ul.content>li {
 }
 ul.content>li>ol {
 	position: relative;
-	height: 50px;
+	height: 56px;
 	background-image: -moz-linear-gradient(-90deg, #333 0%, #000 90%);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #333), color-stop(0.9, #000));
 }
 ul.content>li>ol>li {
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	height: 44px;
+	position: absolute;
+	height: 50px;
 	text-align: center;
 	-moz-border-radius: 8px;
 	border-radius: 8px;
 	border: solid 1px #000;
+	cursor: pointer;
 }
-ul.content>li>ol>li:nth-child(1) {
-	position: absolute;
+ul.content>li>ol>li.countcolumn {
 	left: 0px;
-	width: 44px;
-	height: 44px;
+	width: 50px;
+	height: 50px;
 	background-color: #44E;
 }
-ul.content>li>ol>li:nth-child(2) {
-	position: absolute;
-	left: 44px;
-	border-radius: 0px;
+ul.content>li>ol>li.namecolumn {
+	left: 56px;
 	border: none;
 	padding-left: 10px;
 }
-ul.content>li>ol>li:nth-child(3) {
-	position: absolute;
-	right: 50px;
-	width: 44px;
+ul.content>li>ol>li.incpackcolumn {
+	right: 56px;
+	width: 50px;
 	background-color: #BB3;
 }
-ul.content>li>ol>li:nth-child(4) {
-	position: absolute;
+ul.content>li>ol>li.inccolumn {
 	right: 0px;
-	width: 44px;
+	width: 50px;
 	background-color: #3B3;
 }
 ul.content a {
 	display: block;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
 	width: 100%;
-	padding-top: 12px;
-	height: 44px;
+	padding-top: 16px;
+	height: 50px;
 	color: #EEE;
 	font-weight: bold;
+	text-shadow: 1px 1px 0px #000;
 }
 
 /***** Dialog *****/
@@ -130,13 +125,10 @@ div.dialog label {
 }
 div.dialog input {
 	display: block;	
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
 	width: 90%;
 	margin: auto;
 	margin-bottom: 6px;
-	height: 44px;
+	height: 50px;
 	padding-left: 6px;
 	padding-right: 6px;
 	font-family: Arial, sans-serif;
@@ -146,13 +138,13 @@ div.dialog input {
 /***** Footer *****/
 h6 {
 	color: #333;
-	font-size: 8pt;
+	font-size: 12pt;
 	margin: 0px;
 	padding-right: 6px;
 	text-align: right;
 }
 h6 a {
 	color: #333;
-	font-size: 8pt;
+	font-size: 12pt;
 	text-decoration: underline;
 }
