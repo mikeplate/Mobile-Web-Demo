@@ -140,8 +140,8 @@ h6 {
 	color: #333;
 	font-size: 12pt;
 	margin: 0px;
-	padding-right: 6px;
-	text-align: right;
+	padding-left: 6px;
+	margin-top: 6px;
 }
 h6 a {
 	color: #333;

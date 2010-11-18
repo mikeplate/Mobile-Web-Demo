@@ -5,7 +5,7 @@
 <meta name="viewport" content="user-scalable=no, width=device-width" />
 <title>Inventory</title>
 <link rel="stylesheet" type="text/css" href="style.css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script src="../lib/jquery.json-2.2.min.js"></script>
 <script src="../lib/jquery.tmpl.min.js"></script>
 <script src="inventory.js" charset="utf-8"></script>
@@ -21,15 +21,17 @@
 <ul id="list" class="content">
 </ul>
 
-<h6><a href="../">Back to overview of demos</a></h6>
+<h6 id="msg"></h6>
+
+<h6><a href="../">Back to demo start page</a></h6>
 
 <script id="itemTemplate" type="text/x-jquery-tmpl">
 	<li>
 		<ol id="item${id}">
-			<li class="countcolumn"><a ontouchstart="onCount(${id});" onmousedown="onCount(${id});">${count}</a></li>
-			<li class="namecolumn"><a ontouchstart="onName(${id});" onmousedown="onName(${id});">${name}</a></li>
-			<li class="incpackcolumn"><a ontouchstart="onIncreasePack(${id});" onmousedown="onIncreasePack(${id});">+10</a></li>
-			<li class="inccolumn"><a ontouchstart="onIncrease(${id});" onmousedown="onIncrease(${id});">+1</a></li>
+			<li class="countcolumn"><a>${count}</a></li>
+			<li class="namecolumn"><a>${name}</a></li>
+			<li class="incpackcolumn"><a>+10</a></li>
+			<li class="inccolumn"><a>+1</a></li>
 		</ol>
 	</li>
 </script>
