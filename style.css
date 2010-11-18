@@ -16,6 +16,7 @@ body>h1.noback {
 }
 body>h1 a {
 	-moz-border-radius: 1em;
+	-webkit-border-radius: 1em;
 	border-radius: 1em;
 	border: solid 1px #CCC;
 	background-color: #EEE;
@@ -56,6 +57,7 @@ dd {
 }
 dd a {
 	-moz-border-radius: 1em;
+	-webkit-border-radius: 1em;
 	border-radius: 1em;
 	border: solid 1px #CCC;
 	background-color: #EEE;
