@@ -1,0 +1,84 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>Close by</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script src="statoil-json.js"></script>
+<script>
+$(window).ready(function() {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(gotPosition, errorPosition);
+	}
+});
+
+if (typeof(Number.prototype.toRad) === "undefined") {
+  Number.prototype.toRad = function() {
+    return this * Math.PI / 180;
+  }
+}
+
+if (typeof(Number.prototype.toDeg) === "undefined") {
+  Number.prototype.toDeg = function() {
+    return this * 180 / Math.PI;
+  }
+}
+
+function haversine(lat1, lon1, lat2, lon2) {
+    var R = 6371; // km
+    var dLat = (lat2-lat1).toRad();
+    var dLon = (lon2-lon1).toRad();
+    var lat1 = lat1.toRad();
+    var lat2 = lat2.toRad();
+
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c;
+    return d;
+}
+
+function gotPosition(pos) {
+    var lat = pos.coords.latitude;
+    var lng = pos.coords.longitude;
+
+    // Find nearest spot
+    var nearestIndex = -1;
+    var nearestDistance = -1;
+    for (var i = 0; i<places.length; i++) {
+        var placeLat = places[i][1];
+        var placeLng = places[i][0];
+        var placeDist = haversine(lat, lng, placeLat, placeLng);
+        if (placeDist < nearestDistance || nearestDistance < 0) {
+            nearestIndex = i;
+            nearestDistance = placeDist;
+        }
+    }
+
+    var nearestLat = places[nearestIndex][1];
+    var nearestLong = places[nearestIndex][0];
+    $("#lat").text(nearestLat);
+    $("#long").text(nearestLong);
+    $("#dist").text(nearestDistance);
+	$("#maplink").attr("href", "http://maps.google.com/maps?q=" + nearestLat + "," + nearestLong);
+}
+
+function errorPosition(msg) {
+}
+</script>
+</head>
+<body>
+	<h1>Close by <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>Closes Statoil gas station</dt>
+		<dd>
+			<p>Latitude: <span id="lat"></span></p>
+			<p>Longitude: <span id="long"></span></p>
+			<p>Distance: <span id="dist"></span></p>
+			<p>Direction: <span id="dir"></span></p>
+            <p><a id="maplink">Show on Google Maps</a></p>
+		</dd>
+	</dl>
+</body>
+</html>

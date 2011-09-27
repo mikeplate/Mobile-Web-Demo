@@ -1,0 +1,49 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>Media</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" />
+<script>
+function startBackground() {
+    document.getElementById("Background").play();
+    continueBackground();
+}
+function stopBackground() {
+    document.getElementById("Background").pause();
+    endOfBackground();
+}
+function endOfBackground() {
+    var link = document.getElementById("BackgroundLink");
+    link.href = "javascript:startBackground()";
+    link.innerHTML = "Start playing";
+}
+function continueBackground() {
+    var link = document.getElementById("BackgroundLink");
+    link.href = "javascript:stopBackground()";
+    link.innerHTML = "Stop playing";
+}
+</script>
+</head>
+<body>
+	<h1>Media <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>Audio background music</dt>
+		<dd>
+            This music is playing as soon as the file has finished loading.
+            <a id="BackgroundLink" href="javascript:stopBackground()">Stop playing</a>
+			<audio id="Background" autoplay="true" onended="endOfBackground()">
+                <source src="music.mp3" />
+                <source src="music.ogg" />
+            </audio>
+		</dd>
+        <dt>Video</dt>
+        <dd>
+            <video controls="true">
+                <source src="wembley.mp4" />
+                <source src="wembley.webm" type="video/webm" />
+            </video>
+        </dd>
+	</dl>
+</body>
+</html>

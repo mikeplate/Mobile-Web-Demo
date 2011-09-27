@@ -1,0 +1,56 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>Sunrise and sunset</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script src="sun.js"></script>
+<script>
+window.onload = function() {
+    if (navigator.geolocation) {
+        $("#Sunrise, #Sunset").text("Waiting for current position");
+		navigator.geolocation.getCurrentPosition(gotPosition, errorPosition);
+    }
+    else {
+        $("#Sunrise, #Sunset").text("No geolocation support");
+    }
+}
+
+function padZero(value, digits) {
+    return ("0000000000" + value).slice(-digits);
+}
+
+function formatTime(time) {
+    return padZero(time.hour, 2) + ":" + padZero(time.minute, 2);
+}
+
+function gotPosition(pos) {
+    var lat = pos.coords.latitude;
+    var lng = pos.coords.longitude;
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = now.getMonth() + 1;
+    var day = now.getDate();
+    var gmtDiff = -now.getTimezoneOffset() / 60;
+
+    var sun = calculateSun(lat, lng, year, month, day, gmtDiff);
+    $("#Sunrise").text(formatTime(sun.sunrise) + " (twilight " + formatTime(sun.morningTwilight) + ")");
+    $("#Sunset").text(formatTime(sun.sunset) + " (twilight " + formatTime(sun.eveningTwilight) + ")");
+}
+
+function errorPosition(msg) {
+    $("#Sunrise, #Sunset").text(msg);
+}
+</script>
+</head>
+<body>
+	<h1>Sunrise and sunset <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>Sunrise</dt>
+		<dd id="Sunrise"></dd>
+        <dt>Sunset</dt>
+        <dd id="Sunset"></dd>
+	</dl>
+</body>
+</html>

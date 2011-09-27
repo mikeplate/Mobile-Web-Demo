@@ -1,0 +1,163 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Styling for mobile</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" />
+<style>
+span.this {
+	font-family: serif;
+	font-size: 24pt;
+}
+span.is {
+	font-style: italic;
+}
+span.sample {
+	font-weight: bold;
+}
+strong {
+	font-weight: normal;
+	background-color: black;
+	color: white;
+}
+span.formatted {
+	font-size: 24pt;
+	font-weight: bold;
+	text-shadow: 4px 4px 3px #CC0;
+}
+span.words {
+	border: dotted 1px black;
+	padding: 5px;
+	margin-left: 10px;
+}
+h1 {
+	font-size: 24pt;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	padding-bottom: 5px;
+	border-bottom: solid 4px #DD6;
+}
+h2 {
+	font-size: 18pt;
+	margin: 0px 0px 10px 0px;
+	padding: 5px;
+	border-bottom: dotted 2px #66D;
+}
+h3 {
+	font-size: 12pt;
+	margin: 5px;
+	padding: 0px;
+	border-bottom: solid 1px #666;
+}
+dt {
+	clear: left;
+}
+hr {
+	height: 4px;
+	background: #EE3;
+	border: none;
+}
+div.block {
+	float: left;
+	width: 100px;
+	height: 100px;
+	margin: 5px;
+	padding: 10px;
+	background-color: #3E3;
+}
+div.block:first-child {
+	background-color: #E33;	
+}
+div.block:last-child {
+	background-color: #33E;
+}
+table {
+	border-collapse: collapse;
+	border: solid 1px #888;
+}
+caption {
+	background-color: #666;
+	color: #EEE;
+	padding: 6px;
+}
+th {
+	text-align: left;
+	padding: 3px;
+	border-bottom: solid 1px #888;
+}
+td {
+	padding: 3px;
+}
+tr:nth-child(even) {
+	background-color: #DDD;
+}
+</style>
+</head>
+<body>
+	<h1>Styling <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>Characters</dt>
+		<dd>
+			<span class="this">This</span> <span class="is">is</span> a <span class="sample">sample</span> of 
+			<strong>some</strong> <span class="formatted">formatted</span> <span class="words">words</span>.
+		</dd>
+		<dt>Blocks</dt>
+		<dd>
+			<h1>Heading 1</h1>
+			<h2>Heading 2</h2>
+			<h3>Heading 3</h3>
+			<div class="container">
+				<div class="block">Div(1) with class set to block</div>
+				<div class="block">Div(2) with class set to block</div>
+				<div class="block">Div(3) with class set to block</div>
+			</div>
+		</dd>
+		<dt>Lists</dt>
+		<dd>
+			<ul>
+				<li>Unordered list</li>
+				<li>Unordered list</li>
+			</ul>
+			<ol>
+				<li>Ordered list</li>
+				<li>Ordered list</li>
+			</ol>
+			<dl>
+				<dt>Definition term</dt>
+				<dd>Definition defined</dd>
+			</dl>
+		</dd>
+		<dt>Tables</dt>
+		<dd>
+			<table>
+				<caption>Table caption</caption>
+				<tr>
+					<th>Head A</th>
+					<th>Head B</th>
+				</tr>
+				<tr>
+					<td>Cell content A1</td>
+					<td>Cell content B1</td>
+				</tr>
+				<tr>
+					<td>Cell content A2</td>
+					<td>Cell content B2</td>
+				</tr>
+				<tr>
+					<td>Cell content A3</td>
+					<td>Cell content B3</td>
+				</tr>
+				<tr>
+					<td>Cell content A4</td>
+					<td>Cell content B4</td>
+				</tr>
+				<tr>
+					<td>Cell content A5</td>
+					<td>Cell content B5</td>
+				</tr>
+			</table>
+			<hr />	
+		</dd>
+	</dl>
+</body>
+</html>

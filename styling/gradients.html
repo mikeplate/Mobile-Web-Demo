@@ -1,0 +1,47 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>CSS3 Gradients</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" />
+<style>
+.horzgradient {
+    margin: 10px;
+    padding: 10px;
+    font-weight: bold;
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #cccc00), color-stop(1, #0f3b5f));
+}
+.vertgradient {
+    margin: 10px;
+    padding: 10px;
+    font-weight: bold;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #cccc00), color-stop(1, #0f3b5f));
+}
+.vertgradient {
+    margin: 10px;
+}
+.horzcolors {
+    margin: 10px;
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #cc9752), color-stop(0.25, #cc9752), color-stop(0.25, #cccc00), color-stop(0.5, #cccc00), color-stop(0.5, #e5dbcf), color-stop(0.75, #e5dbcf), color-stop(0.75, #0f3b5f), color-stop(1, #0f3b5f));
+    background-size: 100px;
+    height: 10px;
+}
+</style>
+</head>
+<body>
+	<h1>CSS3 Gradients <a href="index.html">Back</a></h1>
+	<dl>
+        <dt>Linear gradients</dt>
+        <dd>
+            <div class="horzgradient">This is a horizontal gradient</div>
+            <div class="vertgradient">This is a vertical gradient</div>
+        </dd>
+		<dt>Alternating colors</dt>
+		<dd>
+			<p>Not a gradient really, but useful for images with different solid colors
+            that only change in one direction (horizontal or vertical)</p>
+            <div class="horzcolors">&nbsp;</div>
+		</dd>
+	</dl>
+</body>
+</html>

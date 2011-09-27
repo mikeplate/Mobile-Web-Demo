@@ -1,0 +1,67 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>CSS3 transforms</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" />
+<style>
+div.text {
+	width: 200px;
+	height: 75px;
+	text-align: center;
+	border: solid 2px #330;
+	background-color: #DD3;
+	padding: 10px;
+}
+div.move {
+	-moz-transform: translateX(50px) translateY(-20px);
+	-webkit-transform: translateX(50px) translateY(-20px);
+}
+div.size {
+	-moz-transform: scale(0.5);
+	-webkit-transform: scale(0.5);
+}
+div.rotate {
+	-moz-transform: rotate(-20deg);
+	-webkit-transform: rotate(-20deg);
+}
+div.skew {
+	-moz-transform: skewX(-20deg);
+	-webkit-transform: skewX(-20deg);
+}
+div.mirror {
+	-moz-transform: matrix(1, 0, 0, -1, 0, 0);
+	-webkit-transform: matrix(1, 0, 0, -1, 0, 0);
+}
+</style>
+</head>
+<body>
+	<h1>CSS3 transforms <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>No transform</dt>
+		<dd>
+			<div class="text">This is a sample box with a simple text in it.</div>
+		</dd>
+		<dt>Move</dt>
+		<dd>
+			<div class="text move">This is a sample box with a simple text in it.</div>
+		</dd>
+		<dt>Size</dt>
+		<dd>
+			<div class="text size">This is a sample box with a simple text in it.</div>
+		</dd>
+		<dt>Rotate</dt>
+		<dd>
+			<div class="text rotate">This is a sample box with a simple text in it.</div>
+		</dd>
+		<dt>Skew</dt>
+		<dd>
+			<div class="text skew">This is a sample box with a simple text in it.</div>
+		</dd>
+		<dt>Mirror (with matrix)</dt>
+		<dd>
+			<div class="text mirror">This is a sample box with a simple text in it.</div>
+		</dd>
+	</dl>
+</body>
+</html>
