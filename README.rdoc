@@ -13,4 +13,4 @@ it all possible.
 Note that although the site was made for the mobile web, all web pages are compatible with those old devices
 known as "computers".
 
-Use this web application live at http://mobileweb.mikeplate.com
+Use this web application live at http://mobileapplab.se
