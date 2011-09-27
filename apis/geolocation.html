@@ -8,21 +8,30 @@
 <script>
 $(window).ready(function() {
 	$("#maplink").hide();
-	if (typeof(navigator.geolocation)!="undefined") {
-		navigator.geolocation.getCurrentPosition(GotPosition, ErrorPosition);
+    $("#HighAccuracy").bind("click", fetchPosition);
+    fetchPosition();
+});
+
+function fetchPosition() {
+	if (navigator.geolocation) {
+        var highAcc = $("#HighAccuracy").attr("checked");
+		navigator.geolocation.getCurrentPosition(gotPosition, errorPosition, { enableHighAccuracy: highAcc, timeout: 60000 });
 	}
 	else {
 		$("#lat,#long").text("Not supported");
 	}
-});
+}
 
-function GotPosition(pos) {
+function gotPosition(pos) {
 	$("#lat").text(pos.coords.latitude);
 	$("#long").text(pos.coords.longitude);
+	$("#acc").text(pos.coords.accuracy);
+	$("#alt").text(pos.coords.altitude);
+	$("#altacc").text(pos.coords.altitudeAccuracy);
 	$("#maplink").attr("href", "http://maps.google.com/maps?q=" + pos.coords.latitude + "," + pos.coords.longitude).fadeIn();
 }
 
-function ErrorPosition(msg) {
+function errorPosition(msg) {
 	$("#lat,#long").text(msg);
 }
 </script>
@@ -34,8 +43,15 @@ function ErrorPosition(msg) {
 		<dd>
 			<p>Latitude: <span id="lat"></span></p>
 			<p>Longitude: <span id="long"></span></p>
+			<p>Accuracy: <span id="acc"></span></p>
+			<p>Altitude: <span id="alt"></span></p>
+			<p>Altitude accuracy: <span id="altacc"></span></p>
 			<p><a id="maplink" href="#">Go to Google Maps</a></p>
 		</dd>
+        <dt>Options</dt>
+        <dd>
+            <input type="checkbox" id="HighAccuracy" value="true" /><label for="HighAccuracy">Request high accuracy (GPS)</label>
+        </dd>
 	</dl>
 </body>
 </html>
