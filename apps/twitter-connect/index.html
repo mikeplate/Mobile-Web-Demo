@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Twitter Connect</title>
+        <meta name="viewport" content="width=device-width" />
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>Twitter Connect <abbr>v0.1</abbr></h1>
+        <div class="box form">
+            <input type="button" id="connect" value="Connect to Twitter" />
+        </div>
+        <div class="message">
+            <p id="message">
+                This web app demonstrates how to connect to a Twitter account and get access to the Twitter API
+                from your own server scripts. Begin by clicking the Connect-button above and you'll be taken to
+                Twitter for login and confirmation of access to your Twitter account from this web app.
+            </p>
+        </div>
+        <div id="result" class="box list">
+        </div>
+
+        <script>
+        $("#connect").click(function() {
+            $.ajax({
+                url: "twitter.php",
+                dataType: 'json',
+                success: function(data) {
+                    window.location.href = data.url;
+                },
+                error: function(xhr, status, err) {
+                    alert("Error " + status);
+                }
+            });
+        });
+        </script>
+    </body>
+</html>
+

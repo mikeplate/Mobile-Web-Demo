@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+﻿<!DOCTYPE html>
 <?php
 require_once 'mobile-detect.php';
 $device = new Mobile_Detect();
@@ -16,8 +16,6 @@ $device = new Mobile_Detect();
 		<dt>Mobile device</dt>
 		<dd>
             <p>You have a mobile device</dd>
-            <p>Android: <?php $device->isDevice('Android') ? 'Yes':'No' ?></p>
-            <p>iOS: <?php $devide->isDevice('iPhone') ? 'Yes':'No' ?></p>
 		</dd>
         <?php } else { ?>
 		<dt>Computer</dt>

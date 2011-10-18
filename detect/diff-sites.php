@@ -1,17 +1,19 @@
-﻿<!DOCTYPE HTML>
-<html>
-<head>
-<title>Different sites</title>
-<meta name="viewport" content="user-scalable=yes, width=device-width" />
-<link rel="stylesheet" href="../style.css" type="text/css" />
-<script type="text/javascript">
-</script>
-</head>
-<body>
-	<h1>Different sites <a href="index.html">Back</a></h1>
-	<dl>
-		<dt>Todo</dt>
-		<dd></dd>
-	</dl>
-</body>
-</html>
+﻿<?php
+if (isset($_GET['force'])) {
+    $force = $_GET['force'];
+    setcookie('force', $force);
+}
+else {
+    $force = $_COOKIE['force'];
+}
+
+require_once 'mobile-detect.php';
+$device = new Mobile_Detect();
+if (($device->isMobile() || $force=='mobile') && $force!='desktop') {
+    header('Location: diff-sites-mobile.html', true, 302);
+}
+else {
+    header('Location: diff-sites-desktop.html', true, 302);
+}
+?>
+

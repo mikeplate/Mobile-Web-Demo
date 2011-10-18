@@ -1,5 +1,7 @@
 _*
 wurfl/
 geshi/
-
-
+present/
+viewsource/
+detect/wurfl/resources/storage/
+apps/filestore/api/storage/

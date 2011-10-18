@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>CSS3 Flexible Box</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" />
+<style>
+div.evenly {
+    display: -moz-box;
+    -moz-box-orient: horizontal;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    display: box;
+    box-orient: horizontal;
+    width: 100%;
+}
+div.evenly>div {
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    padding: 10px;
+}
+div.evenly>div:nth-child(1) {
+    background-color: #ebb;
+}
+div.evenly>div:nth-child(2) {
+    background-color: #beb;
+}
+div.evenly>div:nth-child(3) {
+    background-color: #bbe;
+}
+
+div.static {
+    display: -moz-box;
+    -moz-box-orient: horizontal;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    display: box;
+    box-orient: horizontal;
+    width: 100%;
+}
+div.left {
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    display: box;
+    box-orient: vertical;
+}
+div.left>div:nth-child(1) {
+    height: 100px;
+}
+div.left>div:nth-child(2) {
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+}
+div.middle {
+}
+div.right {
+}
+
+div.chess {
+    display: -moz-box;
+    -moz-box-orient: vertical;
+}
+div.chess>div {
+    display: -moz-box;
+    -moz-box-orient: horizontal;
+}
+div.chess>div>div {
+    width: 30px;
+    height: 30px;
+}
+div.chess>div:nth-child(odd)>div:nth-child(odd) {
+    background-color: black;
+}
+div.chess>div:nth-child(even)>div:nth-child(even) {
+    background-color: black;
+}
+</style>
+</head>
+<body>
+	<h1>CSS3 Flexible Box <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>Three columns that fill height</dt>
+		<dd>
+            <div class="evenly">
+                <div>This is column one</div>
+                <div>This is column two.<br />With an extra line.<br />And another one.</div>
+                <div>This is column three</div>
+            </div>
+		</dd>
+		<dt>Three columns, first with static width</dt>
+		<dd>
+            <div class="static">
+                <div class="left">
+                    <div>This is column one</div>
+                    <div>This is still column one</div>
+                </div>
+                <div class="middle">
+                    This is column two.<br />With an extra line.<br />And another one.<br />
+                    This is column two.<br />With an extra line.<br />And another one.<br />
+                    This is column two.<br />With an extra line.<br />And another one.<br />
+                    This is column two.<br />With an extra line.<br />And another one.<br />
+                    This is column two.<br />With an extra line.<br />And another one.<br />
+                    This is column two.<br />With an extra line.<br />And another one.<br />
+                </div>
+                <div class="right">
+                    <div>This is column three</div>
+                    <div>This is also column three</div>
+                </div>
+            </div>
+		</dd>
+		<dt>Chess board</dt>
+		<dd>
+            <div class="chess">
+                <div>
+                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                </div>
+                <div>
+                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                </div>
+                <div>
+                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                </div>
+                <div>
+                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                </div>
+                <div>
+                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                </div>
+                <div>
+                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                </div>
+                <div>
+                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                </div>
+                <div>
+                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                </div>
+            </div>
+		</dd>
+	</dl>
+</body>
+</html>

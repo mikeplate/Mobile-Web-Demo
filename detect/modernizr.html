@@ -1,17 +1,52 @@
-﻿<!DOCTYPE HTML>
+﻿<!DOCTYPE html>
 <html>
 <head>
 <title>Detection with Modernizr</title>
 <meta name="viewport" content="user-scalable=yes, width=device-width" />
 <link rel="stylesheet" href="../style.css" type="text/css" />
-<script type="text/javascript">
-</script>
+<style>
+.fire {
+    background-color: black;
+    color: yellow;
+    font-weight: bold;
+    margin: 10px;
+    font-size: 24pt;
+    padding-bottom: 0px;
+}
+html.textshadow .fire {
+    color: black;
+    text-shadow: 0px -3px 5px yellow;
+}
+html.placeholder .help {
+    display: none;
+}
+.storage {
+    display: none;
+}
+html.localstorage .storage {
+    display: block;
+}
+</style>
+<script src="modernizr.custom.29902.js"></script>
 </head>
 <body>
 	<h1>Detection with Modernizr <a href="index.html">Back</a></h1>
 	<dl>
-		<dt>Todo</dt>
-		<dd></dd>
+        <dt>Sample effect</dt>
+        <dd class="fire">
+            This text is on fire
+        </dd>
+		<dt>Sample input element</dt>
+		<dd>
+            <div class="help">Please type something here:</div>
+            <input type="text" placeholder="Please type something here" size="30" /><br />
+            <input type="button" value="Save" class="storage" />
+        </dd>
 	</dl>
+    <script>
+    if (Modernizr.input.placeholder) {
+        document.documentElement.className += " placeholder";
+    }
+    </script>
 </body>
 </html>

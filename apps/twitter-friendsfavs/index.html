@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Twitter Friends' Favourites</title>
+        <meta name="viewport" content="width=device-width" />
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>Twitter Friends' Favourites <abbr>v0.1</abbr></h1>
+        <div class="box form">
+            <label for="username">Show for Twitter user:</label>
+            <input type="text" id="username" value="" placeholder="Username" />
+            <input type="button" id="show" value="Show" />
+        </div>
+        <div class="message">
+            <p id="message"></p>
+        </div>
+        <div id="result" class="box list">
+        </div>
+
+        <script>
+        // Store retrieved friends globally
+        var friends = null;
+
+        // Helper function to show a text message in the user interface
+        function showMessage(msg) {
+            $("#message").text(msg);
+        }
+
+        // Simplest error handling, just show the error and let the app die (no retries etc)
+        // Note, however, that most (all?) errors doesn't get caught when doing cross-domain jsonp.
+        function onError(xhr, errorType, errorObj) {
+            alert("An error occurred! (" + errorType + ")");
+        }
+
+        // 0: Show welcome message / help text
+        showMessage("This web app will show the number of favourite tweets all friends of the specified user has. You can click a user to let Twitter show the favourite tweets. For now, only 100 friends are shown.");
+
+        // 1: Fetch all friends of the specified user
+        $("#show").click(function(event) {
+            var username = document.getElementById("username").value;
+            if (username.length==0) {
+                alert("You must type a Twitter user name!");
+                return;
+            }
+            showMessage("Fetching friends of " + username);
+            $.ajax({
+                url: "https://api.twitter.com/1/friends/ids.json?cursor=-1&screen_name="+username+"&callback=?",
+                dataType: "json",
+                success: onFriends,
+                error: onError
+            });
+        });
+
+        // 2: Get more information about all friends
+        function onFriends(data) {
+            friends = data.ids;
+            if (friends.length>100)
+                friends = friends.slice(0, 100);
+            var friendList = friends.join(",");
+            showMessage("Fetching information about "+friends.length+" friends");
+            $.ajax({
+                url: "https://api.twitter.com/1/users/lookup.json?user_id="+friendList+"&callback=?",
+                dataType: "json",
+                success: onLookup,
+                error: onError
+            });
+        }
+        
+        // 3: Build output for all friends and their favourite count
+        function onLookup(data) {
+            showMessage("Here is the favourite count top list");
+            var html = "";
+            data.sort(function(a, b) {
+                return b.favourites_count - a.favourites_count;
+            });
+            for (var i = 0; i<data.length; i++) {
+                var item = data[i];
+                html += "<a href=\"http://mobile.twitter.com/"+item.screen_name+"/favorites\"><span class=count>" + item.favourites_count + "</span><span class=name>" + item.name + "</span></div>";
+            }
+            $("#result").html(html);
+        }
+        </script>
+    </body>
+</html>
+

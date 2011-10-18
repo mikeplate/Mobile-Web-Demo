@@ -1,0 +1,88 @@
+body {
+    margin: 0px;
+    font-family: sans-serif;
+}
+div, label, p, input {
+    font-family: sans-serif;
+    font-size: 12pt;
+    padding: 0px;
+    margin: 0px;
+}
+h1 {
+    margin: 0px;
+    padding: 5px;
+    font-size: 16pt;
+    background-color: #339;
+    color: #eee;
+}
+abbr {
+    float: right;
+    font-weight: normal;
+    font-size: 8pt;
+    color: #ccf;
+}
+
+div.box {
+    padding: 5px;
+    max-width: 600px;
+}
+
+div.form {
+}
+label {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+}
+input[type='text'] {
+    display: block;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+input[type='button'] {
+    display: block;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+div.message {
+    margin: 0px;
+    padding: 10px;
+    background-color: #ccf;
+    color: #333;
+}
+
+div.list {
+}
+div.list>a {
+    display: block;
+    margin-bottom: 5px;
+    background-color: #eee;
+    text-decoration: none;
+    color: #000;
+}
+span.count {
+    display: inline-block;
+    font-size: 16pt;
+    font-weight: bold;
+    width: 50px;
+    xheight: 30px;
+    background-color: #339;
+    color: #fff;
+    padding: 5px;
+    text-align: right;
+    margin-right: 5px;
+}
+span.name {
+    font-size: 14pt;
+}
+
+

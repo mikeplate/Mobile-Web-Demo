@@ -25,7 +25,7 @@ class Mobile_Detect {
         "android"       => "android",
         "blackberry"    => "blackberry",
         "iphone"        => "(iphone|ipod)",
-        "opera"         => "opera mini",
+        "opera"         => "(opera mini|opera mobi)",
         "palm"          => "(avantgo|blazer|elaine|hiptop|palm|plucker|xiino)",
         "windows"       => "windows ce; (iemobile|ppc|smartphone)",
         "generic"       => "(kindle|mobile|mmp|midp|o2|pda|pocket|psp|symbian|smartphone|treo|up.browser|up.link|vodafone|wap)"
