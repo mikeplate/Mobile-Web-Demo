@@ -90,6 +90,20 @@ span.name {
     font-size: 14pt;
 }
 
+div.property {
+    font-size: 8pt;
+    font-weight: bold;
+    background-color: #339;
+    color: #fff;
+    padding: 5px;
+}
+div.value {
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: #eee;
+    font-size: 14pt;
+}
+
 h6 {
     clear: left;
     padding: 5px 15px;

@@ -23,17 +23,50 @@
         </div>
 
         <script>
+        // Helper function to show a message
+        function showMessage(msg) {
+            $("#message").text(msg);
+        }
+
+        // Generic error handler for all operations that should go ok
+        function errorHandler(xhr, status, err) {
+            if (status=="error" && xhr.statusText && xhr.statusText!="OK")
+                alert("Error: " + xhr.statusText);
+            else
+                alert("An error occurred!");
+        }
+
+        // What will happen when the connect-button is clicked
         $("#connect").click(function() {
             $.ajax({
                 url: "twitter.php",
-                dataType: 'json',
+                dataType: "json",
                 success: function(data) {
                     window.location.href = data.url;
                 },
-                error: function(xhr, status, err) {
-                    alert("Error " + status);
-                }
+                error: errorHandler
             });
+            showMessage("Waiting to redirect to Twitter for authorization...");
+        });
+
+        // Fetch information about myself in order to see if we are already connected to Twitter
+        $.ajax({
+            url: "me.php",
+            dataType: "json",
+            success: function(data) {
+                show = "";
+                for (var prop in data) {
+                    show += "<div class=\"property\">" + prop + "</div>";
+                    show += "<div class=\"value\">" + data[prop] + "</div>";
+                }
+                $("#result").html(show);
+                showMessage("You have connected your Twitter account. The information for the account is shown below.");
+            },
+            error: function(xhr, status, err) {
+                if (xhr.status!=403) {
+                    errorHandler(xhr, status, err);
+                }
+            }
         });
         </script>
     </body>

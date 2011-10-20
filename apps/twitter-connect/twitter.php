@@ -13,12 +13,16 @@ $params = array(
 // $params['x_auth_access_type'] = 'write';
 
 $oauth = new tmhOAuth(Array(
-  'consumer_key' => $app_key,
-  'consumer_secret' => $app_secret,
-  'host' => 'api.twitter.com'
+    'consumer_key' => $app_key,
+    'consumer_secret' => $app_secret,
+    'host' => 'api.twitter.com'
 ));
 
-if (!isset($_GET['oauth_verifier'])) {
+if (isset($_GET['denied'])) {
+    $_SESSION['access_token'] = '';
+    header('Location: index.html');
+}
+elseif (!isset($_GET['oauth_verifier'])) {
     $code = $oauth->request('POST', $oauth->url('oauth/request_token', ''), $params);
     if ($code != 200) {
         echo json_encode(Array('success' => false, 'error' => 'Error when retrieving request token from Twitter'));

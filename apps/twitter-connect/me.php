@@ -12,12 +12,12 @@ $oauth = new tmhOAuth(Array(
   'consumer_secret' => $app_secret,
   'user_token' => $_SESSION['access_token']['oauth_token'],
   'user_secret' => $_SESSION['access_token']['oauth_token_secret'],
-//  'host' => 'api.twitter.com'
+  'host' => 'api.twitter.com'
 ));
 
 $code = $oauth->request('GET', $oauth->url('1/account/verify_credentials'));
 if ($code != 200) {
-    echo json_encode(Array('success' => false, 'error' => 'Error when verifying credentials'));
+    header($_SERVER['SERVER_PROTOCOL'] . ' 403 Error when verifying credentials', true, 403);
     die();
 }
 
