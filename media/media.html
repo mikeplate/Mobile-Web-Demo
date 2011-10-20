@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+﻿<!DOCTYPE html>
 <html>
 <head>
 <title>Media</title>
@@ -30,7 +30,7 @@ function continueBackground() {
 	<dl>
 		<dt>Audio background music</dt>
 		<dd>
-            This music is playing as soon as the file has finished loading.
+            This music is playing as soon as the file has finished loading (~300 kB).
             <a id="BackgroundLink" href="javascript:stopBackground()">Stop playing</a>
 			<audio id="Background" autoplay="true" onended="endOfBackground()">
                 <source src="music.mp3" />
@@ -39,6 +39,7 @@ function continueBackground() {
 		</dd>
         <dt>Video</dt>
         <dd>
+            You'll need to start the video manually using the video controls of the browser (~4 MB).
             <video controls="true">
                 <source src="wembley.mp4" />
                 <source src="wembley.webm" type="video/webm" />

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE html>
 <html>
 <head>
 <title>CSS3 transforms</title>
@@ -16,22 +16,27 @@ div.text {
 div.move {
 	-moz-transform: translateX(50px) translateY(-20px);
 	-webkit-transform: translateX(50px) translateY(-20px);
+	-o-transform: translateX(50px) translateY(-20px);
 }
 div.size {
 	-moz-transform: scale(0.5);
 	-webkit-transform: scale(0.5);
+	-o-transform: scale(0.5);
 }
 div.rotate {
 	-moz-transform: rotate(-20deg);
 	-webkit-transform: rotate(-20deg);
+	-o-transform: rotate(-20deg);
 }
 div.skew {
 	-moz-transform: skewX(-20deg);
 	-webkit-transform: skewX(-20deg);
+	-o-transform: skewX(-20deg);
 }
 div.mirror {
 	-moz-transform: matrix(1, 0, 0, -1, 0, 0);
 	-webkit-transform: matrix(1, 0, 0, -1, 0, 0);
+	-o-transform: matrix(1, 0, 0, -1, 0, 0);
 }
 </style>
 </head>
