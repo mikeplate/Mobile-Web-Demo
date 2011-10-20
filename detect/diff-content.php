@@ -6,21 +6,21 @@
 <link rel="stylesheet" href="../style.css" type="text/css" />
 </head>
 <body>
-	<h1>Different content <a href="index.html">Back</a></h1>
+    <h1>Different content <a href="index.html">Back</a></h1>
 <?php
 require_once 'mobile-detect.php';
 $device = new Mobile_Detect();
 if ($device->isMobile()) {
 ?>
-	<dl>
-		<dt>Mobile</dt>
-		<dd>This is content for the mobile browser</dd>
-	</dl>
+    <dl>
+        <dt>Mobile</dt>
+        <dd>This is content for the mobile browser</dd>
+    </dl>
 <?php } else { ?>
-    <h2>Desktop</h2>
-    <div>
-        This is content for the desktop browser
-    </div>
+    <dl>
+        <dt>Desktop</dt>
+        <dd>This is content for the desktop browser</dd>
+    </dl>
 <?php } ?>
 </body>
 </html>

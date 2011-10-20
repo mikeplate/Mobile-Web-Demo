@@ -95,6 +95,7 @@ img.logo {
 	cursor: pointer;
 }
 h6 {
+    clear: left;
     padding: 5px 15px;
     background-color: #eee;
     margin: 30px 0px 0px 0px;
