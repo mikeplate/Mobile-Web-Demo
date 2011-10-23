@@ -31,7 +31,7 @@ elseif (!isset($_GET['oauth_verifier'])) {
 
     $_SESSION['oauth'] = $oauth->extract_params($oauth->response['response']);
     $oauth_token = $_SESSION['oauth']['oauth_token'];
-    $authurl = $oauth->url('oauth/authorize', '') . "?oauth_token={$oauth_token}";
+    $authurl = $oauth->url('oauth/authenticate', '') . "?oauth_token={$oauth_token}";
 
     echo json_encode(Array('success' => true, 'url' => $authurl));
     die();

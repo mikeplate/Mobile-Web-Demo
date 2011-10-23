@@ -1,17 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>File Store Demo</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
         <script src="https://jquery-json.googlecode.com/svn/trunk/src/jquery.json.min.js"></script>
-        <script src="https://raw.github.com/jquery/jquery-tmpl/master/jquery.tmpl.min.js"></script>
+        <script src="jquery.tmpl.min.js"></script>
     </head>
     <body>
         <h1>File Store Demo</h1>
-
         <div class="box">
+            <label>Username</label>
+            <input type="text" id="RegisterUsername" placeholder="Choose your own username" />
+            <label>Password</label>
+            <input type="password" id="RegisterPassword" placeholder="Specify a password" />
+            <label>E-mail address</label>
+            <input type="text" id="Email" placeholder="Specify your e-mail address" />
             <input type="button" id="Register" value="Register" />
+        </div>
+        <div class="box">
+            <label>Username</label>
+            <input type="text" id="Username" placeholder="Type your username" />
+            <label>Password</label>
+            <input type="password" id="Password" placeholder="Type your password" />
             <input type="button" id="Login" value="Login" />
+        </div>
+        <div class="box">
             <input type="button" id="Me" value="About Me" />
             <input type="button" id="Write" value="Write" />
             <input type="button" id="Read" value="Read" />

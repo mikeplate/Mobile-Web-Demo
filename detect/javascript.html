@@ -1,17 +1,33 @@
-﻿<!DOCTYPE HTML>
+﻿<!DOCTYPE html>
 <html>
 <head>
 <title>Detection with JavaScript</title>
 <meta name="viewport" content="user-scalable=yes, width=device-width" />
 <link rel="stylesheet" href="../style.css" type="text/css" />
-<script type="text/javascript">
-</script>
 </head>
 <body>
 	<h1>Detection with JavaScript <a href="index.html">Back</a></h1>
-	<dl>
-		<dt>Todo</dt>
-		<dd></dd>
+	<dl id="Mobile">
+		<dt>This is the mobile site</dt>
+		<dd>The user can hopefully touch the screen, at least we are able to catch touch events</dd>
 	</dl>
+    <dl id="Desktop">
+        <dt>This is the desktop site</dt>
+        <dd>The user probably has a mouse so we would be better off catching mouse events</dd>
+    </dl>
+    <dl>
+        <dt>Type of network connection</dt>
+        <dd id="Network">No support for determining network connection type</dd>
+    </dl>
+    <script type="text/javascript">
+    if ("ontouchstart" in window)
+        document.getElementById("Desktop").style.display = "none";
+    else
+        document.getElementById("Mobile").style.display = "none";
+
+    if ("connection" in navigator && "type" in navigator.connection)
+        document.getElementById("Network").innerHTML = navigator.connection.type;
+    </script>
 </body>
 </html>
+
