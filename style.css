@@ -58,6 +58,7 @@ dd {
 dd a {
 	-moz-border-radius: 1em;
 	-webkit-border-radius: 1em;
+    display: inline-block;
 	border-radius: 1em;
 	border: solid 1px #CCC;
 	background-color: #EEE;
