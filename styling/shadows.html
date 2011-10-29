@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>CSS3 Box and Text Shadows</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" />
+<style>
+    .blur {
+        background-color: #E0E0E0;
+        border: 1px solid #000000;
+        padding: 20px;
+        box-shadow: 5px 5px 3px #808080;
+    }
+    .non-blur {
+        background-color: #A0A0E0;
+        padding: 20px;
+        box-shadow: -3px -3px 0px #303090;
+    }
+    .one {
+        font-size: 20pt;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 2px #808080;
+    }
+    .two {
+        font-size: 20pt;
+        margin-bottom: 10px;
+        color: #FFFFFF;
+        text-shadow: 0px 0px 10px #303090;
+    }
+</style>
+</head>
+<body>
+	<h1>CSS3 Box and Text Shadows <a href="index.html">Back</a></h1>
+	<dl>
+        <dt>Box Shadow with blur</dt>
+        <dd>
+            <div class="blur">This box has a shadow with blur</div>
+        </dd>
+		<dt>Box Shadow without blur</dt>
+        <dd>
+            <div class="non-blur">This box has a shadow without blur</div>
+		</dd>
+		<dt>Text Shadows</dt>
+		<dd>
+            <div class="one">Text One</div>
+            <div class="two">Text Two</div>
+		</dd>
+	</dl>
+</body>
+</html>

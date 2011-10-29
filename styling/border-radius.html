@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>CSS3 Border Radius</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" />
+<style>
+    .box {
+        background-color: #E0E0E0;
+        border: 1px solid #000000;
+        border-radius: 10px;
+        padding: 20px;
+    }
+    .specific {
+        background-color: #9090E0;
+        border-top-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    .circle {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        background-color: red;
+    }
+</style>
+</head>
+<body>
+	<h1>CSS3 Border Radius <a href="index.html">Back</a></h1>
+	<dl>
+        <dt>Border Radius</dt>
+        <dd>
+            <div class="box">This is a box with rounded corners</div>
+        </dd>
+		<dt>Specific corners</dt>
+        <dd>
+            <div class="specific">Item One</div>
+            <div class="specific">Item Two</div>
+		</dd>
+		<dt>Going full circle</dt>
+		<dd>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+		</dd>
+	</dl>
+</body>
+</html>

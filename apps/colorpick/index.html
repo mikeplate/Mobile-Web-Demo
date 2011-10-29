@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
+        <title>Testing HPan.js and CanvasRuler.js</title>
+        <script src="hpan.js"></script>
+        <script src="canvasruler.js"></script>
+        <style>
+            body {
+                margin: 0px;
+            }
+            h1 {
+                margin: 0px;
+                padding: 20px;
+            }
+            div.clip {
+                width: 100%;
+                max-width: 600px;
+                height: 50px;
+                overflow: hidden;
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="title">Testing HPan, CanvasRuler</h1>
+
+        <div id="scaleContainer1" class="clip">
+            <canvas id="scale1"></canvas>
+        </div>
+        <div id="scaleContainer2" class="clip">
+            <canvas id="scale2"></canvas>
+        </div>
+        <div id="scaleContainer3" class="clip">
+            <canvas id="scale3"></canvas>
+        </div>
+
+        <script>
+            var viewportWidth = document.getElementById("scaleContainer1").offsetWidth;
+            document.getElementById("title").innerHTML = viewportWidth;
+
+            var colors = ["#903030", "#309030", "#303090"];
+            for (var i = 1; i <= 3; i++) {
+                new CanvasRuler("scale" + i, {
+                    from: 0,
+                    to: 255,
+                    markCount: 32,
+                    width: viewportWidth*3+40,
+                    height: 50,
+                    horzMargin: 20,
+                    backgroundColor: colors[i-1]
+                });
+                new HPan("scale" + i, {
+                    pos: -500,
+                    width: viewportWidth,
+                    overpan: viewportWidth/2-20
+                });
+            }
+        </script>
+    </body>
+</html>
+
