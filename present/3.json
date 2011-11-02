@@ -1,0 +1,200 @@
+{
+    "title": "3. Touch",
+
+    "slides": [
+        {
+            "title": "Content",
+            "bullets": [
+                "JavaScript basics (prerequisite)",
+                "Events in web browsers",
+                "Touch event on mobile devices",
+                "CSS3 Transitions",
+                "jQuery"
+            ]
+        },
+        {
+            "title": "JavaScript Prerequisites",
+            "bullets": [
+                ["The programming language of the web", "Basic syntax similar to C, C++, Java", "Other constructs like the dynamic aspects are very different"],
+                ["Simplest instruction", "alert(\"Hello!\");"],
+                ["Some attributes like onload or onclick can contain JavaScript", "<a onclick=\"alert('Hello');\">"],
+                ["Element <script> can contain JavaScript", "<script>alert('Hello');</script>"],
+                ["JavaScript can be placed in separate file", "<script src=\"mycode.js\"></script>", "alert(\"Hello\");"]
+            ]
+        },
+        {
+            "title": "JavaScript variables and objects",
+            "bullets": [
+                "JavaScript variables are not typed",
+                ["Usage", "var name = \"Joanna\";", "var number = 4;", "var today = new Date();"],
+                ["Existing objects", "window represents the browser window", "document is the loaded page"],
+                ["Objects can have properties with values", "alert(window.location.href);"],
+                ["Objects can have functions that you call to perform operations", "window.reload();"]
+            ]
+        },
+        {
+            "title": "JavaScript basic statements",
+            "bullets": [
+                ["Selective statements", "if (number==4) { alert(\"Hello!\"); }", "if (name==\"Joanna\" && number<5) {\n\talert(\"Hello\");\n}\nelse {\n\talert(\"Bye!\");\n}"],
+                ["Iterative statements", "for (var index = 0; index <10; index++) {\n\talert(\"Hello!\");\n}", "while (number>5) {\n\talert(\"Hello!\");\n\tnumber--;\n}"]
+            ]
+        },
+        {
+            "title": "JavaScript functions",
+            "bullets": [
+                ["Very versatile feature in JavaScript", "Used also to simulate object oriented programming like classes and more"],
+                ["Usage", "function myfunc() { alert(\"Hello!\"); }", "myfunc();"],
+                ["Anonymous functions", "var onefunc = function() { alert(\"Hello!\"); }", "onefunc();" ]
+            ]
+        },
+        {
+            "title": "JavaScript element access and modification",
+            "bullets": [
+                ["Set id attribute for element", "<h1 id=\"title\"></h1>"],
+                ["Retrieve element object in JavaScript", "var el = document.getElementById(\"title\");"],
+                ["Change style of element", "el.style.backgroundColor = \"#606000\";", "Note difference, if css property is named \"background-color\" it becomes \"backgroundColor\" in JavaScript"]
+            ]
+        },
+        {
+            "title": "Events",
+            "bullets": [
+                "Things that happen in the web browser",
+                ["User interaction events", "Clicking, touching, keyboard typing, changing window size"],
+                ["Browser events", "Loading html, receiving data over http"],
+                "Execute JavaScript code when event occurs"
+            ]
+        },
+        {
+            "title": "Catch an event",
+            "bullets": [
+                ["Specify onevent as attribute on element", "<div onclick=\"dosomething();\">"],
+                ["Assigning JavaScript function to element property", "element.onclick = dosomething;"],
+                ["Adding JavaScript function to event chain", "Unfortunately not the same on IE and the rest of the world", "element.addEventListener(\"click\", dosomething, false);", "element.attachEvent(\"onclick\", dosomething);"]
+            ]
+        },
+        {
+            "title": "Event object",
+            "bullets": [
+                ["Object with more information about the event", "Mouse pointer position for mouse events", "Key code for keyboard events"],
+                ["Specified as argument to event handler function", "function whenSomethingHappened(event) { }", "Except on IE, where it is always in window.event"],
+                ["Prevent the default handling of the browser", "If you don't want the default action to occur", "event.preventDefault();", "event.cancelBubble();"]
+            ]
+        },
+        {
+            "title": "Document load event",
+            "bullets": [
+                "Very important event. Usually, no JavaScript code should start before the document is loaded",
+                ["Specify as attribute on body element", "<body onload=\"init();\">"],
+                ["Assign to window's onload property", "window.onload = init;"],
+                ["Add to window's load event", "window.addEventListener(\"load\", init, false);"],
+                "You can also put your <script> section at the end of the page, just before </body>"
+            ]
+        },
+        {
+            "title": "Mouse events",
+            "bullets": [
+                ["mousedown", "When mouse button is pressed"],
+                ["mousemove", "When mouse moves, with or without any button pressed"],
+                ["mouseup", "When mouse button is released"],
+                ["click", "When mouse button has been both pressed and released on the element"],
+                ["mouseenter", "When mouse pointer enters the element's space"],
+                ["mouseleave", "When mouse pointer leaves the element's space"]
+            ]
+        },
+        {
+            "title": "Touch events",
+            "bullets": [
+                ["touchstart", "When finger touches the element"],
+                ["touchmove", "When finger is moved while element is being touched"],
+                ["touchend", "When finger is released"]
+            ]
+        },
+        {
+            "title": "Touch event properties",
+            "bullets": [
+                ["event.touches", "Is an array of all touches currently made on the screen"],
+                ["event.targetTouches", "Is an array of all touches on the element for which the event has been fired"],
+                ["event.changedTouches", "Is an array of touches that has changed since the last event"],
+                ["Properties of each touch item in these arrays", "pageX, pageY screen position"]
+            ]
+        },
+		{
+			"title": "Window/document events",
+			"bullets": [
+                ["resize", "When browser window changes size. Not possible to change by user on mobile device (yet), but changing orientation is interpreted as a resize of the window also."],
+                ["orientationchange", "Specific event for when a mobile device changes orientation between portrait/landscape", "Not supported on older Android devices"],
+                ["scroll", "When user scrolls the content up/down/left/right. Can not happen if all content fits inside window"]
+			]
+		},
+        {
+            "title": "CSS3 Transitions",
+            "bullets": [
+                ["Transition means changing a style property to a new value in intermediate steps", "Supported on all browsers except IE (before version 10)", "Requires browser prefix"],
+                ["Transitionable styles (a selection!)", "background-color, color, box-shadow, text-shadow, left, top, width, height, margin, padding, opacity", "-webkit-transform is perhaps extra useful for user interface effects"],
+                ["How it works", "Set the -webkit-transition style for an element", "Change the transitionable style of the element", "Wait for the transition to occur"]
+
+            ]
+        },
+        {
+            "title": "CSS3 Transition setting",
+            "bullets": [
+                ["Specify in a single style property, or multiple for each part", "-webkit-transition: height 2s linear;", "-webkit-transition-property: height;\n-webkit-transition-duration: 500ms;\n-webkit-transition-timing-function: ease;"],
+                ["More than one transition can occur simultaneously", "Separate with comma", "-webkit-transition-property: color, width, height;"]
+            ]
+        },
+        {
+            "title": "jQuery",
+            "bullets": [
+                ["Open Source library for easier JavaScript programming", "Works fine on mobile browsers, but remember that it will always be an extra download and take a little bit longer to execute", "If you don't _need_ it, don't reference it out of laziness"],
+                "Hides browser differences - do it the jQuery way and it will work everywhere",
+                "Helps with finding elements on a page and manipulating them as a collection",
+                "Animations, Network requests (ajax) and more",
+                "Large community with plugins for all kinds of things",
+                "http://jquery.com"
+            ]
+        },
+        {
+            "title": "Add jQuery library to your html page",
+            "bullets": [
+                ["Download file, store in your site, and reference it", "<script src=\"jquery.js\"></script>"],
+                ["Reference on a public Content Delivery Network", "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js\"></script>"],
+                ["jQuery object has all functionality", "$ is a shortcut for jQuery"],
+                ["Document load event", "Common way for jQuery code to wait for this event", "$(function() { alert(\"Loaded!\"); });"]
+            ]
+        },
+        {
+            "title": "Selecting elements with jQuery",
+            "bullets": [
+                "jQuery uses the CSS selector syntax for selecting elements",
+                ["Element names, applied classes, id attributes", "$(\"h1\"), $(\".title\"), $(\"#city\")"],
+                ["jQuery is a \"fluent\" or \"chained\" library", "Meaning that in order to apply more functionality you just add more calls with .method() convention", "$(\"h1\").css(\"color\", \"red\").hide().fadeIn();"]
+
+            ]
+        },
+        {
+            "title": "Manipulating elements with jQuery",
+            "bullets": [
+                ["Changing styles", "$(\"#message\").css(\"backgroundColor\", \"#e06060\");"],
+                ["Changing css rules (class attribute)", "$(\"div\").addClass(\"highlight\").removeClass(\"hidden\")"],
+                ["Change content", "$(\".top\").text(\"Your name is:\");", "$(\".bottom\").html(\"<h1>Mike</h1>\");"]
+            ]
+        },
+        {
+            "title": "Catching events with jQuery",
+            "bullets": [
+                ["Specific function call", "$(\"div\").click(doSomething);"],
+                ["Bind - specify the event as a string", "$(\"div\").bind(\"click\", doSomething);"],
+                ["Live", "If new elements are added with jQuery, they don't get the existing event handlers with bind", "$(\"div\").live(\"click\", doSomething);"]
+            ]
+        },
+        {
+            "title": "Animations with jQuery",
+            "bullets": [
+                ["Supported before and without CSS3 transitions and CSS3 animations", "Slower. Use CSS3 if you can. Especially on mobile.", "Greater flexibility with jQuery though"],
+                ["Built-in animation functions to show/hide", "fadeIn, fadeOut, slideDown, slideUp", "Many more from plugins"],
+                ["Usage", "$(\"div#message\").hide().fadeIn();", "$(\"article\").slideUp(500);"]
+            ]
+        }
+    ]
+}
+

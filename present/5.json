@@ -1,0 +1,45 @@
+{
+    "title": "5. Data",
+
+    "slides": [
+        {
+            "title": "Data storage on the server",
+            "bullets": [
+            ]
+        },
+        {
+            "title": "Data storage in the browser",
+            "bullets": [
+            ]
+        },
+        {
+            "title": "HTML5 Local Storage API",
+            "bullets": [
+            ]
+        },
+        {
+            "title": "HTML5 Web Database API",
+            "bullets": [
+                
+            ]
+        },
+        {
+            "title": "Ajax",
+            "bullets": [
+                
+            ]
+        },
+        {
+            "title": "Network requests with jQuery",
+            "bullets": [
+                
+            ]
+        },
+        {
+            "title": "JSON",
+            "bullets": [
+            ]
+        }
+    ]
+}
+

@@ -1,0 +1,144 @@
+{
+    "title": "2. Styling",
+
+    "slides": [
+        {
+            "title": "Content",
+            "bullets": [
+                "CSS basics (prerequisite)",
+                "CSS3 properties",
+                "Image optimizations",
+                "Media elements for audio and video"
+            ]
+        },
+        {
+            "title": "CSS",
+            "bullets": [
+                ["All CSS styles should work fine", "display, float, visibility", "font-family, font-weight, color, font-size", "background-color, border"],
+                ["Many new CSS3 styles are available", "border-radius, box-shadow, text-shadow, linear-gradient"],
+                ["Not mobile specific in any way", "But extra useful in mobile web since fewer/no images needed"]
+            ]
+        },
+        {
+            "title": "CSS Prerequisites",
+            "bullets": [
+                ["What CSS is", "A way to style (change the appearance of) html elements"],
+                ["Where CSS can be specified", "Attribute \"style\" on element", "Rules in style section of document", "Rules in separate file"],
+                ["How CSS rules and their styles are applied", "Automatically applied to elements that match the selector"],
+                ["CSS selectors", "element, .class, #id, >inside, space for below, comma for multiple selectors, combinations"]
+            ]
+        },
+        {
+            "title": "CSS Prerequisites, Syntax",
+            "bullets": [
+                ["A complete CSS rule", "<selector> { <style name>: <style value>; }", "h1 { color: red; }"],
+                ["Browser vendor specific properties has prefix", "-webkit, -moz, -ms, -o", "For CSS3 it is a mix of styles that work withoug prefix and that needs prefix"],
+                "Samples here will use -webkit when necessary"
+            ]
+        },
+        {
+            "title": "CSS3 Border Radius",
+            "bullets": [
+                "Rounded corners for elements",
+                ["Usually specify for all four corners", "border-radius: 2px;"],
+                ["Can have different radius horizontally and vertically (oval)", "border-radius: 20px 10px"],
+                ["Can also target individual corners", "border-top-left-radius: 4px;"]
+            ]
+        },
+        {
+            "title": "CSS3 Box and Text Shadow",
+            "bullets": [
+                ["Same value but different style name for box or text", "box-shadow or text-shadow"],
+                ["Shadow specification is <horz-offset>, <vert-offset>, <blur-radius>, <color>", "box-shadow: 2px 2px 4px #339;"]
+            ]
+        },
+        {
+            "title": "CSS3 Gradients",
+            "bullets": [
+                ["Smooth transition from one color to another (or even several)", "Is actually an image and applicable as value for background-image property", "background-image: -webkit-linear-gradient(...);"],
+                ["Linear gradient between two colors", "-webkit-linear-gradient(left, #339, #993)"],
+                ["Specify position of colors", "-webkit-linear-gradient(left, #339 25%, #FFF 50%, #993 100%)"]
+            ]
+        },
+        {
+            "title": "CSS3 Transparency",
+            "bullets": [
+                ["Change the opacity of the element", "Opacity is the opposite of transparency, no transparency=full opacity", "opacity: 0.5;"],
+                ["Specify alpha channel with rgba", "background-color: rgba(200, 200, 100, 0.5)"]
+            ]
+        },
+        {
+            "title": "CSS3 Transforms",
+            "bullets": [
+                ["The ability to change the coordinates for an element, without affecting the flow of the other elements", "All changes specified as the -webkit-transform property"],
+                ["Move an element", "-webkit-transform: translate(-5px, 50px);"],
+                ["Scale (resize) an element", "-webkit-transform: scale(1.2);"],
+                ["Rotate an element", "-webkit-transform: rotate(45deg);"]
+            ]
+        },
+        {
+            "title": "CSS3 Box sizing",
+            "bullets": [
+                ["Fixes the problem of width/height not including padding, borders and margin", "This is a big problem when specifying layouts/widths using percentages of the full window", "Supported by Android, iOS and all modern browsers, IE since version 8"],
+                ["Usage", "-webkit-box-sizing: border-box;", "Now the width includes padding and borders, but not margin"]
+            ]
+        },
+        {
+            "title": "CSS3 Flexible Box Model",
+            "bullets": [
+                ["A better way to define the general layout and distribution of elements in the page", "Previously, having elements expand vertically to fit each other has always needed hacks"],
+                ["Usage", "display: -webkit-box; -webkit-box-orient: horizontal;", "Apply to container. Orientation can be horizontal or vertical.", "-webkit-box-flex: 1;", "Apply to inside elements that should \"flex\". 1 is a weighted value against the other elements."]
+            ]
+        },
+		{
+			"title": "Images",
+			"bullets": [
+                "Image loading is subject to latency",
+                "Minimize number of images for best performance",
+                "Don't deliver higher resolution images if not needed"
+			]
+		},
+        {
+            "title": "Inline Images",
+            "bullets": [
+                "Image data inside of HTML. No need to download separate file.",
+                ["Image data encoded in BASE64 format", "3 binary bites will expand to 4 printable characters", "Increase in size is (often) compensated for with one less server request", "You need tool/server script to create the BASE64 characters"],
+                ["New url specification for src attribute", "<img src=\"data:image/jpeg;base64,ABCDEFGH\" />"]
+            ]
+        },
+        {
+            "title": "Image Sprites",
+            "bullets": [
+                ["Use a single file for multiple images", "One request for many images means better performance, always better", "Merge your images into a single image file with application or web service"],
+                ["Need to set image as background", "Can't use img element, might limit your possibilities"],
+                ["Specification", "<div class=\"icon\"></div>", "div { width: 50px; height: 50px; background: url('image.jpg'); }", "div.icon { background-position: -50px; }"]
+
+            ]
+        },
+        {
+            "title": "Audio",
+            "bullets": [
+                ["Play audio in the browser", "Android support from 2.3", "iOS support from 4.0"],
+                ["Element very simple", "<audio><source src=\"file.format\" /></audio>"],
+                ["Audio encoding is the tricky part", "Multiple source elements for different formats", "mp3 and ogg should cover most modern browsers"]
+            ]
+        },
+        {
+            "title": "Video",
+            "bullets": [
+                ["Play video in the browser", "Android support from 2.1", "iOS support from 3.2"],
+                ["Element very simple", "<video controls=\"true\"><source src=\"file.format\" /></video>"],
+                ["Video encoding is the tricky part", "mp4 and webm should cover most modern browsers"]
+            ]
+        },
+        {
+            "title": "CSS3 Media Queries",
+            "bullets": [
+                "A way to define different css rules depending on several properties of the browser window",
+                ["Properties", "min- and max- prefixes", "width, height, orientation, aspect-ratio, resolution", "screen, print"],
+                ["Usage", "@media (max-width: 600px) { }"]
+            ]
+        }
+    ]
+}
+

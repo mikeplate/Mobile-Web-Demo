@@ -1,0 +1,133 @@
+{
+    "title": "1. Detection",
+
+    "slides": [
+        {
+            "title": "The history of mobile devices",
+            "bullets": [
+                "1996 Nokia Communicator",
+                "2000 J2ME JSR68 Specification - Java on mobiles",
+                "2002 Blackberry by RIM",
+                "2007 iPhone by Apple",
+                "2008 Android by Google"
+            ]
+        },
+        {
+            "title": "The history of the mobile web",
+            "bullets": [
+                "1998 WML (version 1.1), 2001 (version 2.0)",
+                "2004 XHTML Mobile Profile 1.1",
+                "2004 WhatWG begins after W3C failed attempt at XHTML4",
+                "2007 Safari on iPhone uses WebKit",
+                "2007 W3C continues WhatWGs work and HTML5 begins"
+            ]
+        },
+        {
+            "title": "What's different about mobile?",
+            "subtitle": "Mobile <=> Desktop"
+        },
+        {
+            "title": "Very little. And quite a lot."
+        },
+        {
+            "title": "Technical differences",
+            "bullets": [
+                ["Very similar", "HTML, CSS and JavaScript is more or less the same"],
+                ["Screen", "Smaller screens, scaling might occur (viewport)"],
+                ["Touch", "Different types of interactions, no hover effect available"],
+                ["Limited performance", "Both in network latency and javascript power"]
+            ]
+        },
+		{
+			"title": "Mobile is a mindset, not just a device"
+		},
+        {
+            "title": "User experience differences",
+            "bullets": [
+                "How is a mobile used?",
+                "When is a mobile used?",
+                "Different use cases from desktop browsing",
+                "But content is still content"
+            ]
+        },
+        {
+            "title": "Mobile platforms",
+            "bullets": [
+                ["Android from Google", "Version 4.0 just available, not on any devices yet", "Phones from Samsung, HTC, SonyEricsson, LG", "Tablets from Motorola, Samsung, ASUS, Acer, Sony"],
+                ["iOS from Apple", "Version 5.0 just released.", "iPhone, iPad, iPod Touch"],
+                ["Windows Phone from Microsoft", "Version 7.5 recent", "Phones from HTC, Samsung. Nokia upcoming."],
+                "Blackberry from RIM",
+                "(Symbian, WebOS, MeeGo, Bada)",
+                "Choice of platform is a bit too important for some people"
+            ]
+        },
+        {
+            "title": "Mobile browsers",
+            "bullets": [
+                ["Android", "Based on WebKit but not Chrome (yet)"],
+                ["iOS", "Safari based on WebKit"],
+                ["Windows Phone", "Internet Explorer 8 modified"],
+                "Blackberry",
+                "Symbian"
+            ]
+        },
+        {
+            "title": "Tools",
+            "bullets": [
+                "Windows or Mac, either is fine",
+                ["Text editor for html, css and javascript files", "Notepad++, Kod.app, E-TextEditor, TextMate, Vim/gVim/MacVim"],
+				["IDE Integrated Development Environment", "Microsoft Visual Studio, Apple Xcode, Adobe Dreamweaver"],
+                ["Browser", "Chrome closest to mobile browsers (and Safari)"],
+                ["Debugger", "Chrome Developer Console, or Firebug in Firefox"]
+            ]
+        },
+		{
+			"title": "Tools",
+			"bullets": [
+                ["Device", "All professional development should test on real devices from all targeted platforms", "Not necessary for this course", "Two important factors that can't easily be emulated are how the page \"feels\" and network latency/speed"],
+                ["Emulators", "Chrome with custom User Agent", "Android SDK and its Emulator", "iOS Simulator", "Opera Mobile Emulator"]
+			]
+		},
+        {
+            "title": "Detecting a mobile device",
+            "bullets": [
+                ["Server side detection", "User Agent", "WURFL"],
+                ["Client side detection", "CSS3 Media Queries", "JavaScript", "User Agent", "Modernizr"]
+            ]
+        },
+        {
+            "title": "Differentiation",
+            "bullets": [
+                "So now that you know, that action to take?",
+                ["Server side differentiation", "Redirect to other site", "Deliver different html/css content"],
+                ["Client side differentiation", "CSS styles from CSS3 Media Queries or with help of Modernizr etc", "JavaScript to hide/show different parts and take different actions"],
+                "Always let the user choose the other version"
+            ]
+        },
+        {
+            "title": "Setting the viewport",
+            "bullets": [
+                "Almost the only mobile-specific thing you'll put in a web page",
+                "<meta name=\"viewport\" content=\"width=device-width,user-scalable=yes\">",
+                ["Settings", "width, height in pixels or device-width or device-height", "user-scalable is yes or no"],
+                "Ignored by desktop browsers"
+            ]
+        },
+        {
+            "title": "HTML safe for usage",
+            "bullets": [
+                "Almost all HTML elements work fine",
+                ["Forms", "More differences in ui for some field types", "Input of type file (upload) only works on newer Android devices", "Remember that typing text on a mobile device always is more difficult!"],
+                ["Avoid", "Frames"]
+            ]
+        },
+        {
+            "title": "HTML5 improvements",
+            "bullets": [
+                ["Semantic elements", "header, footer, nav, article, section, aside", "mark, time, progress, meter, detail, summary"],
+                ["Form elements", "Input of new types", "email, number, tel, date, range"]
+            ]
+        }
+    ]
+}
+

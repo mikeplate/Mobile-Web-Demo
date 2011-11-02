@@ -1,83 +1,83 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE html>
 <html>
 <head>
-<title>CSS3 transforms</title>
-<meta name="viewport" content="user-scalable=yes, width=device-width" />
-<link rel="stylesheet" href="../style.css" type="text/css" />
-<style>
-div.text {
-	width: 200px;
-	height: 75px;
-	text-align: center;
-	border: solid 2px #330;
-	background-color: #DD3;
-	padding: 10px;
-}
-div.opacity {
-	-moz-transition: opacity 1500ms;
-	-webkit-transition: opacity 1500ms;
-	-o-transition: opacity 1500ms;
-	opacity: 0;
-}
-div.move {
-	-moz-transition: -moz-transform 2s;
-	-webkit-transition: -webkit-transform 2s;
-	-o-transition: -o-transform 2s;
-	-moz-transform: translateX(50px) translateY(-20px);
-	-webkit-transform: translateX(50px) translateY(-20px);
-	-o-transform: translateX(50px) translateY(-20px);
-}
-div.size {
-	-moz-transition: -moz-transform 1s linear;
-	-webkit-transition: -webkit-transform 1s linear;
-	-o-transition: -o-transform 1s linear;
-	-moz-transform: scale(0.5);
-	-webkit-transform: scale(0.5);
-	-o-transform: scale(0.5);
-}
-div.rotate {
-	-moz-transition: -moz-transform 2s ease-in;
-	-webkit-transition: -webkit-transform 2s ease-in;
-	-o-transition: -o-transform 2s ease-in;
-	-moz-transform: rotate(-20deg);
-	-webkit-transform: rotate(-20deg);
-	-o-transform: rotate(-20deg);
-}
-div.skew {
-	-moz-transition: -moz-transform 2s ease-out;
-	-webkit-transition: -webkit-transform 2s ease-out;
-	-o-transition: -o-transform 2s ease-out;
-	-moz-transform: skewX(-20deg);
-	-webkit-transform: skewX(-20deg);
-	-o-transform: skewX(-20deg);
-}
-div.mirror {
-	-moz-transition: -moz-transform 1s ease-in-out;
-	-webkit-transition: -webkit-transform 1s ease-in-out;
-	-o-transition: -o-transform 1s ease-in-out;
-	-moz-transform: matrix(1, 0, 0, -1, 0, 0);
-	-webkit-transform: matrix(1, 0, 0, -1, 0, 0);
-	-o-transform: matrix(1, 0, 0, -1, 0, 0);
-}
-</style>
-<script>
-function StartTransition(el, name) {
-	var current = el.className;
-	
-	// Check that specified class name does not exist for the element
-	if (current.indexOf(name)<0) {
-		// Add the class name for the element
-		if (current.length > 0)
-			current += " ";
-		current += name;
-	}
-	else {
-		// Remove the class name for the element
-		current = current.replace(name, "");
-	}
-	el.className = current;
-}
-</script>
+    <title>CSS3 transforms</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <style>
+    div.text {
+        width: 200px;
+        height: 75px;
+        text-align: center;
+        border: solid 2px #330;
+        background-color: #DD3;
+        padding: 10px;
+    }
+    div.opacity {
+        -moz-transition: opacity 1500ms;
+        -webkit-transition: opacity 1500ms;
+        -o-transition: opacity 1500ms;
+        opacity: 0;
+    }
+    div.move {
+        -moz-transition: -moz-transform 2s;
+        -webkit-transition: -webkit-transform 2s;
+        -o-transition: -o-transform 2s;
+        -moz-transform: translateX(50px) translateY(-20px);
+        -webkit-transform: translateX(50px) translateY(-20px);
+        -o-transform: translateX(50px) translateY(-20px);
+    }
+    div.size {
+        -moz-transition: -moz-transform 1s linear;
+        -webkit-transition: -webkit-transform 1s linear;
+        -o-transition: -o-transform 1s linear;
+        -moz-transform: scale(0.5);
+        -webkit-transform: scale(0.5);
+        -o-transform: scale(0.5);
+    }
+    div.rotate {
+        -moz-transition: -moz-transform 2s ease-in;
+        -webkit-transition: -webkit-transform 2s ease-in;
+        -o-transition: -o-transform 2s ease-in;
+        -moz-transform: rotate(-20deg);
+        -webkit-transform: rotate(-20deg);
+        -o-transform: rotate(-20deg);
+    }
+    div.skew {
+        -moz-transition: -moz-transform 2s ease-out;
+        -webkit-transition: -webkit-transform 2s ease-out;
+        -o-transition: -o-transform 2s ease-out;
+        -moz-transform: skewX(-20deg);
+        -webkit-transform: skewX(-20deg);
+        -o-transform: skewX(-20deg);
+    }
+    div.mirror {
+        -moz-transition: -moz-transform 1s ease-in-out;
+        -webkit-transition: -webkit-transform 1s ease-in-out;
+        -o-transition: -o-transform 1s ease-in-out;
+        -moz-transform: matrix(1, 0, 0, -1, 0, 0);
+        -webkit-transform: matrix(1, 0, 0, -1, 0, 0);
+        -o-transform: matrix(1, 0, 0, -1, 0, 0);
+    }
+    </style>
+    <script>
+    function StartTransition(el, name) {
+        var current = el.className;
+        
+        // Check that specified class name does not exist for the element
+        if (current.indexOf(name)<0) {
+            // Add the class name for the element
+            if (current.length > 0)
+                current += " ";
+            current += name;
+        }
+        else {
+            // Remove the class name for the element
+            current = current.replace(name, "");
+        }
+        el.className = current;
+    }
+    </script>
 </head>
 <body>
 	<h1>CSS3 transforms <a href="index.html">Back</a></h1>

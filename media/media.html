@@ -1,29 +1,29 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<title>Media</title>
-<meta name="viewport" content="user-scalable=yes, width=device-width" />
-<link rel="stylesheet" href="../style.css" type="text/css" />
-<script>
-function startBackground() {
-    document.getElementById("Background").play();
-    continueBackground();
-}
-function stopBackground() {
-    document.getElementById("Background").pause();
-    endOfBackground();
-}
-function endOfBackground() {
-    var link = document.getElementById("BackgroundLink");
-    link.href = "javascript:startBackground()";
-    link.innerHTML = "Start playing";
-}
-function continueBackground() {
-    var link = document.getElementById("BackgroundLink");
-    link.href = "javascript:stopBackground()";
-    link.innerHTML = "Stop playing";
-}
-</script>
+    <title>Media</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <script>
+    function startBackground() {
+        document.getElementById("Background").play();
+        continueBackground();
+    }
+    function stopBackground() {
+        document.getElementById("Background").pause();
+        endOfBackground();
+    }
+    function endOfBackground() {
+        var link = document.getElementById("BackgroundLink");
+        link.href = "javascript:startBackground()";
+        link.innerHTML = "Start playing";
+    }
+    function continueBackground() {
+        var link = document.getElementById("BackgroundLink");
+        link.href = "javascript:stopBackground()";
+        link.innerHTML = "Stop playing";
+    }
+    </script>
 </head>
 <body>
     <h1>Media <a href="index.html">Back</a></h1>
@@ -40,10 +40,12 @@ function continueBackground() {
         <dt>Video</dt>
         <dd>
             <p>You'll need to start the video manually using the video controls of the browser (~4 MB).</p>
-            <video controls="true">
-                <source src="wembley.mp4" />
-                <source src="wembley.webm" type="video/webm" />
-            </video>
+            <p>
+                <video controls="true">
+                    <source src="wembley.mp4" />
+                    <source src="wembley.webm" type="video/webm" />
+                </video>
+            </p>
         </dd>
     </dl>
 </body>
