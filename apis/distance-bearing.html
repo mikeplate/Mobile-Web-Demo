@@ -1,7 +1,7 @@
-﻿<!DOCTYPE HTML>
+﻿<!DOCTYPE html>
 <html>
 <head>
-<title>Close by</title>
+<title>Distance and bearing</title>
 <meta name="viewport" content="user-scalable=yes, width=device-width" />
 <link rel="stylesheet" href="../style.css" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
@@ -9,7 +9,7 @@
 <script>
 $(window).ready(function() {
 	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(gotPosition, errorPosition);
+        navigator.geolocation.getCurrentPosition(gotPosition, errorPosition, { timeout: 20000 });
 	}
 });
 
@@ -39,6 +39,18 @@ function haversine(lat1, lon1, lat2, lon2) {
     return d;
 }
 
+function bearing(lat1, lon1, lat2, lon2) {
+    var lat1 = lat1.toRad();
+    var lat2 = lat2.toRad();
+    var dLon = (lon2-lon1).toRad();
+
+    var y = Math.sin(dLon) * Math.cos(lat2);
+    var x = Math.cos(lat1)*Math.sin(lat2) - Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLon);
+    var brng = Math.atan2(y, x).toDeg();
+
+    return brng < 0 ? brng+360 : brng;
+}
+
 function gotPosition(pos) {
     var lat = pos.coords.latitude;
     var lng = pos.coords.longitude;
@@ -58,26 +70,37 @@ function gotPosition(pos) {
 
     var nearestLat = places[nearestIndex][1];
     var nearestLong = places[nearestIndex][0];
+    var dir = bearing(lat, lng, nearestLat, nearestLong);
     $("#lat").text(nearestLat);
     $("#long").text(nearestLong);
-    $("#dist").text(nearestDistance);
+    $("#dist").text(nearestDistance + " km");
+    $("#dir").text(dir + " degrees");
 	$("#maplink").attr("href", "http://maps.google.com/maps?q=" + nearestLat + "," + nearestLong);
 }
 
-function errorPosition(msg) {
+function errorPosition(err) {
+    if (err.code==err.PERMISSION_DENIED)
+        alert("You have chosen not to reveal your position!");
+    else if (err.code==err.POSITION_UNAVAILABLE)
+        alert("Position could not be determined right now. You might like to try later!");
+    else if (err.code==err.TIMEOUT)
+        alert("Position could not be determined within the time limit. You might like to try again!");
+    else
+        alert("Unknown error when retrieving your position!");
 }
 </script>
 </head>
 <body>
-	<h1>Close by <a href="index.html">Back</a></h1>
+	<h1>Distance and bearing <a href="index.html">Back</a></h1>
 	<dl>
-		<dt>Closes Statoil gas station</dt>
+		<dt>Closest Statoil gas station</dt>
 		<dd>
 			<p>Latitude: <span id="lat"></span></p>
 			<p>Longitude: <span id="long"></span></p>
 			<p>Distance: <span id="dist"></span></p>
 			<p>Direction: <span id="dir"></span></p>
             <p><a id="maplink">Show on Google Maps</a></p>
+            <img src="compass.jpg" />
 		</dd>
 	</dl>
 </body>

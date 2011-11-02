@@ -1,24 +1,21 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE html>
 <html>
 <head>
-<title>Geolocation</title>
+<title>Follow movement</title>
 <meta name="viewport" content="user-scalable=yes, width=device-width" />
 <link rel="stylesheet" href="../style.css" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 <script>
 $(window).ready(function() {
-	$("#maplink").hide();
-    $("#HighAccuracy").bind("click", fetchPosition);
     fetchPosition();
 });
 
 function fetchPosition() {
 	if (navigator.geolocation) {
-        var highAcc = $("#HighAccuracy").attr("checked");
-		navigator.geolocation.getCurrentPosition(gotPosition, errorPosition, { enableHighAccuracy: highAcc, timeout: 60000 });
+		navigator.geolocation.getCurrentPosition(gotPosition, errorPosition, { enableHighAccuracy: true, timeout: 20000 });
 	}
 	else {
-		$("#lat,#long").text("Not supported");
+		$("span").text("Not supported");
 	}
 }
 
@@ -26,32 +23,30 @@ function gotPosition(pos) {
 	$("#lat").text(pos.coords.latitude);
 	$("#long").text(pos.coords.longitude);
 	$("#acc").text(pos.coords.accuracy);
-	$("#alt").text(pos.coords.altitude);
-	$("#altacc").text(pos.coords.altitudeAccuracy);
-	$("#maplink").attr("href", "http://maps.google.com/maps?q=" + pos.coords.latitude + "," + pos.coords.longitude).fadeIn();
 }
 
-function errorPosition(msg) {
-	$("#lat,#long").text(msg);
+function errorPosition(err) {
+    if (err.code==err.PERMISSION_DENIED)
+        alert("You have chosen not to reveal your position!");
+    else if (err.code==err.POSITION_UNAVAILABLE)
+        alert("Position could not be determined right now. You might like to try later!");
+    else if (err.code==err.TIMEOUT)
+        alert("Position could not be determined within the time limit. You might like to try again!");
+    else
+        alert("Unknown error when retrieving your position!");
+    $("span").text("-");
 }
 </script>
 </head>
 <body>
-	<h1>Geolocation <a href="index.html">Back</a></h1>
+	<h1>Follow movement <a href="index.html">Back</a></h1>
 	<dl>
 		<dt>Your position</dt>
 		<dd>
 			<p>Latitude: <span id="lat"></span></p>
 			<p>Longitude: <span id="long"></span></p>
 			<p>Accuracy: <span id="acc"></span></p>
-			<p>Altitude: <span id="alt"></span></p>
-			<p>Altitude accuracy: <span id="altacc"></span></p>
-			<p><a id="maplink" href="#">Go to Google Maps</a></p>
 		</dd>
-        <dt>Options</dt>
-        <dd>
-            <input type="checkbox" id="HighAccuracy" value="true" /><label for="HighAccuracy">Request high accuracy (GPS)</label>
-        </dd>
 	</dl>
 </body>
 </html>

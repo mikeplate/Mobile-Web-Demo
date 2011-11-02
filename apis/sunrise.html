@@ -9,11 +9,11 @@
 <script>
 window.onload = function() {
     if (navigator.geolocation) {
-        $("#Sunrise, #Sunset").text("Waiting for current position");
-		navigator.geolocation.getCurrentPosition(gotPosition, errorPosition);
+        $("dd").text("Waiting for current position");
+        navigator.geolocation.getCurrentPosition(gotPosition, errorPosition, { timeout: 20000 });
     }
     else {
-        $("#Sunrise, #Sunset").text("No geolocation support");
+        $("dd").text("No geolocation support");
     }
 }
 
@@ -39,8 +39,17 @@ function gotPosition(pos) {
     $("#Sunset").text(formatTime(sun.sunset) + " (twilight " + formatTime(sun.eveningTwilight) + ")");
 }
 
-function errorPosition(msg) {
-    $("#Sunrise, #Sunset").text(msg);
+function errorPosition(err) {
+    if (err.code==err.PERMISSION_DENIED)
+        alert("You have chosen not to reveal your position!");
+    else if (err.code==err.POSITION_UNAVAILABLE)
+        alert("Position could not be determined right now. You might like to try later!");
+    else if (err.code==err.TIMEOUT)
+        alert("Position could not be determined within the time limit. You might like to try again!");
+    else
+        alert("Unknown error when retrieving your position!");
+
+    $("dd").text("-");
 }
 </script>
 </head>
