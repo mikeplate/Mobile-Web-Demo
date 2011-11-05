@@ -1,0 +1,81 @@
+{
+    "title": "6. jQuery Mobile",
+
+    "slides": [
+        {
+            "title": "Content",
+            "bullets": [
+                "jQuery Mobile",
+                "Integrating with other sites or services"
+            ]
+        },
+        {
+            "title": "jQuery Mobile",
+            "bullets": [
+                ["User Interface Framework", "Focused on helping you build a consistant user interface", "Premade visual styles and components", "Customizable"],
+                "Built on (requires) jQuery"
+            ]
+        },
+        {
+            "title": "Philosophy",
+            "bullets": [
+                "Uses data- attributes on html elements to signify a specific user interface feature",
+                "Adds and/or modifies the elements you have in your web page"
+            ]
+        },
+        {
+            "title": "The page",
+            "bullets": [
+                
+            ]
+        },
+        {
+            "title": "Multiple pages and links between them",
+            "bullets": [
+                
+            ]
+        },
+        {
+            "title": "Themes",
+            "bullets": [
+                
+            ]
+        },
+        {
+            "title": "Dialogs",
+            "bullets": [
+            ]
+        },
+        {
+            "title": "Buttons",
+            "bullets": [
+            ]
+        },
+        {
+            "title": "Toolbars",
+            "bullets": [
+            ]
+        },
+        {
+            "title": "Lists",
+            "bullets": [
+            ]
+        },
+        {
+            "title": "Integrating with other sites and services",
+            "bullets": [
+            ]
+        },
+        {
+            "title": "OAuth",
+            "bullets": [
+            ]
+        },
+        {
+            "title": "Twitter",
+            "bullets": [
+            ]
+        }
+    ]
+}
+

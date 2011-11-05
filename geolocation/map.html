@@ -1,28 +1,33 @@
-﻿<!DOCTYPE HTML>
+﻿<!DOCTYPE html>
 <html>
 <head>
-<title>Map</title>
-<meta name="viewport" content="user-scalable=yes, width=device-width" />
-<link rel="stylesheet" href="../style.css" type="text/css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-<script>
-$(window).ready(function() {
-    var latlng = new google.maps.LatLng(57.8, 14.2);
-    var myOptions = {
-        zoom: 10,
-        center: latlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var map = new google.maps.Map(document.getElementById("map"), myOptions);
-});
-
-function gotPosition(pos) {
-}
-
-function errorPosition(msg) {
-}
-</script>
+    <title>Map</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script>
+    $(function() {
+        var latlng = new google.maps.LatLng(57.8, 14.2);
+        var myOptions = {
+            zoom: 11,
+            center: latlng,
+            scaleControl: true,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map"), myOptions);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: new google.maps.LatLng(57.7787, 14.1642),
+            title: "Jönköping University"
+        });
+        marker = new google.maps.Marker({
+            map: map,
+            position: new google.maps.LatLng(57.7874, 14.2323),
+            title: "HV71 hockey team home arena"
+        });
+    });
+    </script>
 </head>
 <body>
 	<h1>Map <a href="index.html">Back</a></h1>

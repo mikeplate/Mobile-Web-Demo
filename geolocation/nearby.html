@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Geonames</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<style>
+    #nearby td:nth-child(2), #nearby td:nth-child(3) {
+        text-align: right;
+    }
+</style>
+<script>
+$(function() {
+	if ("geolocation" in navigator) {
+		$("#nearby").text("Fetching your location...");
+		navigator.geolocation.getCurrentPosition(gotPosition, errorPosition, { timeout: 20000 });
+	}
+	else {
+		$("#nearby").text("Geolocation is not supported");
+	}
+});
+
+function gotPosition(pos) {
+    $("#nearby").text("Fetching places nearby...");
+    $.ajax({
+        url: "nearby.php?lat=" + pos.coords.latitude + "&long=" + pos.coords.longitude,
+        dataType: "json",
+        success: function(result) {
+            result.vicinity.sort(function(a, b) { return b.population-a.population; });
+
+            var htmlstring = "<table>";
+            for (var i = 0; i<result.vicinity.length; i++) {
+                var city = result.vicinity[i];
+                htmlstring += "<tr><td>" + city.name + "</td><td>" + city.population + "</td><td>" + Math.round(city.distance) + " km</td></tr>";
+            }
+            htmlstring += "</table>";
+            $("#nearby").html(htmlstring);
+        },
+        error: function(xhr, status, err) {
+            alert("Could not fetch data over the network!");
+        }
+    });
+}
+
+function errorPosition(err) {
+    if (err.code==err.PERMISSION_DENIED)
+        alert("You have chosen not to reveal your position!");
+    else if (err.code==err.POSITION_UNAVAILABLE)
+        alert("Position could not be determined right now. You might like to try later!");
+    else if (err.code==err.TIMEOUT)
+        alert("Position could not be determined within the time limit. You might like to try again!");
+    else
+        alert("Unknown error when retrieving your position!");
+}
+</script>
+</head>
+<body>
+	<h1>Geonames <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>Nearby cities</dt>
+        <dd id="nearby">
+		</dd>
+	</dl>
+</body>
+</html>

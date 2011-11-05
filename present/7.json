@@ -1,0 +1,58 @@
+{
+    "title": "7. PhoneGap",
+
+    "slides": [
+        {
+            "title": "Content",
+            "bullets": [
+                "Native applications",
+                "PhoneGap"
+            ]
+        },
+        {
+            "title": "Native applications",
+            "bullets": [
+            ]
+        },
+        {
+            "title": "Features",
+            "bullets": [
+                "Features not (yet) available on the mobile web"
+            ]
+        },
+        {
+            "title": "What is PhoneGap?",
+            "bullets": [
+                
+            ]
+        },
+        {
+            "title": "Requirements for PhoneGap",
+            "bullets": [
+                
+            ]
+        },
+        {
+            "title": "Build a PhoneGap application",
+            "bullets": [
+                
+            ]
+        },
+        {
+            "title": "PhoneGap APIs",
+            "bullets": [
+            ]
+        },
+        {
+            "title": "Compass",
+            "bullets": [
+            ]
+        },
+        {
+            "title": "Camera",
+            "bullets": [
+            ]
+        }
+    ]
+}
+

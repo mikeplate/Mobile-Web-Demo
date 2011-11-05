@@ -12,8 +12,8 @@
         {
             "title": "Geolocation",
             "bullets": [
-                ["latitude", "Horizontal lines on the globe", "Position relative the equator, positive for north, negative for south"],
-                ["longitude", "Vertical lines on the globe", "Position relative to the Meridian that passes through Greenwich, London"],
+                ["latitude", "Horizontal lines on the globe", "Position relative to the equator, positive for north, negative for south"],
+                ["longitude", "Vertical lines on the globe", "Position relative to the Meridian that passes through Greenwich (London), positive for east, negative for west"],
                 ["Unit", "Named degrees, minutes and seconds", "Usually just a decimal number"]
             ]
         },
@@ -23,7 +23,7 @@
                 "GPS",
                 "3G triangulation",
                 "Wifi triangulation",
-                "IP database registration"
+                "IP database"
             ]
         },
         {
@@ -32,18 +32,44 @@
                 "Not formally an HTML5 specification, but that's not important",
                 "Available in all modern browsers (latest version)",
                 "Always require the consent of the user",
-                ["Ensure it exists", "if (\"getlocation\" in window.navigator) {"]
+                "No specific control over method used, just high or not high accuracy"
             ]
         },
         {
             "title": "Request the current location",
             "bullets": [
+                ["Ensure geolocation exists", "if (\"geolocation\" in navigator) {"],
+                ["Call getCurrentPosition with", "A function to be called when location is known", "A function to be called when an error occurs", "Settings in the form of an object with properties"],
+                ["Usage", "navigator.geolocation.getCurrentPosition(whenFound, whenError, { timeout: 20000 });", "function whenFound(result) { }", "function whenError(error) { }"]
+
+            ]
+        },
+        {
+            "title": "Location result",
+            "bullets": [
+                ["The called function receives a single argument with", "result.coords for the position", "result.timestamp for the time when the location was read"],
+                ["The position object then contains", "latitude", "longitude", "accuracy is position accuracy in meters", "altitude is meters above sea level, if available", "altitudeAccuracy is zero if altitude is not supported", "heading is direction/bearing, if available", "speed is movement in meters per second, if available"]
+            ]
+        },
+        {
+            "title": "Geo calculations",
+            "bullets": [
+                ["Distance between two locations", "Not as simple as using pythagoras theorem since earth is not flat", "Haversine formula", "Databases capable of calculating called \"spatial\""],
+                ["Bearing (direction) to get from one location to another", "Specified in 0-360 degrees, where 0 is north, 90 is east etc"],
+                ["The sun's movement over the sky", "Can be determined from location and the time of year"]
+            ]
+        },
+        {
+            "title": "Continuous location updates",
+            "bullets": [
+                "First of all, always a good strategy to retry getCurrentPosition if timed out",
+                ["If you want continuous updates about position", "var handle = navigator.geolocation.watchPosition(whenNew, whenError, { timeo", "navigator.geolocation.clearWatch(handle);"]
             ]
         },
         {
             "title": "Map services",
             "bullets": [
-                "Access to maps from a mobile web browser",
+                "Access to maps from a (mobile) web browser",
                 "Google Maps",
                 "Microsoft Bing Maps",
                 "Nokia Maps",
@@ -90,6 +116,14 @@
             "title": "Create image from canvas",
             "bullets": [
                 "The result of a canvas can be used as an image in other parts of the page"
+            ]
+        },
+        {
+            "title": "Animations on canvas",
+            "bullets": [
+                "There is no built in animation support for whatever is shown on the canvas",
+                "In order to animate things on the canvas, you need to erase and repaint",
+                ["Calling a function continuously", "window.setInterval(myFunc, 100);"]
             ]
         }
     ]

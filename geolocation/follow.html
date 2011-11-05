@@ -6,35 +6,39 @@
 <link rel="stylesheet" href="../style.css" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 <script>
-$(window).ready(function() {
-    fetchPosition();
-});
-
-function fetchPosition() {
+$(function() {
 	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(gotPosition, errorPosition, { enableHighAccuracy: true, timeout: 20000 });
+		navigator.geolocation.watchPosition(gotPosition, errorPosition, { enableHighAccuracy: true, timeout: 30000 });
 	}
 	else {
-		$("span").text("Not supported");
+		$("#path").text("Not supported");
 	}
+});
+
+var started = new Date();
+
+function addMessage(msg) {
+    var seconds = Math.floor((new Date() - started) / 1000);
+    var htmlstring = "<p>" + seconds + ": " + msg + "</p>";
+    $("#path").append(htmlstring);
 }
 
 function gotPosition(pos) {
-	$("#lat").text(pos.coords.latitude);
-	$("#long").text(pos.coords.longitude);
-	$("#acc").text(pos.coords.accuracy);
+    var msg = pos.coords.latitude + ", " + pos.coords.longitude;
+    addMessage(msg);
 }
 
 function errorPosition(err) {
+    var msg;
     if (err.code==err.PERMISSION_DENIED)
-        alert("You have chosen not to reveal your position!");
+        msg = "You have chosen not to reveal your position!";
     else if (err.code==err.POSITION_UNAVAILABLE)
-        alert("Position could not be determined right now. You might like to try later!");
+        msg = "Position could not be determined right now. You might like to try later!";
     else if (err.code==err.TIMEOUT)
-        alert("Position could not be determined within the time limit. You might like to try again!");
+        msg = "Position could not be determined within the time limit. You might like to try again!";
     else
-        alert("Unknown error when retrieving your position!");
-    $("span").text("-");
+        msg = "Unknown error when retrieving your position!";
+    addMessage(msg);
 }
 </script>
 </head>
@@ -42,10 +46,7 @@ function errorPosition(err) {
 	<h1>Follow movement <a href="index.html">Back</a></h1>
 	<dl>
 		<dt>Your position</dt>
-		<dd>
-			<p>Latitude: <span id="lat"></span></p>
-			<p>Longitude: <span id="long"></span></p>
-			<p>Accuracy: <span id="acc"></span></p>
+		<dd id="path">
 		</dd>
 	</dl>
 </body>
