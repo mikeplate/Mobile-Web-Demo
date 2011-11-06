@@ -3,18 +3,63 @@
 
     "slides": [
         {
-            "title": "Data storage on the server",
+            "title": "Content",
+            "bullets": [
+                "Offline capabilities",
+                "HTML5 APIs for local storage",
+                "JSON format",
+                "Ajax and network requests with jQuery"
+            ]
+        },
+        {
+            "title": "Offline capabilities",
+            "bullets": [
+                "As a default, mobile web apps require a network connection",
+                ["HTML5 introduces offline capabilities", "Specify what files should be kept and used if no network", "Will load web app from internet address even without network"],
+                ["Easy to configure", "The difficult part has more to do with data synchronization issues, assuming the web app stores/changes data that needs to be stored on server"]
+            ]
+        },
+        {
+            "title": "Offline manifest",
             "bullets": [
             ]
         },
         {
             "title": "Data storage in the browser",
             "bullets": [
+                ["JavaScript variables", "Are not persistant in any way. Any browser reload will reset/empty the value."],
+                ["Cookies", "Always sent by client/browser to server", "Usually set by server in a response", "Can also be set on the client side with JavaScript", "Limited as per HTTP protocol"],
+                ["HTML5 Local Storage", "Ability to store string values by name in the browser", "Never sent to the server", "Asks for permissions before storing on desktop"]
             ]
         },
         {
             "title": "HTML5 Local Storage API",
             "bullets": [
+            ]
+        },
+        {
+            "title": "JSON",
+            "bullets": [
+                "JavaScript Object Notation",
+                ["Data format derived from JavaScript", "Meaning it is parseable according to JavaScript language rules"],
+                "Replacement for XML",
+                ["Objects with properties", "Properties has a name and a value", "Arrays of objects or values"]
+            ]
+        },
+        {
+            "title": "JSON format",
+            "bullets": [
+                ["Values", "4, 3.1415, \"John\", true, null"],
+                ["Objects", "Has properties with values", "Property has a name which is always a string", "{ \"name\": \"John\", \"age\": 25 }"],
+                ["Arrays", "[ \"John\", 25 ]", "[ { \"name\": \"John\", \"age\": 25 }, { \"name\": \"Alice\", \"age\": 33 } ]"]
+            ]
+        },
+        {
+            "title": "JSON in JavaScript code",
+            "bullets": [
+                ["JavaScript objects", "var obj = [4, { title: \"School\" }];", "var thetitle = obj[1].title;"],
+                ["Convert from string to JavaScript objects", "var obj = eval(\"[4, { \"title\": \"School\" }]\");"],
+                ["Convert from JavaScript objects to string", "Not built in until ECMAScript 5 standard", "var str = JSON.stringify(obj);", "Needs JavaScript library for older browsers (same syntax)", "https://github.com/douglascrockford/JSON-js"]
             ]
         },
         {
@@ -36,7 +81,7 @@
             ]
         },
         {
-            "title": "JSON",
+            "title": "Data storage on the server",
             "bullets": [
             ]
         }

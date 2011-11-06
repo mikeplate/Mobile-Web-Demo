@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Dynamic Images</title>
+<meta name="viewport" content="user-scalable=yes, width=device-width" />
+<link rel="stylesheet" href="../style.css" type="text/css" />
+<style>
+    p {
+        padding: 20px;
+        margin-bottom: 10px;
+        color: #fff;
+        font-size: 16pt;
+        font-weight: bold;
+    }
+</style>
+<script>
+    function diagonalStripesImage(lineWidth, lineColor, spaceWidth, spaceColor) {
+        var factor = 3;
+        var size = lineWidth + spaceWidth;
+        var canvas = document.createElement("canvas");
+        canvas.width = size*factor;
+        canvas.height = size*factor;
+        var context = canvas.getContext("2d");
+        context.fillStyle = spaceColor;
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.strokeStyle = lineColor;
+        context.lineWidth = lineWidth;
+        var offset = lineWidth;
+        for (var x = -canvas.width; x < canvas.width; x += size) {
+            context.beginPath();
+            context.moveTo(x, 0);
+            context.lineTo(x + canvas.width, canvas.height);
+            context.stroke();
+            context.closePath();
+        }
+
+        var resultCanvas = document.createElement("canvas");
+        resultCanvas.width = size;
+        resultCanvas.height = size;
+        var resultContext = resultCanvas.getContext("2d");
+        resultContext.drawImage(canvas, size, size, size, size, 0, 0, size, size);
+
+        return "url(" + resultCanvas.toDataURL() + ")";
+    }
+
+    function circleImage(size, bkgndColor, circleSize, circleColor, shadowOffset, shadowColor) {
+        var canvas = document.createElement("canvas");
+        canvas.width = size;
+        canvas.height = size;
+        var context = canvas.getContext("2d");
+        context.fillStyle = bkgndColor;
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        
+        context.fillStyle = shadowColor;
+        context.beginPath();
+        context.arc(size/2+shadowOffset, size/2+shadowOffset, circleSize/2, 0, 2*Math.PI, false);
+        context.fill();
+        context.closePath();
+
+        context.fillStyle = circleColor;
+        context.beginPath();
+        context.arc(size/2, size/2, circleSize/2, 0, 2*Math.PI, false);
+        context.fill();
+        context.closePath();
+
+        return "url(" + canvas.toDataURL() + ")";
+    }
+
+    window.onload = function() {
+        var first = document.getElementById("first");
+        first.style.backgroundImage = circleImage(16, "#303030", 8, "#404030", 2, "#000000");
+        var second = document.getElementById("second");
+        second.style.backgroundImage = diagonalStripesImage(4, "#303090", 2, "#8080b0");
+    }
+</script>
+</head>
+<body>
+	<h1>Dynamic Images <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>Background images created dynamically</dt>
+		<dd>
+            <p id="first">This is a text on a background created on a canvas</p>
+            <p id="second">This is a text on a background created on a canvas</p>
+		</dd>
+	</dl>
+</body>
+</html>

@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Events example</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <style>
+        body {
+            margin: 0px;
+            background-color: #000;
+            font-family: sans-serif;
+        }
+        div#showtime {
+            background-color: #339;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+    <script>
+        function formatDateTime(datetime) {
+            function pad(num) { return (num<10 ? "0":"") + num };
+            return datetime.getFullYear() + "-" 
+                + pad(datetime.getMonth()+1) + "-" 
+                + pad(datetime.getDate()) + " "
+                + pad(datetime.getHours()) + ":"
+                + pad(datetime.getMinutes());
+        }
+
+        window.onload = function() {
+            var showtime = document.getElementById("showtime");
+            showtime.innerHTML = formatDateTime(new Date());
+        }
+    </script>
+</head>
+<body>
+    <div id="showtime">The time should be shown here</div>
+</body>
+</html>
+

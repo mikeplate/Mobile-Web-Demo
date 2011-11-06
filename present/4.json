@@ -6,6 +6,7 @@
             "title": "Content",
             "bullets": [
                 "Geolocation",
+                "Maps",
                 "Canvas"
             ]
         },
@@ -63,7 +64,8 @@
             "title": "Continuous location updates",
             "bullets": [
                 "First of all, always a good strategy to retry getCurrentPosition if timed out",
-                ["If you want continuous updates about position", "var handle = navigator.geolocation.watchPosition(whenNew, whenError, { timeo", "navigator.geolocation.clearWatch(handle);"]
+                ["If you want continuous updates about position", "var handle = navigator.geolocation.watchPosition(whenNew, whenError, { timeo", "navigator.geolocation.clearWatch(handle);"],
+                "If an error occurs, you need to call watchPosition again"
             ]
         },
         {
@@ -72,14 +74,17 @@
                 "Access to maps from a (mobile) web browser",
                 "Google Maps",
                 "Microsoft Bing Maps",
-                "Nokia Maps",
-                "Eniro for Sweden"
+                "OpenStreetMap",
+                ["More services", "Yahoo Maps, Nokia Maps, ViaMichelin (EU), Streetmap (UK), Hitta (SE), Eniro (SE)"]
             ]
         },
         {
             "title": "Google Maps API",
             "bullets": [
-                
+                ["Include JavaScript widget", "<script src=\"http://maps.googleapis.com/maps/api/js?sensor=false\"></script>"],
+                "Create an html element as placeholder for the map",
+                ["Create a map with location", "var map = new google.maps.Map(document.getElementById(\"map\"), options);"],
+                ["Create markers on the map", "var options = { map: mapElement, position: new google.maps.LatLng(57, 14), title: \"Abc\" };", "var mark = new google.maps.Marker(options);"]
             ]
         },
         {
@@ -87,6 +92,13 @@
             "bullets": [
                 "New element that gives you pixel control of what is drawn",
                 "Everything inside a canvas element must be drawn with JavaScript instructions",
+                ["Use cases", "Animations with pixel perfect control, like games", "Dynamically created images, like charts"],
+                "http://www.html5canvastutorials.com/"
+            ]
+        },
+        {
+            "title": "Use a canvas",
+            "bullets": [
                 ["Must have a defined size", "<canvas id=\"mycanvas\" width=\"600\" height=\"300\"></canvas>"],
                 ["Usage", "var canvas = document.getElementById(\"mycanvas\");", "var context = canvas.getContext(\"2d\");"]
             ]
@@ -95,7 +107,8 @@
             "title": "Draw filled objects on the canvas",
             "bullets": [
                 ["fillStyle - The color of filled objects drawn on the canvas", "context.fillStyle = \"#333399\";"],
-                ["fillRect - Draw a filled rectangle on the canvas", "context.fillRect(20, 5, 100, 50);"]
+                ["fillRect - Draw a filled rectangle on the canvas", "context.fillRect(20, 5, 100, 50);"],
+                ["fill - Draw a filled area inside the current path", "context.fill();"]
             ]
         },
         {
@@ -110,12 +123,17 @@
         {
             "title": "Draw text on the canvas",
             "bullets": [
+                ["Set style", "context.font = \"24pt sans-serif\";"],
+                ["fillText - draw text with the current fill style", "context.fillText(\"Title\", 100, 0);"],
+                ["strokeText - draw text as an outline with the current stroke style", "context.strokeText(\"Title\", 100, 50);"]
             ]
         },
         {
             "title": "Create image from canvas",
             "bullets": [
-                "The result of a canvas can be used as an image in other parts of the page"
+                "The result of a canvas can be used as an image in other parts of the page",
+                ["Returned as a data url, similar to inline images", "var url = canvas.toDataURL();"],
+                ["Set anywhere an image is valid", "imgElement.src = url;", "divElement.style.backgroundImage = url;"]
             ]
         },
         {

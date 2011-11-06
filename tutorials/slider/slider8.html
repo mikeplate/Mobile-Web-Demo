@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Events example</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <style>
+        body {
+            margin: 0px;
+            background-color: #000;
+            color: #fff;
+            font-family: sans-serif;
+            max-width: 600px;
+        }
+        body>div {
+            width: 100%;
+            overflow: hidden;
+        }
+        div#container {
+            width: 300%;
+            -moz-transition: -moz-transform 2s;
+            -webkit-transition: -webkit-transform 2s;
+            -o-transition: -o-transform 2s;
+        }
+        div#titles {
+            width: 150%;
+            -moz-transition: -moz-transform 2s;
+            -webkit-transition: -webkit-transform 2s;
+            -o-transition: -o-transform 2s;
+        }
+        
+        .box {
+            float: left;
+            width: 33.3333%;
+        }
+        h1 {
+            margin: 0px;
+            padding: 10px;
+            font-size: 20px;
+            color: #e0e0e0;
+            text-align: center;
+        }
+        div#titles>div:nth-child(1) h1 {
+            border-bottom: 5px solid #933;
+        }
+        div#titles>div:nth-child(2) h1 {
+            border-bottom: 5px solid #393;
+        }
+        div#titles>div:nth-child(3) h1 {
+            border-bottom: 5px solid #339;
+        }
+        img {
+            width: 100%;
+            display: block;
+        }
+    </style>
+    <script>
+        var pic = 0;
+
+        function setTransform(elementId, transform) {
+            var element = document.getElementById(elementId);
+            element.style.MozTransform = transform;
+            element.style.WebkitTransform = transform;
+            element.style.OTransform = transform;
+        }
+
+        function slide(ev) {
+            var screenWidth = window.innerHeight || document.documentElement.clientWidth;
+            var position = ev.touches ? ev.touches[0].pageX : ev.pageX;
+
+            if (position < (screenWidth/2)) {
+                pic--;
+                if (pic<0)
+                    pic = 2;
+            }
+            else {
+                pic++;
+                if (pic>2)
+                    pic = 0;
+            }
+
+            updateSlider();
+            ev.preventDefault();
+        }
+
+        function updateSlider() {
+            var transform = "translateX(" + (pic*-33.3333) + "%)";
+            setTransform("container", transform);
+            var transform = "translateX(" + (pic*-33.3333+16.6667) + "%)";
+            setTransform("titles", transform);
+        }
+
+        var startpos;
+
+        function onStart(ev) {
+            startpos = ev.touches[0].pageX;
+            ev.preventDefault();
+        }
+
+        function onEnd(ev) {
+            var dir = ev.changedTouches[0].pageX - startpos;
+            if (dir > 0) {
+                pic--;
+                if (pic<0)
+                    pic = 2;
+            }
+            else {
+                pic++;
+                if (pic>2)
+                    pic = 0;
+            }
+            updateSlider();
+            ev.preventDefault();
+        }
+
+        window.onload = function(ev) {
+            updateSlider();
+
+            document.getElementById("container").addEventListener("touchstart", function() { }, false);
+            window.ontouchstart = onStart;
+            window.ontouchend = onEnd;
+            window.onmousedown = slide;
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <div id="titles">
+            <div class="box">
+                <h1>Berlin Alexanderplatz</h1>
+            </div>
+            <div class="box">
+                <h1>Summer in Berlin</h1>
+            </div>
+            <div class="box">
+                <h1>Checkpoint Charlie</h1>
+            </div>
+        </div>
+        <div style="clear: left;"></div>
+        <div id="container">
+            <div class="box">
+                <img src="/images/alexanderplatz.jpg" />
+            </div>
+            <div class="box">
+                <img src="/images/spree.jpg" />
+            </div>
+            <div class="box">
+                <img src="/images/checkpoint_charlie.jpg" />
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

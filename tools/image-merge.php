@@ -128,8 +128,8 @@ else if (!isset($_GET['image'])) {
                 </p>
                 <p>
                     Size all images to icon size:<br />
-                    <input type="text" name="width" size="5" /> x 
-                    <input type="text" name="height" size="5" />
+                    <input type="text" name="width" size="5" value="50" /> x 
+                    <input type="text" name="height" size="5" value="50" />
                 </p>
                 <p>
                     Resizing strategy:<br />

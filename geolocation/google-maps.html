@@ -4,10 +4,9 @@
     <title>Map</title>
     <meta name="viewport" content="user-scalable=yes, width=device-width" />
     <link rel="stylesheet" href="../style.css" type="text/css" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script>
-    $(function() {
+    window.onload = function() {
         var latlng = new google.maps.LatLng(57.8, 14.2);
         var myOptions = {
             zoom: 11,
@@ -26,7 +25,7 @@
             position: new google.maps.LatLng(57.7874, 14.2323),
             title: "HV71 hockey team home arena"
         });
-    });
+    };
     </script>
 </head>
 <body>

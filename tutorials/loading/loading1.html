@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Events example</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <style>
+        body {
+            margin: 0px;
+            background-color: #000;
+            font-family: sans-serif;
+        }
+        div#showtime {
+            background-color: #339;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+    <script>
+        var showtime = document.getElementById("showtime");
+        showtime.innerHTML = new Date();
+    </script>
+</head>
+<body>
+    <div id="showtime">The time should be shown here</div>
+</body>
+</html>
+

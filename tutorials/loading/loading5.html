@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Events example</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <script src="formatdatetime.js"></script>
+    <script src="mylibrary.js"></script>
+    <style>
+        body {
+            margin: 0px;
+            background-color: #000;
+            font-family: sans-serif;
+        }
+        .show {
+            -moz-transition: background-color 2s;
+            -webkit-transition: background-color 2s;
+            -o-transition: background-color 2s;
+            -ms-transition: background-color 2s;
+            transition: background-color 2s;
+            background-color: #eee;
+        }
+        div#showtime {
+            background-color: #339;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+    <script>
+        function onstart() {
+            document.body.className = "show";
+        }
+    </script>
+</head>
+<body>
+    <div id="showtime">The time should be shown here</div>
+</body>
+</html>
+

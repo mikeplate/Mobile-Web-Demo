@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Events example</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <style>
+        body {
+            margin: 0px;
+            background-color: #000;
+            color: #fff;
+            font-family: sans-serif;
+            max-width: 600px;
+        }
+        body>div {
+            width: 100%;
+            overflow: hidden;
+        }
+        div#container {
+            width: 300%;
+            -moz-transition: -moz-transform 2s;
+            -webkit-transition: -webkit-transform 2s;
+            -o-transition: -o-transform 2s;
+        }
+        div#titles {
+            width: 300%;
+            -moz-transition: -moz-transform 2s;
+            -webkit-transition: -webkit-transform 2s;
+            -o-transition: -o-transform 2s;
+        }
+        
+        .box {
+            float: left;
+            width: 33.3333%;
+        }
+        h1 {
+            margin: 0px;
+            padding: 10px;
+            font-size: 20px;
+            color: #e0e0e0;
+            text-align: center;
+        }
+        img {
+            width: 100%;
+            display: block;
+        }
+    </style>
+    <script>
+        var pic = 0;
+
+        function setTransform(elementId, transform) {
+            var element = document.getElementById(elementId);
+            element.style.MozTransform = transform;
+            element.style.WebkitTransform = transform;
+            element.style.OTransform = transform;
+        }
+
+        function slide(ev) {
+            pic++;
+            if (pic>2)
+                pic = 0;
+            
+            var transform = "translateX(" + (pic*-33.3333)+ "%)";
+            setTransform("container", transform);
+            setTransform("titles", transform);
+
+            ev.preventDefault();
+        }
+
+        window.ontouchstart = slide;
+        window.onmousedown = slide;
+    </script>
+</head>
+<body>
+    <div>
+        <div id="titles">
+            <div class="box">
+                <h1>Berlin Alexanderplatz</h1>
+            </div>
+            <div class="box">
+                <h1>Summer in Berlin</h1>
+            </div>
+            <div class="box">
+                <h1>Checkpoint Charlie</h1>
+            </div>
+        </div>
+        <div id="container">
+            <div class="box">
+                <img src="/images/alexanderplatz.jpg" />
+            </div>
+            <div class="box">
+                <img src="/images/spree.jpg" />
+            </div>
+            <div class="box">
+                <img src="/images/checkpoint_charlie.jpg" />
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
