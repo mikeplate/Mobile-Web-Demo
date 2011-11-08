@@ -112,4 +112,6 @@ h6 a:hover {
 h6 a:visited {
     color: #666;
 }
-
+body>p {
+    padding: 5px 15px;
+}

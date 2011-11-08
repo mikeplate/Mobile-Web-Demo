@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Bouncing balls</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <style>
+        body {
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        var balls = [];
+
+        function updateBoard() {
+            var canvas = document.getElementById("board");
+            var context = canvas.getContext("2d");
+            context.fillStyle = "#303030";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (var i = 0; i<balls.length; i++) {
+                var ball = balls[i];
+
+                context.fillStyle = ball.color;
+                context.beginPath();
+                context.arc(ball.x, ball.y, ball.size, 0, 2*Math.PI, false);
+                context.closePath();
+                context.fill();
+
+                ball.x += ball.xspeed;
+                if ((ball.x+ball.size)>=canvas.width) {
+                    ball.xspeed = -ball.xspeed;
+                    ball.x += ball.xspeed;
+                }
+                else if ((ball.x-ball.size)<=0) {
+                    ball.xspeed = -ball.xspeed;
+                    ball.x += ball.xspeed;
+                }
+                ball.y += ball.yspeed;
+                if ((ball.y+ball.size)>=canvas.height) {
+                    ball.yspeed = -ball.yspeed;
+                    ball.y += ball.yspeed;
+                }
+                else if ((ball.y-ball.size)<=0) {
+                    ball.yspeed = -ball.yspeed;
+                    ball.y += ball.yspeed;
+                }
+            }
+        }
+
+        function rndColor() { return Math.floor(Math.random()*128 + 127); };
+
+        window.onload = function() {
+            var canvas = document.getElementById("board");
+            canvas.width = window.innerWidth || document.documentElement.clientWidth;
+            canvas.height = 200;
+
+            var ballCount = 40;
+            for (var i = 0; i<ballCount; i++) {
+                balls.push({
+                    x: i*(canvas.width/ballCount) + (canvas.width/ballCount/2),
+                    y: (canvas.height/2),
+                    xspeed: Math.random()*10-5,
+                    yspeed: Math.random()*10-5,
+                    size: Math.random()*10+10,
+                    color: "rgb(" + rndColor() + ", " + rndColor() + ", " + rndColor() + ")"
+                });
+            }
+
+            window.setInterval(updateBoard, 50);
+        };
+    </script>
+</head>
+<body>
+    <h1>Bouncing balls <a href="index.html">Back</a></h1>
+    <canvas id="board"></canvas>
+</body>
+</html>

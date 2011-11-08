@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Bouncing balls</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <style>
+        body {
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        var xpos, ypos;
+        var xspeed = 6, yspeed = 3;
+        var size = 20;
+
+        function updateBoard() {
+            var canvas = document.getElementById("board");
+            var context = canvas.getContext("2d");
+            context.fillStyle = "#303030";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            context.fillStyle = "#A0A080";
+            context.beginPath();
+            context.arc(xpos, ypos, size, 0, 2*Math.PI, false);
+            context.closePath();
+            context.fill();
+
+            xpos += xspeed;
+            if ((xpos+size)>=canvas.width) {
+                xspeed = -xspeed;
+                xpos += xspeed;
+            }
+            else if ((xpos-size)<=0) {
+                xspeed = -xspeed;
+                xpos += xspeed;
+            }
+            ypos += yspeed;
+            if ((ypos+size)>=canvas.height) {
+                yspeed = -yspeed;
+                ypos += yspeed;
+            }
+            else if ((ypos-size)<=0) {
+                yspeed = -yspeed;
+                ypos += yspeed;
+            }
+        }
+
+        window.onload = function() {
+            var canvas = document.getElementById("board");
+            canvas.width = window.innerWidth || document.documentElement.clientWidth;
+            canvas.height = 200;
+
+            xpos = (canvas.width-size)/2;
+            ypos = (canvas.height-size)/2;
+            window.setInterval(updateBoard, 50);
+        };
+    </script>
+</head>
+<body>
+    <h1>Bouncing balls <a href="index.html">Back</a></h1>
+    <canvas id="board"></canvas>
+</body>
+</html>
