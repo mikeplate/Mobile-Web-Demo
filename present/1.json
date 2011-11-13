@@ -127,6 +127,13 @@
                 ["Semantic elements", "header, footer, nav, article, section, aside", "mark, time, progress, meter, detail, summary"],
                 ["Form elements", "Input of new types", "email, number, tel, date, range"]
             ]
+        },
+        {
+            "title": "Links",
+            "bullets": [
+                ["Examples from Mobile App Lab", "http://mobileapplab.se/detect/useragents.php", "http://mobileapplab.se/detect/diff-content.php", "http://mobileapplab.se/viewports/width.html"],
+                ["More information", "http://detectmobilebrowsers.com/", "http://wurfl.sourceforge.net/", "http://developer.apple.com/library/IOs/#documentation/AppleApplications/Reference/SafariWebContent/UsingtheViewport/UsingtheViewport.html", "http://developer.apple.com/library/safari/#documentation/appleapplications/reference/SafariHTMLRef/Articles/MetaTags.html"]
+            ]
         }
     ]
 }

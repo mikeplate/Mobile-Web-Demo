@@ -138,6 +138,13 @@
                 ["Properties", "min- and max- prefixes", "width, height, orientation, aspect-ratio, resolution", "screen, print"],
                 ["Usage", "@media (max-width: 600px) { }"]
             ]
+        },
+        {
+            "title": "Links",
+            "bullets": [
+                ["Examples from Mobile App Lab", "http://mobileapplab.se/styling/border-radius.html", "http://mobileapplab.se/styling/shadows.html", "http://mobileapplab.se/styling/gradients.html", "http://mobileapplab.se/media/image-inline.html", "http://mobileapplab.se/media/image-sprites.html"],
+                ["More information", "http://webdesignerwall.com/tutorials/css3-media-queries"]
+            ]
         }
     ]
 }
