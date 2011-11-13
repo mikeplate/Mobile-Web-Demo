@@ -9,32 +9,25 @@
         height: 100%;
         overflow: hidden;
     }
+    body {
+        display: -moz-box;
+        -moz-box-orient: vertical;
+        width: 100%;
+    }
     .top {
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        right: 0px;
-        height: 40px;
         background-color: #303030;
         color: #fff;
+        height: 40px;
     }
     .content {
-        position: absolute;
-        left: 0px;
-        top: 40px;
-        right: 0px;
-        bottom: 80px;
-        padding: 10px;
+        -moz-box-flex: 1;
+        height: 80%;
         overflow: auto;
     }
     .bottom {
-        position: absolute;
-        left: 0px;
-        right: 0px;
-        bottom: 0px;
-        height: 80px;
         background-color: #eea;
         border-top: 1px solid #000;
+        height: 80px;
     }
     h1 {
         font-size: 16pt;

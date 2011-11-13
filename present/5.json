@@ -22,6 +22,9 @@
         {
             "title": "Offline manifest",
             "bullets": [
+                ["Turn on in html element", "<html manifest=\"offline.manifest\">"],
+                ["Create text file offline.manifest", "Web server must send file as mime type text/cache-manifest"],
+                ["Content", "CACHE MANIFEST\nindex.html\nstyle.css\nlib/helper.js\nhttp://site.com/somelib.js"]
             ]
         },
         {
@@ -29,12 +32,17 @@
             "bullets": [
                 ["JavaScript variables", "Are not persistant in any way. Any browser reload will reset/empty the value."],
                 ["Cookies", "Always sent by client/browser to server", "Usually set by server in a response", "Can also be set on the client side with JavaScript", "Limited as per HTTP protocol"],
-                ["HTML5 Local Storage", "Ability to store string values by name in the browser", "Never sent to the server", "Asks for permissions before storing on desktop"]
+                ["HTML5 Local Storage", "Ability to store string values by name in the browser", "Never sent to the server", "Asks for permissions before storing on desktop"],
+                ["Web SQL Database", "Not widely supported. Not included here."]
             ]
         },
         {
             "title": "HTML5 Local Storage API",
             "bullets": [
+                ["Available in window object", "if (\"localStorage\" in window) { }"],
+                ["Store a string", "window.localStorage.setItem(\"name\", \"Mike\");"],
+                ["Read a string", "var data = window.localStorage.getItem(\"name\");"],
+                ["Non-existant values will be null", "if (data!=null) { alert(\"Yes, we have data!\"); }"]
             ]
         },
         {
@@ -63,26 +71,46 @@
             ]
         },
         {
-            "title": "HTML5 Web Database API",
-            "bullets": [
-                
-            ]
-        },
-        {
             "title": "Ajax",
             "bullets": [
-                
+                ["Asynchronous JavaScript And Xml", "However, nowadays JSON is more common than Xml", "Use JavaScript to get data from server without reloading the whole page", "Asynchronous means that browser will be responsive while waiting for reply"],
+                ["Browser differences exists", "Will therefore only use jQuery to hide that difficulty"],
+                ["Use cases", "Fetch structured data", "Fetch html and insert/replace in page", "Send forms and inputed data to server"]
             ]
         },
         {
             "title": "Network requests with jQuery",
             "bullets": [
-                
+                ["Usage", "There are more functions but they are only shortcuts to the generic one", "$.ajax({ });", "Single argument is a collection of name/value pairs for the request and response"],
+                ["Specify", "url: \"moredata.php\"", "dataType: \"json\"", "success: functionWhenOk", "error: functionWhenError"]
+            ]
+        },
+        {
+            "title": "When the request has finished",
+            "bullets": [
+                ["Success function", "functionWhenOk(data) { }", "data will be a JavaScript object when JSON is returned"],
+                ["Error function", "functionWhenError(xhr, status, err) { }", "xhr is the XMLHTTPRequest object", "status is a string with error category", "err is object with possibly more info"]
+            ]
+        },
+        {
+            "title": "JSONP for cross-domain requests",
+            "bullets": [
+                ["A web page can't request data from other domains for security reasons",
+                    "It can, however, include a <script> tag reference to any domain",
+                    "The JavaScript from the other domain is executed in the context of the current page",
+                    "Thereby, data can be set or functions be called",
+                    "Requires the cooperation of the other domain/site, must support JSONP"],
+                ["Usage", "Works by specifying a function in the url to be called with the data",
+                    "jQuery handles this automatically",
+                    "Just add callback= parameter to url and jQuery will figure it out"]
             ]
         },
         {
             "title": "Data storage on the server",
             "bullets": [
+                ["Most web applications will want to store data on the server too", "Local storage is of course not very permanent or \"safe\""],
+                ["Authentication", "Will probably mean that the app must authenticate", "Ask for username and password", "Since JavaScript is available to the world, no other technique can hide the data access", "Use SSL for any important data"],
+                ["Possiblities", "Posted forms - tradional way with reloading whole page", "Send data using Ajax call"]
             ]
         }
     ]

@@ -20,29 +20,35 @@
             "title": "Philosophy",
             "bullets": [
                 "Uses data- attributes on html elements to signify a specific user interface feature",
-                "Adds and/or modifies the elements you have in your web page"
+                "Adds and/or modifies the elements you have in your web page",
+                ["Positive", "Can very fast get a descent user interface", "Premade components for forms/presentation"],
+                ["Negative", "Can be harder to style exactly like you want", "May need to debug the css to find out how to change styles"]
             ]
         },
         {
             "title": "The page",
             "bullets": [
-                
+                ["jQuery has added its own concept of a \"page\"", "One single html file can contain many pages", "Will use Ajax even when loading a different html file into the current page"],
+                ["Usage", "Define every page containing element as having the data-role \"page\"", "<div data-role=\"page\">", "A page can then contain header, content and footer", "<div data-role=\"header\">", "<div data-role=\"content\">", "<div data-role=\"footer\">"]
             ]
         },
         {
             "title": "Multiple pages and links between them",
             "bullets": [
+                ["jQuery will handle switching between pages", "Can use animation for page switches", "Uses Ajax as default for internal links to other files too"],
+                ["Usage", "Give every page an id", "<div data-role=\"page\" id=\"moreinfo\">", "Create link with hash and id", "<a href=\"#moreinfo\">", "Turn off jQuery handling with rel", "<a href=\"otherpage.html\" rel=\"external\">"]
                 
             ]
         },
         {
             "title": "Themes",
             "bullets": [
-                
+                ["jQuery Mobile introduces themes for changing the style of all elements", "Just another css file, but by defining the class names for the styles, other parties can also create themes for your content"],
+                ["Usage", "Specify the data-theme attribute for the page or an individual element", "<div data-role=\"page\" data-theme=\"d\">", "A few built-in themes available as a, b, c, d, e"]
             ]
         },
         {
-            "title": "Dialogs",
+            "title": "Forms",
             "bullets": [
             ]
         },
@@ -64,6 +70,7 @@
         {
             "title": "Integrating with other sites and services",
             "bullets": [
+                ["Authentication on your own site", "Unique url (like only having a password)", "Username and password"]
             ]
         },
         {
