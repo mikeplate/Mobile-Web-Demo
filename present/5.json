@@ -12,11 +12,26 @@
             ]
         },
         {
+            "title": "Recap and app building blocks",
+            "bullets": [
+                ["All application buildning requires a foundation", 
+                    "A language in which to write instructions - JavaScript",
+                    "A library with pre-defined features - HTML5 APIs and JavaScript libraries"],
+                ["And three building blocks", 
+                    "Model - the data (this chapter)",
+                    "View - the presentation (html, css)",
+                    "Controller - events and event handlers"],
+                ["The MVC model",
+                    "Isolating the building blocks from each other means more maintainable code"]
+            ]
+        },
+        {
             "title": "Offline capabilities",
             "bullets": [
                 "As a default, mobile web apps require a network connection",
                 ["HTML5 introduces offline capabilities", "Specify what files should be kept and used if no network", "Will load web app from internet address even without network"],
-                ["Easy to configure", "The difficult part has more to do with data synchronization issues, assuming the web app stores/changes data that needs to be stored on server"]
+                ["Easy to configure", "The difficult part has more to do with data synchronization issues, assuming the web app stores/changes data that needs to be stored on server"],
+                ["Limitation", "Not defined in the standard", "Don't expect more than 5 MB per site for mobile"]
             ]
         },
         {
@@ -31,9 +46,24 @@
             "title": "Data storage in the browser",
             "bullets": [
                 ["JavaScript variables", "Are not persistant in any way. Any browser reload will reset/empty the value."],
-                ["Cookies", "Always sent by client/browser to server", "Usually set by server in a response", "Can also be set on the client side with JavaScript", "Limited as per HTTP protocol"],
-                ["HTML5 Local Storage", "Ability to store string values by name in the browser", "Never sent to the server", "Asks for permissions before storing on desktop"],
-                ["Web SQL Database", "Not widely supported. Not included here."]
+                ["Cookies", "Usually set by server in a response", "Always sent back by browser to server", "Can also be set on the client side with JavaScript", "Limited to 4 kB per cookie and 20 per site (recommended)"],
+                ["HTML5 Web Storage (also known as Local Storage)", "Ability to store string values by name in the browser", "Never sent to the server", "Asks for permissions before storing on desktop"],
+                ["Web SQL Database", "Supported on Android+iOS but dropped as specification by W3C. Not in course."]
+            ]
+        },
+        {
+            "title": "HTML5 Local Storage",
+            "bullets": [
+                ["Limitation", 
+                    "Not defined in the standard",
+                    "Don't expect more than 5 MB per site for mobile",
+                    "Offline cache and local storage is the same bucket",
+                    "Note that utf-8 is stored as unicode, meaning half amount in character count", 
+                    "High probability to store more with user message allowing to increase in steps of 5 MB"],
+                ["Stored data is always a string",
+                    "Means that all other data objects need to be converted to a string",
+                    "Simple values can easily be converted with .toString() in JavaScript",
+                    "Solution for more complex objects is JSON"]
             ]
         },
         {
@@ -58,7 +88,11 @@
             "title": "JSON format",
             "bullets": [
                 ["Values", "4, 3.1415, \"John\", true, null"],
-                ["Objects", "Has properties with values", "Property has a name which is always a string", "{ \"name\": \"John\", \"age\": 25 }"],
+                ["Objects", 
+                    "Has properties with values",
+                    "Property has a name which is always a string",
+                    "For JSON, name must be within quotes (optional for JavaScript)",
+                    "{ \"name\": \"John\", \"age\": 25 }"],
                 ["Arrays", "[ \"John\", 25 ]", "[ { \"name\": \"John\", \"age\": 25 }, { \"name\": \"Alice\", \"age\": 33 } ]"]
             ]
         },
@@ -66,8 +100,27 @@
             "title": "JSON in JavaScript code",
             "bullets": [
                 ["JavaScript objects", "var obj = [4, { title: \"School\" }];", "var thetitle = obj[1].title;"],
-                ["Convert from string to JavaScript objects", "var obj = eval(\"[4, { \"title\": \"School\" }]\");"],
-                ["Convert from JavaScript objects to string", "Not built in until ECMAScript 5 standard", "var str = JSON.stringify(obj);", "Needs JavaScript library for older browsers (same syntax)", "https://github.com/douglascrockford/JSON-js"]
+                ["Convert from string to JavaScript objects", 
+                    "Old way using eval(\"{ }\") function",
+                    "New way from ECMAScript 5",
+                    "var obj = JSON.parse(\"{ }\");"],
+                ["Convert from JavaScript objects to string", 
+                    "Only in ECMAScript 5, but good browser support", 
+                    "var str = JSON.stringify(obj);", 
+                    "Library for older browsers https://github.com/douglascrockford/JSON-js"]
+            ]
+        },
+        {
+            "title": "JSON in separate file",
+            "bullets": [
+                ["Reasons",
+                    "Don't want to clutter JavaScript code with a lot of data",
+                    "JSON data is delivered from other source (database) using server side scripting",
+                    "Separation of data (JSON) and the controlling JavaScript code"],
+                ["Script includes",
+                    "<script src=\"big-data-file.json\"></script>",
+                    "Wrap the data with a named variable",
+                    "var bigData = [\n { muchInfo: 123456789 },\n { ... }\n];"]
             ]
         },
         {
@@ -89,7 +142,22 @@
             "title": "When the request has finished",
             "bullets": [
                 ["Success function", "functionWhenOk(data) { }", "data will be a JavaScript object when JSON is returned"],
-                ["Error function", "functionWhenError(xhr, status, err) { }", "xhr is the XMLHTTPRequest object", "status is a string with error category", "err is object with possibly more info"]
+                ["Error function", "functionWhenError(xhr, status, err) { }", "xhr is the XMLHTTPRequest object", "status is a string with error category", "err is string with http status text if status==\"error\""]
+            ]
+        },
+        {
+            "title": "Network requests in the browser",
+            "bullets": [
+                "All cookies are sent as usual to the server",
+                "Typically to the same site/domain as the html page was delivered from",
+                ["Cross-domain requests",
+                    "Blocked by browser",
+                    "Security risk for sensitive data",
+                    "Could for instance return your Facebook private data if currently logged in to Facebook while visiting spying site"],
+                ["Allowed circumstances",
+                    "Other site determines that data is NOT sensitive",
+                    "Other site supports JSONP",
+                    "Other site sends http header Access-Control-Allow-Origin: *"]
             ]
         },
         {
@@ -103,14 +171,6 @@
                 ["Usage", "Works by specifying a function in the url to be called with the data",
                     "jQuery handles this automatically",
                     "Just add callback= parameter to url and jQuery will figure it out"]
-            ]
-        },
-        {
-            "title": "Data storage on the server",
-            "bullets": [
-                ["Most web applications will want to store data on the server too", "Local storage is of course not very permanent or \"safe\""],
-                ["Authentication", "Will probably mean that the app must authenticate", "Ask for username and password", "Since JavaScript is available to the world, no other technique can hide the data access", "Use SSL for any important data"],
-                ["Possiblities", "Posted forms - tradional way with reloading whole page", "Send data using Ajax call"]
             ]
         }
     ]

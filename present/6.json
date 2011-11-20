@@ -13,7 +13,11 @@
             "title": "jQuery Mobile",
             "bullets": [
                 ["User Interface Framework", "Focused on helping you build a consistant user interface", "Premade visual styles and components", "Customizable"],
-                "Built on (requires) jQuery"
+                ["jQuery Mobile 1.0",
+                    "Requires jQuery 1.6.4 or newer",
+                    "Released 2011-11-16, so very new!",
+                    "http://jquerymobile.com/"],
+                ["Alternatives", "Dojo Mobile http://dojotoolkit.org/features/mobile", "Sencha Touch http://www.sencha.com/products/touch/"]
             ]
         },
         {
@@ -21,8 +25,8 @@
             "bullets": [
                 "Uses data- attributes on html elements to signify a specific user interface feature",
                 "Adds and/or modifies the elements you have in your web page",
-                ["Positive", "Can very fast get a descent user interface", "Premade components for forms/presentation"],
-                ["Negative", "Can be harder to style exactly like you want", "May need to debug the css to find out how to change styles"]
+                ["Positive", "Get a descent user interface with minimal effort", "Pre-made components for forms/presentation"],
+                ["Negative", "Harder to style exactly like you want", "May need to debug the css to find out how to change styles", "Might be a bit heavy for older phones"]
             ]
         },
         {
@@ -45,6 +49,15 @@
             "bullets": [
                 ["jQuery Mobile introduces themes for changing the style of all elements", "Just another css file, but by defining the class names for the styles, other parties can also create themes for your content"],
                 ["Usage", "Specify the data-theme attribute for the page or an individual element", "<div data-role=\"page\" data-theme=\"d\">", "A few built-in themes available as a, b, c, d, e"]
+            ]
+        },
+        {
+            "title": "Events",
+            "bullets": [
+                ["More complicated handling of the document load event",
+                    ""],
+                ["Page events",
+                    ""]
             ]
         },
         {

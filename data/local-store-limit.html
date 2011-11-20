@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Local Storage Limit Tester</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <style>
+    </style>
+    <script type="text/javascript">
+        var dummyData = "0123456789";
+        for (var i = 0; i<14; i++) {
+            dummyData += dummyData;
+        }
+        var timerId = 0;
+
+        window.onload = function() {
+            updateView();
+        }
+
+        function updateView() {
+            var storedData = window.localStorage.getItem("big");
+            var countElement = document.getElementById("count");
+            if (storedData!=null) {
+                countElement.innerHTML = storedData.length + " characters stored";
+            }
+            else {
+                countElement.innerHTML = "No local storage used";
+            }
+        }
+
+        function startTest() {
+            var stat = document.getElementById("status");
+            stat.innerHTML = "Adding chunks of " + dummyData.length + " data...";
+            timerId = window.setInterval(incrementData, 100);
+        }
+
+        function incrementData() {
+            var data = window.localStorage.getItem("big");
+            if (data==null)
+                data = "";
+
+            try {
+                window.localStorage.setItem("big", data + dummyData);
+            }
+            catch (err) {
+                var stat = document.getElementById("status");
+                stat.innerHTML = "Browser has thrown the error \"" + err.message + "\". Stopped.";
+                window.localStorage.setItem("big", data);
+                window.clearInterval(timerId);
+            }
+            updateView();
+        }
+
+        function clearData() {
+            var stat = document.getElementById("status");
+            stat.innerHTML = "Waiting for you to start test";
+            window.clearInterval(timerId);
+            window.localStorage.setItem("big", "");
+            updateView();
+        }
+    </script>
+</head>
+<body>
+	<h1>Local Storage Limit Tester <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>Stored Item Count</dt>
+		<dd id="count"></dd>
+		<dt>Status</dt>
+		<dd id="status">Waiting for you to start test</dd>
+		<dt>Limit Tester</dt>
+		<dd>
+            <p><a href="javascript:startTest();">Start Test</a> (watch out, browser may become unresponsive at times or even crash)</p>
+            <p><a href="javascript:clearData();">Clear Data</a></p>
+		</dd>
+	</dl>
+</body>
+</html>
