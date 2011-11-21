@@ -1,135 +1,129 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE html>
 <html>
 <head>
-<title>Data</title>
-<meta name="viewport" content="user-scalable=yes, width=device-width" />
-<link rel="stylesheet" href="../style.css" type="text/css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-<script src="../lib/jquery.json-2.2.min.js"></script>
-<script src="../lib/jquery.tmpl.min.js"></script>
-<style>
-table#template {
-	display: none;
-}
-table {
-	border-collapse: collapse;
-	margin-bottom: 10px;
-}
-th {
-	text-align: left;
-	padding: 3px;
-	background-color: #DDD;
-}
-td {
-	padding: 3px;
-}
-tr {
-	
-}
-tbody:nth-child(odd) tr {
-	background-color: #DDD;
-}
-</style>
-<script type="text/javascript">
-$(window).ready(function() {
-	// Tell jQuery about our template
-	$.template("data-template", $("#template"));
-	
-	// Ensure that local storage is available
-	if (typeof(window.localStorage)!="undefined") {
-		// Demonstrate a single value and that it retains its value between reloads and revisits
-		var value = window.localStorage.getItem("value");
-		if (value==null)
-			value = "Word";
-		else
-			value += ", Word";
-		window.localStorage.setItem("value", value);
-		$("#test").text(value);
-		
-		// Demonstrate that you can store even more data, an from the beginning unknown number of objects
-		var count = window.localStorage.getItem("storage-count");
-		if (count!=null) {
-			count = parseInt(count);
-			
-			// Go through all stored objects with a loop
-			for (var i = 0; i < count; i++) {
-				// Retrieve the data in string format and then convert it into a JavaScript object
-				var data = $.evalJSON(window.localStorage.getItem("item-" + i));
-				
-				// Use jQuery template plugin to format the output
-				$.tmpl("data-template", data).appendTo("#output");
-			}
-		}
-		
-		$("#date").val(FormatDate(new Date()));
-	}
-	else {
-		$("#output").text("No local key store available");
-		$("#add,#delete").fadeOut();
-	}
-});
+    <title>Local storage</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <style>
+    table {
+        border-collapse: collapse;
+        margin-bottom: 10px;
+    }
+    th {
+        text-align: left;
+        padding: 3px;
+        background-color: #DDD;
+    }
+    td {
+        padding: 3px;
+    }
+    tr {
+        
+    }
+    tr:nth-child(odd) {
+        background-color: #DDD;
+    }
+    </style>
+    <script type="text/javascript">
+    $(function() {
+        // Ensure that local storage is available
+        if ("localStorage" in window) {
+            // Demonstrate a single value and that it retains its value between reloads and revisits
+            var value = window.localStorage.getItem("value");
+            if (value==null)
+                value = "Word";
+            else
+                value += ", Word";
+            window.localStorage.setItem("value", value);
+            $("#test").text(value);
+            
+            // Demonstrate that you can store even more data, an from the beginning unknown number of objects
+            var count = window.localStorage.getItem("storage-count");
+            if (count!=null) {
+                count = parseInt(count);
+                
+                // Go through all stored objects with a loop
+                for (var i = 0; i < count; i++) {
+                    // Retrieve the data in string format and then convert it into a JavaScript object
+                    var data = JSON.parse(window.localStorage.getItem("item-" + i));
+                    
+                    // Use jQuery template plugin to format the output
+                    var html = "<tr><td>" + data.date + "</td><td>" + data.text + "</td><td>" + data.prio + "</td></tr>";
+                    $(html).appendTo("#output");
+                }
+            }
+            
+            $("#date").val(FormatDate(new Date()));
+        }
+        else {
+            $("#output").text("No local key store available");
+            $("#add,#delete").fadeOut();
+        }
+    });
 
-// JavaScript does not have any good formatting function for dates, so make our own
-function FormatDate(date) {
-	var year = date.getFullYear();
-	var month = date.getMonth()+1;
-	var day = date.getDate();
-	
-	// Always format in YYYY-MM-DD
-	return year + "-" + (month<10 ? "0":"") + month + "-" + (day<10 ? "0":"") + day;
-}
+    // JavaScript does not have any good formatting function for dates, so make our own
+    function FormatDate(date) {
+        var year = date.getFullYear();
+        var month = date.getMonth()+1;
+        var day = date.getDate();
+        
+        // Always format in YYYY-MM-DD
+        return year + "-" + (month<10 ? "0":"") + month + "-" + (day<10 ? "0":"") + day;
+    }
 
-function AddData() {
-	// Build a single object with properties from the input fields
-	var data = {
-		date: $("#date").val(),
-		text: $("#text").val(),
-		prio: $("#prio").val()
-	};
-	
-	// Output the data inside the template to show it immediately
-	$("#template").tmpl(data).appendTo("#output");
-	
-	// Fetch current count of stored data objects
-	var count = window.localStorage.getItem("storage-count");
-	if (count==null)
-		count = 0;
-	else
-		count = parseInt(count);
-		
-	// Store new data object as JSON
-	window.localStorage.setItem("item-" + count, $.toJSON(data));
-	
-	// Increase and store the new count of objects
-	count++;
-	window.localStorage.setItem("storage-count", count);
-}
+    function AddData() {
+        // Build a single object with properties from the input fields
+        var data = {
+            date: $("#date").val(),
+            text: $("#text").val(),
+            prio: $("#prio").val()
+        };
+        
+        // Output the data inside the template to show it immediately
+        var html = "<tr><td>" + data.date + "</td><td>" + data.text + "</td><td>" + data.prio + "</td></tr>";
+        $(html).appendTo("#output");
+        
+        // Fetch current count of stored data objects
+        var count = window.localStorage.getItem("storage-count");
+        if (count==null)
+            count = 0;
+        else
+            count = parseInt(count);
+            
+        // Store new data object as JSON
+        window.localStorage.setItem("item-" + count, JSON.stringify(data));
+        
+        // Increase and store the new count of objects
+        count++;
+        window.localStorage.setItem("storage-count", count);
+    }
 
-function DeleteAll() {
-	// Show message and get confirmation before deleting everything
-	if (!confirm("Are you sure?"))
-		return;
-	
-	window.localStorage.removeItem("value");
-	
-	// Fetch current count of stored data objects
-	var count = window.localStorage.getItem("storage-count");
-	if (count!=null) {
-		count = parseInt(count);
-		
-		// Remove all data objects
-		for (var i = 0; i < count; i++) {
-			window.localStorage.removeItem("item-" + i);
-		}
-		
-		// Remove the count itself too
-		window.localStorage.removeItem("storage-count");
-	}
-	
-	// Take the easy approach and reload to get everything up to date
-	window.location.reload();
-}
-</script>
+    function DeleteAll() {
+        // Show message and get confirmation before deleting everything
+        if (!confirm("Are you sure?"))
+            return;
+        
+        window.localStorage.removeItem("value");
+        
+        // Fetch current count of stored data objects
+        var count = window.localStorage.getItem("storage-count");
+        if (count!=null) {
+            count = parseInt(count);
+            
+            // Remove all data objects
+            for (var i = 0; i < count; i++) {
+                window.localStorage.removeItem("item-" + i);
+            }
+            
+            // Remove the count itself too
+            window.localStorage.removeItem("storage-count");
+        }
+        
+        // Take the easy approach and reload to get everything up to date
+        window.location.reload();
+    }
+    </script>
 </head>
 <body>
 	<h1>Local key store <a href="index.html">Back</a></h1>
@@ -149,12 +143,5 @@ function DeleteAll() {
 			<p><input type="button" id="delete" onclick="DeleteAll();" value="Delete All Data" /></p>
 		</dd>
 	</dl>
-	<table id="template">
-		<tr>
-			<td>${date}</td>
-			<td>${text}</td>
-			<td>${prio}</td>
-		</tr>
-	</table>
 </body>
 </html>

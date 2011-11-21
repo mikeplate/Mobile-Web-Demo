@@ -1,89 +1,125 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE html>
 <html>
 <head>
-<title>Fetch from other site</title>
-<meta name="viewport" content="user-scalable=yes, width=device-width" />
-<link rel="stylesheet" href="../style.css" type="text/css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-<script src="../lib/jquery.tmpl.min.js"></script>
-<style>
-div.tweet {
-	padding: 5px;
-	margin-bottom: 5px;
-	border-bottom: solid 1px #CCC;
-}
-div.avatar {
-	width: 48px;
-	height: 48px;
-	float: left;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-	margin-right: 5px;
-	margin-bottom: 5px;
-}
-div.info {
-	line-height: 150%;
-	font-size: 11pt;
-}
-div.text {
-	clear: left;
-	font-size: 11pt;
-}
-</style>
-<script type="text/javascript">
-$(window).ready(function() {
-	// Tell jQuery about our template
-	$.template("data-template", $("#template"));
-	
-	// Fetch data from Twitter immediately
-	Update();
-});
+    <title>Fetch from other site</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <style>
+    div.tweet {
+        padding: 5px;
+        margin-bottom: 5px;
+        border-bottom: solid 1px #CCC;
+    }
+    div.avatar {
+        width: 48px;
+        height: 48px;
+        float: left;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+    div.info {
+        line-height: 150%;
+        font-size: 11pt;
+    }
+    div.text {
+        clear: left;
+        font-size: 11pt;
+    }
+    </style>
+    <script type="text/javascript">
+    // This function is executed when the document is completely loaded
+    $(function() {
+        // Fetch data from Twitter immediately
+        update();
+    });
 
-// JavaScript does not have any good formatting function for dates, so make our own
-function FormatDateTime(date) {
-	var year = date.getFullYear();
-	var month = date.getMonth()+1;
-	var day = date.getDate();
-	var hour = date.getHours();
-	var min = date.getMinutes();
-	
-	// Always format in YYYY-MM-DD
-	var str = year + "-" + (month<10 ? "0":"") + month + "-" + (day<10 ? "0":"") + day;
-	str += " " + (hour<10 ? "0":"") + hour + ":" + (min<10 ? "0":"") + min;
-	return str;
-}
+    // JavaScript does not have any good formatting function for dates, so make our own
+    // Assume Swedish date format YYYY-MM-DD is wanted
+    function formatDateTime(date) {
+        var year = date.getFullYear();
+        var month = date.getMonth()+1;
+        var day = date.getDate();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        
+        // Always format in YYYY-MM-DD
+        var str = year + "-" + (month<10 ? "0":"") + month + "-" + (day<10 ? "0":"") + day;
+        str += " " + (hour<10 ? "0":"") + hour + ":" + (min<10 ? "0":"") + min;
+        return str;
+    }
 
-function Update() {
-	$("#output").html("");
-	$("#update").val("Getting data. Please wait...")
-	$.getJSON("http://search.twitter.com/search.json?q=mobile+web&lang=en&callback=?", function(result) {
-		for (var i = 0; i < result.results.length; i++) {
-			var data = result.results[i];
-			
-			// Fix date so it looks a little better for us
-			var date = new Date(data.created_at);
-			data.display_date = FormatDateTime(date);
-			
-			// Render the data via the template
-			$.tmpl("data-template", data).appendTo("#output");
-		}
-		$("#update").val("Update from Twitter");
-	});
-}
-</script>
+    // This function will replace all occurences inside the html string with the property
+    // value of the corresponding property for the JavaScript object.
+    // If the property is named "name", you can put a placeholder for its value inside of
+    // the html by using "${name}".
+    function replaceHtmlPlaceholders(html, dataObject) {
+        for (var propName in dataObject) {
+            html = html.replace("${" + propName + "}", dataObject[propName]);
+        }
+        return html;
+    }
+
+    // This function will make an asynchronous request to the Twitter API, returning JSONP
+    // for a search of the words "mobile web".
+    function update() {
+        // Make sure the "output" container is empty before we start
+        $("#output").html("");
+
+        // Show a message about what is happening in the button
+        $("#update").val("Getting data. Please wait...");
+
+        // Do the ajax request to the Twitter API
+        $.ajax({
+            url: "http://search.twitter.com/search.json?q=mobile+web&lang=en&callback=?",
+            dataType: "json",
+
+            // This function will be called when twitter has responded and data is available
+            success: function(result) {
+                // Fetch the html for the template, which represents a single tweet from
+                // the response
+                var templateHtml = $("#template").html();
+                for (var i = 0; i < result.results.length; i++) {
+                    var data = result.results[i];
+
+                    // Create an extra property to get a better display of the date
+                    data.display_date = formatDateTime(new Date(data.created_at));
+                    
+                    // Render the data via the template
+                    var html = replaceHtmlPlaceholders(templateHtml, data);
+
+                    // Add the newly created html string as elements below the "output"
+                    // container
+                    $(html).appendTo("#output");
+                }
+                $("#update").val("Update from Twitter");
+            },
+
+            // This function will be called if an error occurs, while trying to fetch the
+            // data from Twitter
+            error: function(xhr, err, statusText) {
+                // Just display a generic error message for all types of errors
+                alert("Oops. There was an error!");
+            }
+        });
+    }
+    </script>
 </head>
 <body>
 	<h1>Fetch from other site <a href="index.html">Back</a></h1>
 	<dl>
 		<dt>Twitter</dt>
+		<dd>
+			<input type="button" id="update" onclick="update();" value="Update from Twitter" />
+		</dd>
+        <dt>Search results for "mobile web"</dt>
 		<dd id="output">
 		</dd>
-		<dd>
-			<input type="button" id="update" onclick="Update();" value="Update from Twitter" />
-		</dd>
 	</dl>
-	<script id="template" type="text/x-jquery-tmpl">
+	<script id="template" type="text/html">
 	<div class="tweet">
 		<div class="avatar" style="background: url(${profile_image_url}) no-repeat;">&nbsp;</div>
 		<div class="info">
