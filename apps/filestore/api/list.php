@@ -8,11 +8,10 @@ if (!isset($_SESSION['username'])) {
 
 $store = new FileStore('storage', false);
 $userstore = $store->open($_SESSION['username']);
-$userdata = $userstore->read('.user');
-unset($userdata['password']);
-unset($userdata['salt']);
+$list = $userstore->contents();
 
 header('Content-Type: application/json');
-echo json_encode($userdata);
+echo json_encode($list);
 ?>
+
 

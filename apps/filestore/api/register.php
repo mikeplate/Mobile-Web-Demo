@@ -19,15 +19,18 @@ if ($userstore->exists('.user')) {
     die();
 }
 
+$salt = sha1(rand());
 $userdata = Array(
     'username' => $username,
-    'password' => sha1($_POST['password']),
+    'password' => calcHash($salt . $username . $_POST['password']),
+	'salt' => $salt,
     'email' => isset($_POST['email']) ? $_POST['email'] : '',
     'created' => date('c')
 );
 $userstore->write('.user', $userdata);
 
+unset($userdata['password']);
+unset($userdata['salt']);
 header('Content-Type: application/json');
 echo json_encode($userdata);
 ?>
-

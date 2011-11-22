@@ -88,7 +88,7 @@ class tmhUtilities {
   function php_self($dropqs=true) {
     $url = sprintf('%s://%s%s',
       empty($_SERVER['HTTPS']) ? (@$_SERVER['SERVER_PORT'] == '443' ? 'https' : 'http') : 'http',
-      $_SERVER['SERVER_NAME'],
+      $_SERVER['HTTP_HOST'],
       $_SERVER['REQUEST_URI']
     );
 

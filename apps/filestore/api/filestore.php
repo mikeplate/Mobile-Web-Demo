@@ -1,6 +1,5 @@
 <?php
-ini_set('display_errors', 'on');
-
+// Use polyfill if we are running on an older PHP where JSON wasn't built in.
 if (!function_exists('json_encode')) {
     require_once('json.php');
 
@@ -15,10 +14,39 @@ if (!function_exists('json_encode')) {
     }
 }
 
+// Use our own hashing function so we can take advantage of SHA2 if PHP
+// version has it (as the hash function).
+if (!function_exists('hash')) {
+    function calcHash($str) {
+        return sha1($str);
+    }
+}
+else {
+    function calcHash($str) {
+        return hash('sha512', $str);
+    }
+}
+
+// Check if the name is valid to name a storage item.
 function isValidName($name) {
     return preg_match('/^[A-Za-z0-9_.-]+$/', $name) > 0;
 }
 
+// Helper to output JSON and optionally surround it with a function call.
+function outputJSON($data) {
+    if (isset($_GET['callback'])) {
+        header('Content-Type: application/javascript');
+        echo $_GET['callback'] . '(';
+    }
+    else {
+        header('Content-Type: application/json');
+    }
+    echo json_encode($data);
+    if (isset($_GET['callback']))
+        echo ');';
+}
+
+// The FileStore class handles directories and files of JSON data.
 class FileStore {
     private $basePath;
     private $baseName;
@@ -43,14 +71,14 @@ class FileStore {
     }
 
     public function contents() {
-        $dir = opendir($this->basePath);
-        $all = Array();
-        while ($file = readdir($dir)) {
-            if (is_file($file) && strpos($file, $baseName))
-                array_push($all, $file);
+        $all = glob($this->basePath . ($this->useSubDirs || $this->isRoot ? '/':'-') . '*');
+        $contents = Array();
+        foreach ($all as $file) {
+            $file = substr($file, strlen($this->basePath)+1);
+            if (strlen($file)>0 && $file[0]!='.' && $file[0]!='_')
+                array_push($contents, $file);
         }
-        closedir($dir);
-        return $all;
+        return $contents;
     }
     
     public function exists($name) {

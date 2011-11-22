@@ -17,15 +17,14 @@ if (!$userstore->exists('.user')) {
 }
 
 $userdata = $userstore->read('.user');
-if ($userdata['password'] != sha1($_POST['password'])) {
+if ($userdata['password'] != calcHash($userdata['salt'] . $username . $_POST['password'])) {
     header($_SERVER['SERVER_PROTOCOL'] . ' 401 Wrong username or password', true, 401);
     die();
 }
 
 $_SESSION['username'] = $username;
-$userdata['password'] = '*';
+unset($userdata['password']);
+unset($userdata['salt']);
 header('Content-Type: application/json');
 echo json_encode($userdata);
 ?>
-
-

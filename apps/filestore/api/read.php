@@ -14,8 +14,7 @@ $store = new FileStore('storage', false);
 $userstore = $store->open($_SESSION['username']);
 $userdata = $userstore->read($_GET['name']);
 
-header('Content-Type: application/json');
-echo json_encode($userdata);
+outputJSON($userdata);
 ?>
 
 

@@ -1,11 +1,9 @@
 <?php
 require_once('oauth/tmhOAuth.php');
 require_once('oauth/tmhUtilities.php');
+require_once('../../_priv/twitter-app-secret.php');
 session_start();
 header('Content-type: application/json');
-
-$app_key = 'UtMHvTNBDlABBxDKmPh5w';
-$app_secret = file_get_contents('../../_priv/twitter-app-secret.txt');
 
 $params = array(
     'oauth_callback' => tmhUtilities::php_self()
@@ -18,11 +16,13 @@ $oauth = new tmhOAuth(Array(
     'host' => 'api.twitter.com'
 ));
 
-if (isset($_GET['denied'])) {
-    $_SESSION['access_token'] = '';
-    header('Location: index.html');
-}
-elseif (!isset($_GET['oauth_verifier'])) {
+// This script will load under any of the following circumstances:
+// 1. A page is requesting the url to redirect to for starting the Twitter auth process.
+// 2. The user has approved access to our app in the Twitter confirmation page.
+// 3. The user has denied access to our app in the Twitter confirmation page.
+
+// 1. A page is requesting the url to redirect to for starting the Twitter auth process.
+if (!isset($_GET['oauth_verifier']) && !isset($_GET['denied'])) {
     $code = $oauth->request('POST', $oauth->url('oauth/request_token', ''), $params);
     if ($code != 200) {
         echo json_encode(Array('success' => false, 'error' => 'Error when retrieving request token from Twitter'));
@@ -36,7 +36,8 @@ elseif (!isset($_GET['oauth_verifier'])) {
     echo json_encode(Array('success' => true, 'url' => $authurl));
     die();
 }
-else {
+// 2. The user has approved access to our app in the Twitter confirmation page.
+else if (isset($_GET['oauth_verifier'])) {
     $oauth->config['user_token'] = $_SESSION['oauth']['oauth_token'];
     $oauth->config['user_secret'] = $_SESSION['oauth']['oauth_token_secret'];
 
@@ -48,8 +49,17 @@ else {
         die();
     }
 
-    $_SESSION['access_token'] = $oauth->extract_params($oauth->response['response']);
+    $_SESSION['twitter_access_token'] = $oauth->extract_params($oauth->response['response']);
     header('Location: index.html');
+}
+// 3. The user has denied access to our app in the Twitter confirmation page.
+else if (isset($_GET['denied'])) {
+    $_SESSION['twitter_access_token'] = '';
+    header('Location: index.html');
+}
+else {
+    header($_SERVER['SERVER_PROTOCOL'] . ' 400 Bad request', true, 400);
+    die();
 }
 ?>
 

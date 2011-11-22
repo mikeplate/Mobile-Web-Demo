@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Facebook Connect</title>
+        <meta name="viewport" content="width=device-width" />
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>Facebook Connect <abbr>v0.1</abbr></h1>
+        <div class="box form">
+            <input type="button" id="connect" value="Connect to Facebook" />
+        </div>
+        <div class="message">
+            <p id="message">
+                This web app demonstrates how to connect to a Facebook account and get access to the Facebook Graph API
+                from your own server scripts. Begin by clicking the Connect-button above and you'll be taken to
+                Facebook for login and confirmation of access to your Facebook account from this web app.
+            </p>
+        </div>
+        <div id="result" class="box list">
+        </div>
+
+        <script>
+        // Helper function to show a message
+        function showMessage(msg) {
+            $("#message").text(msg);
+        }
+
+        // Generic error handler for all operations that should go ok
+        function errorHandler(xhr, status, err) {
+            if (status=="error" && xhr.statusText && xhr.statusText!="OK")
+                alert("Error: " + xhr.statusText);
+            else
+                alert("An error occurred!");
+        }
+
+        // What will happen when the connect-button is clicked
+        $("#connect").click(function() {
+            $.ajax({
+                url: "facebook.php",
+                dataType: "json",
+                success: function(data) {
+                    window.location.href = data.url;
+                },
+                error: errorHandler
+            });
+            showMessage("Waiting to redirect to Facebook for authorization...");
+        });
+
+        // Fetch information about myself in order to see if we are already connected to Facebook
+        $.ajax({
+            url: "me.php",
+            dataType: "json",
+            success: function(data) {
+                show = "";
+                for (var prop in data) {
+                    show += "<div class=\"property\">" + prop + "</div>";
+                    show += "<div class=\"value\">" + data[prop] + "</div>";
+                }
+                $("#result").html(show);
+                showMessage("You have connected your Facebook account. The information for the account is shown below.");
+            },
+            error: function(xhr, status, err) {
+                if (xhr.status!=403) {
+                    errorHandler(xhr, status, err);
+                }
+            }
+        });
+        </script>
+    </body>
+</html>
+

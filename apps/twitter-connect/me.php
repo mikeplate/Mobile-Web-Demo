@@ -1,17 +1,15 @@
 <?php
 require_once('oauth/tmhOAuth.php');
 require_once('oauth/tmhUtilities.php');
+require_once('../../_priv/twitter-app-secret.php');
 session_start();
 header('Content-type: application/json');
-
-$app_key = 'UtMHvTNBDlABBxDKmPh5w';
-$app_secret = file_get_contents('../../_priv/twitter-app-secret.txt');
 
 $oauth = new tmhOAuth(Array(
   'consumer_key' => $app_key,
   'consumer_secret' => $app_secret,
-  'user_token' => $_SESSION['access_token']['oauth_token'],
-  'user_secret' => $_SESSION['access_token']['oauth_token_secret'],
+  'user_token' => $_SESSION['twitter_access_token']['oauth_token'],
+  'user_secret' => $_SESSION['twitter_access_token']['oauth_token_secret'],
   'host' => 'api.twitter.com'
 ));
 
