@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ubuntu One Connect</title>
+        <meta name="viewport" content="width=device-width" />
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>Ubuntu One Connect <abbr>v0.1</abbr></h1>
+        <div class="box form">
+            <label>Username</label>
+            <input type="text" id="Username" placeholder="Type your username at Ubuntu One" />
+            <label>Password</label>
+            <input type="password" id="Password" placeholder="Type your password at Ubuntu One" />
+            <input type="button" id="connect" value="Connect to Ubuntu One" />
+        </div>
+        <div class="message">
+            <p id="message">
+                This web app demonstrates how to connect to a Ubuntu One account and get access to Ubuntu One
+                from your own server scripts. Begin by filling out your username and password above and then
+                click the Connect-button.
+            </p>
+        </div>
+        <div id="result" class="box list">
+        </div>
+
+        <script>
+        // Helper function to show a message
+        function showMessage(msg) {
+            $("#message").text(msg);
+        }
+
+        // Generic error handler for all operations that should go ok
+        function errorHandler(xhr, status, err) {
+            if (status=="error" && xhr.statusText && xhr.statusText!="OK")
+                alert("Error: " + xhr.statusText);
+            else
+                alert("An error occurred!");
+        }
+
+        // Build html from the names and values of object properties
+        function getProperties(obj, namePrefix) {
+            var html = "";
+            namePrefix = namePrefix || '';
+            for (var prop in obj) {
+                var value = obj[prop];
+                if (typeof(value)=="object") {
+                    html += getProperties(value, namePrefix + prop + ".");
+                }
+                else {
+                    html += "<div class=\"property\">" + namePrefix + prop + "</div>";
+                    html += "<div class=\"value\">" + value + "</div>";
+                }
+            }
+            return html;
+        }
+
+        // What will happen when the connect-button is clicked
+        $("#connect").click(function() {
+            $.ajax({
+                url: "ubuntu-one.php",
+                dataType: "json",
+                type: "post",
+                data: {
+                    username: document.getElementById("Username").value,
+                    password: document.getElementById("Password").value
+                },
+                success: function(data) {
+                    updateMe();
+                    showMessage("You are new authorized at Ubuntu One.");
+                },
+                error: errorHandler
+            });
+            showMessage("Waiting for Ubuntu One authorization...");
+        });
+
+        // Fetch information about myself in order to see if we are already connected to Ubuntu One
+        function updateMe() {
+            $.ajax({
+                url: "me.php",
+                dataType: "json",
+                success: function(data) {
+                    $("#result").html(getProperties(data));
+                    showMessage("You have connected your Ubuntu One account. The information for the account is shown below.");
+                },
+                error: function(xhr, status, err) {
+                    if (xhr.status!=403) {
+                        errorHandler(xhr, status, err);
+                    }
+                }
+            });
+        }
+
+        updateMe();
+        </script>
+    </body>
+</html>
+
