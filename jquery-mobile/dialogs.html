@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery Mobile</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+    <style>
+        .ui-content h2 {
+            margin-top: 0px;
+            font-size: 20px;
+        }
+        .ui-content ul {
+            padding-top: 20px;
+        }
+        .ui-content p {
+            margin-top: 5px;
+        }
+    </style>
+    <script>
+        function calcDays() {
+            var today = new Date();
+            var future = new Date(document.getElementById("Date").value);
+            var days = Math.floor((future-today) / 1000 / 3600 / 24);
+            $("#msg").text("There are " + days + " days remaining until " + future);
+
+            $("#dialog").dialog("close");
+        }
+
+        function alert(msg, title) {
+            $("#alerttitle").text(title || "Alert");
+            $("#alertmsg").text(msg);
+            $.mobile.changePage($("#alert"));
+        }
+    </script>
+</head>
+<body>
+    <div data-role="page" id="start">
+        <div data-role="header"><h1>Showing off Dialogs and alerts</h1></div>
+        <div data-role="content">
+            <p id="msg"></p>
+            <ul data-role="listview">
+                <li><a href="#dialog" data-rel="dialog">Show a dialog</a></li>
+                <li><a href="javascript:alert('You just clicked me!');">Show an alert</a></li>
+                <li><a href="index.html" rel="external">Back to demo</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="page" id="dialog">
+        <div data-role="header">
+            <h1>Dialog</h1>
+        </div>
+        <div data-role="content">
+            <h2>Remaining days</h2>
+            <p>Specify the date that you wish to count the days to:</p>
+            <p><input type="text" id="Date" /></p>
+            <a href="javascript:calcDays();" data-role="button">Calculate</a>       
+            <a href="#" data-role="button" data-rel="back">Cancel</a>    
+        </div>
+    </div>
+    
+    <div data-role="dialog" id="alert">
+        <div data-role="header">
+            <h1 id="alerttitle">Alert</h1>
+        </div>
+        <div data-role="content">
+            <h2 id="alertmsg"></h2>
+            <a href="#" data-role="button" data-rel="back">OK</a>    
+        </div>
+    </div>
+</body>
+</html>
+
