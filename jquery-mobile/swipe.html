@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Swipe events</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+    <style>
+        .clip {
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+        }
+        .pan {
+            width: 400%;
+            -o-transition: -o-transform 2s;
+            -moz-transition: -moz-transform 2s;
+            -webkit-transition: -webkit-transform 2s;
+        }
+        .pan img {
+            display: block;
+            float: left;
+            width: 25%;
+        }
+    </style>
+    <script>
+        var position = 0;
+        
+        function next() {
+            position -= 25;
+            if (position <= -100)
+                position = 0;
+            update();
+        }
+
+        function prev() {
+            position += 25;
+            if (position > 0)
+                position = 0;
+            update();
+        }
+
+        function update() {
+            var pan = document.getElementById("pan");
+            pan.style.OTransform = "translateX(" + position + "%)";
+            pan.style.MozTransform = "translateX(" + position + "%)";
+            pan.style.WebkitTransform = "translateX(" + position + "%)";
+        }
+
+        $(function() {
+            $(window).bind("swipeleft", next);
+            $(window).bind("swiperight", prev);
+        });
+    </script>
+</head>
+<body>
+    <div data-role="page">
+        <div data-role="header">
+            <h1>Swipe events</h1>
+            <a href="index.html" rel="external" data-icon="arrow-l" data-iconpos="left">Back</a>
+        </div>
+        <div data-role="content">
+            <div class="clip">
+                <div id="pan" class="pan">
+                    <img src="../images/alexanderplatz.jpg" />
+                    <img src="../images/berlin.jpg" />
+                    <img src="../images/checkpoint_charlie.jpg" />
+                    <img src="../images/spree.jpg" />
+                </div>
+            </div>
+            <p>Swipe to the left or right to change between images</p>
+        </div>
+    </div>
+</body>
+</html>

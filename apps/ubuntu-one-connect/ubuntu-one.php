@@ -2,6 +2,11 @@
 session_start();
 header('Content-type: application/json');
 
+if (!extension_loaded('oauth')) {
+    header($_SERVER['SERVER_PROTOCOL'] . ' 500 Requires PHP OAuth extension', true, 403);
+    die();
+}
+
 if (!isset($_REQUEST['username']) || !isset($_REQUEST['password'])) {
     header($_SERVER['SERVER_PROTOCOL'] . ' 403 Must specify username and password', true, 403);
     die();
