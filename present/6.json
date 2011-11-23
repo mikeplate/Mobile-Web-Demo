@@ -6,7 +6,8 @@
             "title": "Content",
             "bullets": [
                 "jQuery Mobile",
-                "Integrating with other sites or services"
+                "Server side storage",
+                "Integrating with other services"
             ]
         },
         {
@@ -16,7 +17,8 @@
                 ["jQuery Mobile 1.0",
                     "Requires jQuery 1.6.4 or newer",
                     "Released 2011-11-16, so very new!",
-                    "http://jquerymobile.com/"],
+                    "http://jquerymobile.com/",
+                    "http://www.jackbellis.com/jqm/jqm_CommandReference.html"],
                 ["Alternatives", "Dojo Mobile http://dojotoolkit.org/features/mobile", "Sencha Touch http://www.sencha.com/products/touch/"]
             ]
         },
@@ -55,7 +57,7 @@
             "title": "Events",
             "bullets": [
                 ["More complicated handling of the document load event",
-                    ""],
+                    "Place your own JavaScript code/file between jQuery and JQuery Mobile"],
                 ["Page events",
                     ""]
             ]
@@ -71,17 +73,43 @@
             ]
         },
         {
-            "title": "Toolbars",
-            "bullets": [
-            ]
-        },
-        {
             "title": "Lists",
             "bullets": [
             ]
         },
         {
-            "title": "Integrating with other sites and services",
+            "title": "Dialogs",
+            "bullets": [
+            ]
+        },
+        {
+            "title": "Swipe events",
+            "bullets": [
+                ["jQuery Mobile supports detecting left and right swipes", "Even works with mouse"],
+                ["Events", "swipeleft, swiperight"],
+                ["Usage", ""]
+            ]
+        },
+        {
+            "title": "Server side storage",
+            "bullets": [
+                ["Most apps need to store data on the server", 
+                    "Will survive browser/OS reinstalls", 
+                    "Access the same information from multiple locations (browsers)"],
+                ["Nature of the web/JavaScript means you can't hide server access",
+                    "Always need to login in order to save and protect data on the server side"]
+            ]
+        },
+        {
+            "title": "Build your own API",
+            "bullets": [
+                ["How to handle server side storage and client side user interface",
+                    "Intermix html/JavaScript with server side script",
+                    "Keep html/JavaScript separate from server side script"]
+            ]
+        },
+        {
+            "title": "Integrating with other services",
             "bullets": [
                 ["Authentication on your own site", "Unique url (like only having a password)", "Username and password"]
             ]
@@ -89,6 +117,18 @@
         {
             "title": "OAuth",
             "bullets": [
+                "For giving a site access to your data, without ever knowing your password",
+                ["OAuth 1.0b",
+                    "Used by Twitter",
+                    "Requires some cryptographic signing code (need library)",
+                    "Is considered sequre even over http (no SSL)"],
+                ["OAuth 2",
+                    "Used by Facebook, Google",
+                    "Simpler, just building urls, no cryptography needed",
+                    "Always over https (SSL)"],
+                ["Usage",
+                    "Need to register your site/app at Twitter/Facebook/Google",
+                    "You'll get a public app id and a secret token"]
             ]
         },
         {

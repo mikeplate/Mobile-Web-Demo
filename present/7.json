@@ -12,12 +12,69 @@
         {
             "title": "Native applications",
             "bullets": [
+                "An application built with the platform specific tools and technologies",
+                "Package an application for publishing in a store/market"
             ]
         },
         {
-            "title": "Features",
+            "title": "Native iOS by Apple",
             "bullets": [
+                "Requires membership in the iOS Developer Program $99/year",
+                ["Tools", "Xcode with iOS SDK"],
+                ["Language", "Objective-C"],
+                ["View definitions (user interface)", "Pixel-placed graphical elements and controls"],
+                ["Selling", "iTunes App Store"],
+                "http://developer.apple.com"
+            ]
+        },
+        {
+            "title": "Native Android by Google",
+            "bullets": [
+                "Only requires membership in Market for selling $29/year",
+                ["Tools", "Eclipse, Android SDK and the Android plugin for Eclipse (ADT)"],
+                ["Language", "Java (1.5)"],
+                ["View definitions (user interface)", "Xml-based layouts kind of like html, but totally different elements and styling"],
+                ["Selling", "Android Market"],
+                "http://developer.android.com"
+            ]
+        },
+        {
+            "title": "Different filosophies",
+            "bullets": [
+                ["iOS",
+                    "Apps in App Store are audited by Apple before publication",
+                    "After acceptance, no permission granularity",
+                    "No file system. Limited sharing between apps",
+                    "Only two devices to target, iPhone(+iPod Touch) and iPad"],
+                ["Android", 
+                    "All apps are accepted into Market and published instantly",
+                    "Permission system that limits what an app can do (or at least tells the user what it will be able to do)",
+                    "Has file system. All apps can access SD card. Apps can share both data and functionality.",
+                    "Hundreds of devices to target"]
+            ]
+        },
+        {
+            "title": "Why native?",
+            "bullets": [
+                "Performance",
                 "Features not (yet) available on the mobile web"
+            ]
+        },
+        {
+            "title": "Why not native?",
+            "bullets": [
+                "A lot of work",
+                "Selling limitations"
+            ]
+        },
+        {
+            "title": "There is a middle ground",
+            "bullets": [
+                "Cross platform development",
+                ["Using html, css and javascript but in a web view container, packaged as a native app",
+                    "Both iOS and Android support displaying a web view/page inside of a native app"],
+                "Plus: Feature access can be provided to javascript via native code",
+                "Minus: Does nothing for performance and the general \"felling\" of a native user interface"
             ]
         },
         {
