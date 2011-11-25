@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Background Cover</title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes" />
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            background: url(../images/wood.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+        body>h1 {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        #page {
+            margin: auto;
+            max-width: 600px;
+        }
+        #page ul {
+            margin: 0px 10px;
+            padding: 0px;
+        }
+        #page li {
+            list-style-type: none;
+            border: 2px solid #606000;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #page li.selected {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        #page h1 {
+            margin: 0px;
+            padding: 5px 0px;
+            text-shadow: 1px 1px 1px #fff;
+            text-align: center;
+        }
+        #page h2 {
+            margin: 0px;
+            padding-bottom: 5px;
+        }
+        #page h3 {
+            margin: 0px;
+            color: #404000;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            if ("addEventListener" in window) {
+                var page = document.getElementById("page");
+                var items = page.getElementsByTagName("li");
+                for (var i = 0; i<items.length; i++) {
+                    (function(el) {
+                        el.addEventListener("touchend", function(event) {
+                            el.className = el.className ? "" : "selected";
+                        }, false);
+                    })(items[i]);
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+    <h1>Background Cover <a href="index.html">Back</a></h1>
+    <div id="page">
+        <h1>Group One</h1>
+        <ul>
+            <li>
+                <h2>Main Title</h2>
+                <h3>Sub Title</h3>
+            </li>
+            <li>
+                <h2>Main Title</h2>
+                <h3>Sub Title</h3>
+            </li>
+            <li>
+                <h2>Main Title</h2>
+                <h3>Sub Title</h3>
+            </li>
+            <li>
+                <h2>Main Title</h2>
+                <h3>Sub Title</h3>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

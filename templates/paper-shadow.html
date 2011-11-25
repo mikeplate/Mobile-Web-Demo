@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Paper Shadow</title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes" />
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <style>
+        .container {
+            padding: 20px;
+            max-width: 600px;
+        }
+
+        .paper-shadow {
+            position: relative;
+            padding: 20px;
+            min-height: 200px;
+            background-color: #fff;
+            color: #404040;
+            text-align: center;
+            box-shadow: 0px 0px 10px #e0e0e0;
+        }
+        .paper-shadow:before {
+            content: "";
+            position: absolute;
+            left: 5px;
+            bottom: 10px;
+            width: 50%;
+            height: 20px;
+            box-shadow: 0px 6px 12px #000;
+            -o-transform: rotate(-4deg);
+            -moz-transform: rotate(-4deg);
+            -webkit-transform: rotate(-4deg);
+            z-index: -1;
+        }
+        .paper-shadow:after {
+            content: "";
+            position: absolute;
+            right: 5px;
+            bottom: 10px;
+            width: 50%;
+            height: 20px;
+            box-shadow: 0px 6px 12px #000;
+            -o-transform: rotate(4deg);
+            -moz-transform: rotate(4deg);
+            -webkit-transform: rotate(4deg);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Paper Shadow <a href="index.html">Back</a></h1>
+    <div class="container">
+        <div class="paper-shadow">
+            This is the text on the paper with a shadow
+        </div>
+    </div>
+    <h6>References:
+        <a href="http://www.sitepoint.com/pure-css3-paper-curl/">SitePoint</a>
+        <a href="http://nicolasgallagher.com/css-drop-shadows-without-images/demo/">Nicolas Gallagher</a>
+    </h6>
+</body>
+</html>

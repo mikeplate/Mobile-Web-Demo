@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Tiles</title>
+    <meta name="viewport" content="width=500, user-scalable=yes" />
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <style>
+        body {
+            background-color: #000000;
+        }
+        #page {
+            max-width: 500px;
+        }
+        #page h1 {
+            clear: both;
+            padding: 10px;
+            margin: 5px 1px 5px 0px;
+            font-size: 20px;
+            background-color: #303090;
+            color: #fff;
+        }
+        #page ul h2 {
+            margin: 0px;
+            font-size: 20px;
+        }
+        #page ul h3 {
+            margin: 0px;
+            font-size: 15px;
+        }
+        ul {
+            padding: 0px;
+            margin: 0px;
+        }
+        li {
+            display: block;
+            float: left;
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: #d0d0d0;
+            width: 227px;
+            height: 230px;
+        }
+        li:nth-child(odd) {
+            margin-right: 5px;
+        }
+        ul.small li {
+            width: 143px;
+            height: 143px;
+        }
+        ul.small li:nth-child(3n-2), ul.small li:nth-child(3n-1) {
+            margin-right: 5px;
+        }
+        ul.small li:nth-child(3n) {
+            margin-right: 0px;
+        }
+        .color1 {
+            background-color: #b09030;
+        }
+        .color2 {
+            background-color: #9090ff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tiles <a href="index.html">Back</a></h1>
+    <div id="page">
+        <h1>Group One</h1>
+        <ul>
+            <li>
+                <h2>Main Title</h2>
+                <h3>Sub Title</h3>
+            </li>
+            <li class="color1">
+                <h2>Main Title</h2>
+                <h3>Sub Title</h3>
+            </li>
+            <li class="color1">
+                <h2>Main Title</h2>
+                <h3>Sub Title</h3>
+            </li>
+            <li>
+                <h2>Main Title</h2>
+                <h3>Sub Title</h3>
+            </li>
+        </ul>
+        <h1>Group Two</h1>
+        <ul class="small">
+            <li class="color2">
+                <h2>Main Title 1</h2>
+                <h3>Sub Title</h3>
+            </li>
+            <li>
+                <h2>Main Title 2</h2>
+                <h3>Sub Title</h3>
+            </li>
+            <li class="color2">
+                <h2>Main Title 3</h2>
+                <h3>Sub Title</h3>
+            </li>
+            <li>
+                <h2>Main Title 4</h2>
+                <h3>Sub Title</h3>
+            </li>
+            <li>
+                <h2>Main Title 5</h2>
+                <h3>Sub Title</h3>
+            </li>
+            <li>
+                <h2>Main Title 6</h2>
+                <h3>Sub Title</h3>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

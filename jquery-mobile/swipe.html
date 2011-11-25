@@ -17,11 +17,16 @@
             -o-transition: -o-transform 2s;
             -moz-transition: -moz-transform 2s;
             -webkit-transition: -webkit-transform 2s;
+            -webkit-backface-visibility: hidden;
+            -webkit-perspective: 1000;
         }
         .pan img {
             display: block;
             float: left;
             width: 25%;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -webkit-user-drag: none;
         }
     </style>
     <script>

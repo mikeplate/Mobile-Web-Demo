@@ -1,43 +1,134 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE html>
 <html>
 <head>
-<title>Template Rounded</title>
-<meta name="viewport" content="user-scalable=yes, width=device-width" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<link rel="stylesheet" href="rounded.css" type="text/css" />
-<script type="text/javascript">
-$(document).ready(function() {
-	var today = new Date();
-	var year = today.getFullYear();
-	var month = "0" + (today.getMonth()+1);
-	month = month.substring(month.length-2);
-	var day = "0" + today.getDate();
-	day = day.substring(day.length-2);
-	$("#footer").text("Today is " + today.getFullYear() + "-" + month + "-" + day);
-	
-	for (var i = 0; i < 20; i++) {
-		$("ul.list").append("<li>This is row " + i + "</li>");
-	}
-	
-	$("#footer").click(function() {
-		window.scrollTo(0, 0);
-	});
-});
-</script>
+    <title>Rounded Corners List</title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes" />
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <style>
+        body {
+            background-color: #c0c0c0;
+        }
+        h2 {
+            margin: 0px;
+            padding: 10px 10px 0px 15px;
+            font-size: 16pt;
+            color: #404040;
+        }
+        ul {
+            margin: 10px;
+            padding: 0px;
+            border-top: 1px solid #a0a0a0;
+            border-left: 1px solid #a0a0a0;
+            border-right: 1px solid #a0a0a0;
+            border-radius: 10px;
+        }
+        li {
+            list-style-type: none;
+            background-color: #e0e0e0;
+            background-image: -moz-linear-gradient(top, #e0e0e0 0%, #f8f8f8 100%);
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e0e0e0), color-stop(1, #f8f8f8));
+            border-bottom: 1px solid #c0c0c0;
+            padding: 8px 5px;
+        }
+        li:first-child {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        li:last-child {
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        li h1 {
+            margin: 0px;
+            font-size: 14pt;
+        }
+        li h2 {
+            margin: 0px;
+            padding: 0px;
+            font-size: 10pt;
+            font-weight: normal;
+        }
+        label {
+            display: block;
+            font-size: 8pt;
+            font-weight: bold;
+            color: #404040;
+            padding-left: 5px;
+            margin-bottom: 2px;
+        }
+        input {
+            display: block;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            width: 100%;
+            padding: 5px;
+            font-size: 14pt;
+            border-radius: 5px;
+            border: none;
+            border-bottom: 1px solid #d0d0d0;
+            border-left: 1px solid #d0d0d0;
+        }
+        button {
+            font-size: 14pt;
+            border-radius: 5px;
+            border: none;
+            padding: 5px 20px;
+            background-color: #8080f0;
+            background-image: -moz-linear-gradient(top, #6060e0 0%, #8080f0 100%);
+            color: #fff;
+            text-shadow: 1px 1px 1px #000;
+            margin: 5px;
+            min-width: 100px;
+        }
+    </style>
 </head>
 <body>
-	<h1>Template Rounded</h1>
-	<div class="menu">
-	<table class="menu">
-		<tr>
-			<td style="width: 33%;">Name</td>
-			<td style="width: 33%;">Count</td>
-			<td style="width: 33%;">Date</td>
-		</tr>
-	</table>
-	</div>
-	<ul class="list">
-	</ul>
-	<h6 id="footer"></h6>
+    <h1>Rounded Corners List <a href="index.html">Back</a></h1>
+    <h2>Group One</h2>
+    <ul>
+        <li>
+            <h1>Main Title</h1>
+            <h2>Sub Title</h2>
+        </li>
+        <li>
+            <h1>Main Title</h1>
+            <h2>Sub Title</h2>
+        </li>
+        <li>
+            <h1>Main Title</h1>
+            <h2>Sub Title</h2>
+        </li>
+    </ul>
+    <h2>Group Two</h2>
+    <ul>
+        <li>
+            <h1>Main Title</h1>
+            <h2>Sub Title</h2>
+        </li>
+        <li>
+            <h1>Main Title</h1>
+            <h2>Sub Title</h2>
+        </li>
+        <li>
+            <h1>Main Title</h1>
+            <h2>Sub Title</h2>
+        </li>
+    </ul>
+    <h2>Input Form</h2>
+    <ul>
+        <li>
+            <label for="Name">Name</label>
+            <input type="text" id="Name" />
+        </li>
+        <li>
+            <label for="Comment">Comment</label>
+            <input type="text" id="Comment" />
+        </li>
+        <li>
+            <button>Save</button>
+            <button>Cancel</button>
+        </li>
+    </ul>
 </body>
 </html>
