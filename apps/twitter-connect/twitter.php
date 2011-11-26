@@ -1,20 +1,8 @@
 <?php
-require_once('oauth/tmhOAuth.php');
-require_once('oauth/tmhUtilities.php');
+require_once('oauth1.php');
 require_once('../../_priv/twitter-app-secret.php');
 session_start();
 header('Content-type: application/json');
-
-$params = array(
-    'oauth_callback' => tmhUtilities::php_self()
-);
-// $params['x_auth_access_type'] = 'write';
-
-$oauth = new tmhOAuth(Array(
-    'consumer_key' => $app_key,
-    'consumer_secret' => $app_secret,
-    'host' => 'api.twitter.com'
-));
 
 // This script will load under any of the following circumstances:
 // 1. A page is requesting the url to redirect to for starting the Twitter auth process.
@@ -22,44 +10,33 @@ $oauth = new tmhOAuth(Array(
 // 3. The user has denied access to our app in the Twitter confirmation page.
 
 // 1. A page is requesting the url to redirect to for starting the Twitter auth process.
-if (!isset($_GET['oauth_verifier']) && !isset($_GET['denied'])) {
-    $code = $oauth->request('POST', $oauth->url('oauth/request_token', ''), $params);
-    if ($code != 200) {
-        echo json_encode(Array('success' => false, 'error' => 'Error when retrieving request token from Twitter'));
+if (oAuth1Step()=='start') {
+    $oauthresult = oAuth1Start('https://api.twitter.com', $app_key, $app_secret);
+    if ($oauthresult == NULL) {
+        echo json_encode(Array('success' => false, 'error' => 'Error when starting oauth with Twitter'));
         die();
     }
 
-    $_SESSION['oauth'] = $oauth->extract_params($oauth->response['response']);
-    $oauth_token = $_SESSION['oauth']['oauth_token'];
-    $authurl = $oauth->url('oauth/authenticate', '') . "?oauth_token={$oauth_token}";
-
-    echo json_encode(Array('success' => true, 'url' => $authurl));
-    die();
+    $_SESSION['twitter_secret'] = $oauthresult['secret'];
+    echo json_encode(Array('success' => true, 'url' => $oauthresult['url']));
 }
 // 2. The user has approved access to our app in the Twitter confirmation page.
-else if (isset($_GET['oauth_verifier'])) {
-    $oauth->config['user_token'] = $_SESSION['oauth']['oauth_token'];
-    $oauth->config['user_secret'] = $_SESSION['oauth']['oauth_token_secret'];
-
-    $code = $oauth->request('POST', $oauth->url('oauth/access_token', ''), array(
-        'oauth_verifier' => $_GET['oauth_verifier']
-    ));
-    if ($code != 200) {
+else if (oAuth1Step()=='end') {
+    $previouslySetSecret = $_SESSION['twitter_secret'];
+    $oauthresult = oAuth1End('https://api.twitter.com', $app_key, $app_secret, $previouslySetSecret);
+    if ($oauthresult == NULL) {
         echo json_encode(Array('success' => false, 'error' => 'Error when verifying access to Twitter'));
         die();
     }
-
-    $_SESSION['twitter_access_token'] = $oauth->extract_params($oauth->response['response']);
+    $_SESSION['twitter_access_token'] = $oauthresult;
     header('Location: index.html');
 }
 // 3. The user has denied access to our app in the Twitter confirmation page.
-else if (isset($_GET['denied'])) {
+else if (oAuth1Step()=='denied') {
     $_SESSION['twitter_access_token'] = '';
     header('Location: index.html');
 }
 else {
     header($_SERVER['SERVER_PROTOCOL'] . ' 400 Bad request', true, 400);
-    die();
 }
 ?>
-
