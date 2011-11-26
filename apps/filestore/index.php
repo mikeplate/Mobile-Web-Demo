@@ -1,52 +1,87 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>File Store Demo</title>
-        <link rel="stylesheet" type="text/css" href="style.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <title>MobileAppLab Data Service</title>
+        <meta name="viewport" content="user-scalable=yes, width=device-width" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+        <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+        <style>
+            .ui-content h2 {
+                margin-top: 0px;
+                font-size: 20px;
+            }
+            .ui-content ul {
+                padding-top: 20px;
+            }
+            .ui-content p {
+                margin-top: 5px;
+            }
+        </style>
     </head>
     <body>
-        <h1>File Store Demo</h1>
-        <div class="box">
-            <label>Username</label>
-            <input type="text" id="RegisterUsername" placeholder="Choose your own username" />
-            <label>Password</label>
-            <input type="password" id="RegisterPassword" placeholder="Specify a password" />
-            <label>E-mail address</label>
-            <input type="text" id="RegisterEmail" placeholder="Specify your e-mail address" />
-            <label id="RegisterMessage" class="message"></label>
-            <input type="button" id="Register" value="Register" />
+        <div data-role="page" id="Start">
+            <div data-role="header"><h1>MobileAppLab Data Service</h1></div>
+            <div data-role="content">
+                <p class="message">Welcome to the MobileAppLab Data Service. This serviced can be used by other web applications to store data securely in the cloud.</p>
+                <ul data-role="listview">
+                    <li><a href="#Login">Log in with existing account</a></li>
+                    <li><a href="#Register">Register new account</a></li>
+                    <li><a href="#Logout">Log out</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="box">
-            <label>Username</label>
-            <input type="text" id="Username" placeholder="Type your username" />
-            <label>Password</label>
-            <input type="password" id="Password" placeholder="Type your password" />
-            <label id="LoginMessage" class="message"></label>
-            <input type="button" id="Login" value="Log in" />
+        <div data-role="page" id="Register">
+            <div data-role="header">
+                <h1>Register</h1>
+                <a data-rel="back" data-icon="arrow-l" data-iconpos="left">Back</a>
+            </div>
+            <div data-role="content">
+                <p id="RegisterMessage" class="message">Register a new user. If have registered previously, please go back and log in instead.</p>
+                <form>
+                    <label>Username</label>
+                    <input type="text" id="RegisterUsername" placeholder="Choose your own username" />
+                    <label>Password</label>
+                    <input type="password" id="RegisterPassword" placeholder="Specify a password" />
+                    <label>E-mail address</label>
+                    <input type="text" id="RegisterEmail" placeholder="Specify your e-mail address" />
+                    <input type="button" id="RegisterButton" value="Register" />
+                </form>
+            </div>
         </div>
-        <div class="box">
-            <label id="MeMessage" class="message"></label>
-            <input type="button" id="Me" value="About Me" />
+        <div data-role="page" id="Login">
+            <div data-role="header">
+                <h1>Log in</h1>
+                <a data-rel="back" data-icon="arrow-l" data-iconpos="left">Back</a>
+            </div>
+            <div data-role="content">
+                <p id="LoginMessage" class="message">Log in with an existing account</p>
+                <form>
+                    <label>Username</label>
+                    <input type="text" id="Username" placeholder="Type your username" />
+                    <label>Password</label>
+                    <input type="password" id="Password" placeholder="Type your password" />
+                    <input type="button" id="LoginButton" value="Log in" />
+                </form>
+            </div>
         </div>
-        <div class="box">
-            <label id="WriteMessage" class="message"></label>
-            <input type="button" id="Write" value="Write" />
-        </div>
-        <div class="box">
-            <label id="ReadMessage" class="message"></label>
-            <input type="button" id="Read" value="Read" />
-        </div>
-        <div class="box">
-            <label id="ListMessage" class="message"></label>
-            <input type="button" id="List" value="List" />
-        </div>
-        <div class="box">
-            <label id="LogoutMessage" class="message"></label>
-            <input type="button" id="Logout" value="Log out" />
+        <div data-role="page" id="Logout">
+            <div data-role="header">
+                <h1>Log out</h1>
+                <a data-rel="back" data-icon="arrow-l" data-iconpos="left">Back</a>
+            </div>
+            <div data-role="content">
+                <p id="LogoutMessage" class="message">Log out from the data service, making the data unavailable until you log in again.</p>
+                <form>
+                    <input type="button" id="LogoutButton" value="Log out" />
+                </form>
+            </div>
         </div>
 
         <script>
+        var callbackUrl = "<?php if (isset($_SERVER['HTTP_REFERER'])) echo $_SERVER['HTTP_REFERER'];  ?>";
+        var isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true':'false' ?>;
+
         function onError(xhr, err, statusText) {
             if (err=="error" && statusText)
                 err = statusText;
@@ -57,12 +92,34 @@
                 alert(err);
         }
 
+        function goToCallback() {
+            if (callbackUrl)
+                window.location.href = callbackUrl;
+            else
+                $.mobile.changePage("#Start");
+        }
+
         // Use custom function to show a message in a specified element and remember the id
         // and display any upcoming ajax error messages in the same element.
         var lastMessageId = null;
         function showMessage(messageId, messageText) {
-            document.getElementById(messageId).innerHTML = messageText;
+            var msg = document.getElementById(messageId);
+            if (!msg.defaultMessage)
+                msg.defaultMessage = msg.innerHTML;
+            msg.innerHTML = messageText;
             lastMessageId = messageId;
+
+            msg.style.backgroundColor = "#E0E000";
+            window.setTimeout(function() {
+                msg.style.MozTransition = "background-color 3s";
+                msg.style.WebkitTransition = "background-color 3s";
+                msg.style.backgroundColor = "";
+                window.setTimeout(function() {
+                    msg.style.MozTransition = "";
+                    msg.style.WebkitTransition = "";
+                    msg.innerHTML = msg.defaultMessage;
+                }, 3000);
+            }, 100);
         }
 
         // Initialization when page is loaded
@@ -74,38 +131,20 @@
             });
         });
 
-        // When Register button is pressed
-        $("#Register").click(function() {
-            var username = $("#RegisterUsername").val();
-            var password = $("#RegisterPassword").val();
-            if (username.length==0 || password.length==0) {
-                alert("You must specify a requested username and password to register!");
-                return;
-            }
-            showMessage("RegisterMessage", "Sending register request to server...");
+        function register(username, password, email, success) {
             $.ajax({
                 url: 'api/register.php',
                 data: {
                     username: username,
                     password: password,
-                    email: $("#RegisterEmail").val()
+                    email: email
                 },
                 type: 'post',
-                success: function(data) {
-                    showMessage("RegisterMessage", "Registration was successful! Now try and login with the same credentials.");
-                }
+                success: success
             });
-        });
+        }
 
-        // When Login button is pressed
-        $("#Login").click(function() {
-            var username = $("#Username").val();
-            var password = $("#Password").val();
-            if (username.length==0 || password.length==0) {
-                alert("You must specify a username and password to login!");
-                return;
-            }
-            showMessage("LoginMessage", "Sending login request to server...");
+        function login(username, password, success) {
             $.ajax({
                 url: 'api/login.php',
                 data: {
@@ -113,78 +152,47 @@
                     password: password
                 },
                 type: 'post',
-                success: function(data) {
-                    showMessage("LoginMessage", "Log in was successful. Now try and get information about yourself.");
-                }
+                success: success
             });
-        });
+        }
 
-        // When Me button is pressed
-        $("#Me").click(function() {
-            showMessage("MeMessage", "Sending me request to server...");
-            $.ajax({
-                url: 'api/me.php',
-                type: 'get',
-                success: function(data) {
-                    showMessage("MeMessage", "Me was successful. Your username is " + data.username
-                        + " and your registered e-mail is " + data.email + ". Now try and write some data");
-                }
-            });
-        });
-
-        $("#Write").click(function() {
-            var sample = [
-                { id: 1, name: 'A' },
-                { id: 2, name: 'X' },
-                { id: 7, name: 'C' }
-            ];
-            showMessage("WriteMessage", "Sending write request to server...");
-            $.ajax({
-                url: 'api/write.php',
-                data: {
-                    name: "sample",
-                    value: JSON.stringify(sample)
-                },
-                type: 'post',
-                success: function(data) {
-                    showMessage("WriteMessage", "Write was successful. Now try and read the data.");
-                }
-            });
-        });
-
-        $("#Read").click(function() {
-            showMessage("ReadMessage", "Sending read request to server...");
-            $.ajax({
-                url: 'api/read.php',
-                type: 'get',
-                data: {
-                    name: "sample"
-                },
-                success: function(data) {
-                    showMessage("ReadMessage", "Read was successful. The data had " + data.length + " items in it.");
-                }
-            });
-        });
-
-        $("#List").click(function() {
-            showMessage("ListMessage", "Sending list request to server...");
-            $.ajax({
-                url: 'api/list.php',
-                type: 'get',
-                success: function(data) {
-                    showMessage("ListMessage", "List was successful. You have the following items stored: " + data.join(", "));
-                }
-            });
-        });
-
-        $("#Logout").click(function() {
-            showMessage("LogoutMessage", "Sending logout request to server...");
+        function logout(success) {
             $.ajax({
                 url: "api/logout.php",
-                success: function(data) {
-                    showMessage("LogoutMessage", "Log out was successful. Now you have to login again in order to use Me, Write and Read.");
-                }
+                success: success
             });
+        }
+
+        // When Register button is pressed
+        $("#RegisterButton").click(function() {
+            var username = $("#RegisterUsername").val();
+            var password = $("#RegisterPassword").val();
+            if (username.length==0 || password.length==0) {
+                showMessage("RegisterMessage", "You must specify a requested username and password to register!");
+                return;
+            }
+            showMessage("RegisterMessage", "Sending register request to server...");
+            register(username, password, $("#RegisterEmail").val(), function() {
+                login(username, password, goToCallback);
+            });
+        });
+
+        // When Login button is pressed
+        $("#LoginButton").click(function() {
+            var username = $("#Username").val();
+            var password = $("#Password").val();
+            if (username.length==0 || password.length==0) {
+                showMessage("LoginMessage", "You must specify a username and password to login!");
+                return;
+            }
+            showMessage("LoginMessage", "Sending login request to server...");
+            login(username, password, goToCallback);
+        });
+
+        // When Logout button is pressed
+        $("#LogoutButton").click(function() {
+            showMessage("LogoutMessage", "Sending logout request to server...");
+            logout(goToCallback);
         });
         </script>
     </body>

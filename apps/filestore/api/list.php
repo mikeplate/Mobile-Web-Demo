@@ -10,8 +10,7 @@ $store = new FileStore('storage', false);
 $userstore = $store->open($_SESSION['username']);
 $list = $userstore->contents();
 
-header('Content-Type: application/json');
-echo json_encode($list);
+outputJSON($list);
 ?>
 
 

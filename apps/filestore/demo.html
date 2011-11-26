@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MobileAppLab Data Service</title>
+        <meta name="viewport" content="user-scalable=yes, width=device-width" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+        <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+        <style>
+            .ui-content h2 {
+                margin-top: 0px;
+                font-size: 20px;
+            }
+            .ui-content ul {
+                padding-top: 20px;
+            }
+            .ui-content p {
+                margin-top: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div data-role="page" id="Start">
+            <div data-role="header"><h1>Priority List Demo</h1></div>
+            <div data-role="content">
+                <p></p>
+                <form>
+                    <input type="text" id="itemname" placeholder="Type name of priority item" />
+                    <fieldset class="ui-grid-b">
+                        <div class="ui-block-a"><button id="removeAll">Remove all</button></div>
+                        <div class="ui-block-b"><button id="login">Login</button></div>
+                        <div class="ui-block-c"><button id="add">Add item</button></div>
+                    </fieldset>
+                </form>
+                <ul id="list" data-role="listview" data-inset="true">
+                </ul>
+            </div>
+        </div>
+
+        <script>
+        var data = [];
+
+        // Read locally stored data and also fetch from remote server (if available)
+        function load() {
+            var jsondata = window.localStorage.getItem("todolist");
+            if (jsondata!=null) {
+                data = JSON.parse(jsondata);
+                updateView();
+            }
+            $.ajax({
+                url: "http://mobileapplab.se/apps/filestore/api/read.php?name=todolist",
+                dataType: "json",
+                type: "get",
+                success: function(remotedata) {
+                    // Add all remote items not already found locally
+                    for (var i = 0; i<remotedata.length; i++) {
+                        if (!data.indexOf(remotedata[i]))
+                            data.push(remotedata[i]);
+                    }
+                    updateView();
+                }
+            });
+        }
+
+        // Write data to both local storage and server storage, just in case we lose the connection
+        function save() {
+            var jsondata = JSON.stringify(data);
+            window.localStorage.setItem("todolist", jsondata);
+            $.ajax({
+                url: "http://mobileapplab.se/apps/filestore/api/write.php",
+                dataType: "json",
+                data: {
+                    name: "todolist",
+                    value: jsondata
+                },
+                type: "post"
+            });
+        }
+
+        // Called when clicking an item in the list, meaning we'll remove it after confirmation
+        function remove(index) {
+            if (confirm("Do you really want to delete \"" + data[index] + "\"?")) {
+                data.splice(index, 1);
+                save();
+                updateView();
+            }
+        }
+
+        // Update the view from the value of the global variable
+        function updateView() {
+            var html = "";
+            for (var i = 0; i<data.length; i++) {
+                html += "<li data-icon=\"delete\"><a href=\"javascript:remove(" + i + ");\" data-icon=\"delete\">" + data[i] + "</a></li>";
+            }
+            $("#list").html(html).listview("refresh");
+        }
+
+        // Show an error to the user
+        function onError(xhr, err, statusText) {
+            if (err=="error" && statusText)
+                err = statusText;
+            err = "An error occurred! " + err;
+            alert(err);
+        }
+
+        // When Add button is pressed
+        $("#add").click(function() {
+            var newitem = $("#itemname").val();
+            if (newitem.length > 0) {
+                $("#itemname").val("");
+                data.push(newitem);
+                save();
+                updateView();
+            }
+        });
+
+        // When Remove all button is pressed
+        $("#removeAll").click(function() {
+            if (confirm("Are you sure you want to remove all items?")) {
+                data = [];
+                save();
+                updateView();
+            }
+        });
+
+        // When Login button is pressed
+        $("#login").click(function() {
+            window.location.href = "http://mobileapplab.se/apps/filestore/";
+        });
+
+        load();
+        </script>
+    </body>
+</html>
+

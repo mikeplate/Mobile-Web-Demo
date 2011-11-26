@@ -25,6 +25,8 @@ $userdata = Array(
     'password' => calcHash($salt . $username . $_POST['password']),
 	'salt' => $salt,
     'email' => isset($_POST['email']) ? $_POST['email'] : '',
+    'ip' => $_SERVER['REMOTE_ADDR'],
+    'useragent' => $_SERVER['HTTP_USER_AGENT'],
     'created' => date('c')
 );
 $userstore->write('.user', $userdata);

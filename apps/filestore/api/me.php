@@ -12,7 +12,6 @@ $userdata = $userstore->read('.user');
 unset($userdata['password']);
 unset($userdata['salt']);
 
-header('Content-Type: application/json');
-echo json_encode($userdata);
+outputJSON($userdata);
 ?>
 

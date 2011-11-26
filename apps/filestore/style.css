@@ -30,6 +30,10 @@ div.box {
     background-image: -moz-linear-gradient(top, #ffffff 0%, #d0d0ff 100%);
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #d0d0ff));
 }
+div.box p {
+    font-weight: bold;
+    font-size: 14pt;
+}
 
 div.form {
 }
