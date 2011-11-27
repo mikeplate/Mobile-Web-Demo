@@ -7,7 +7,7 @@
             "bullets": [
                 "jQuery Mobile",
                 "Server side storage",
-                "Integrating with other services"
+                "APIs"
             ]
         },
         {
@@ -57,7 +57,9 @@
             "title": "Events",
             "bullets": [
                 ["More complicated handling of the document load event",
-                    "Place your own JavaScript code/file between jQuery and JQuery Mobile"],
+                    "Place your own JavaScript code/file between jQuery and JQuery Mobile",
+                    "Bind to the mobileinit event for the document",
+                    "$(document).bind(\"mobileinit\", function() { });"],
                 ["Page events",
                     ""]
             ]
@@ -65,21 +67,56 @@
         {
             "title": "Forms",
             "bullets": [
+                "All form elements should be placed inside a form element",
+                ["jQuery Mobile will take over the posting, perform it using Ajax, and replace contents with whatever the post returns",
+                    "Can be disabled by setting data-ajax=\"false\" on form element",
+                    "Can also be disabled by catching the submit event for the form and preventDefault"],
+                ["Usage",
+                    "label and input elements are block elements, filling the entire width of the page",
+                    "Unless inside a fieldset element with data-role\"fieldcontain\", then label and input are next to each other"]
+            ]
+        },
+        {
+            "title": "Input elements",
+            "bullets": [
+                ["Usage radio buttons",
+                    "Put inside container fieldset element with data-role=\"controlgroup\""],
+                ["Usage checkboxes",
+                    "Single elements styled automatically",
+                    "Put inside container fieldset element with data-role=\"controlgroup\" and data-type=\"horizontal\" to have them stiched together on the same line without actual check box"]
             ]
         },
         {
             "title": "Buttons",
             "bullets": [
+                "Basic jQuery button fills the entire width of the page",
+                ["Usage",
+                    "a element with data-role=\"button\"",
+                    "input element of type \"submit\" or \"button\"",
+                    "button element"],
+                ["Icon for the button",
+                    "Can be specified with data-icon attribute",
+                    "arrow-l, arrow-r, arrow-u, arrow-d, plus, minus, check, delete"],
+                ["Other options",
+                    "data-inline=\"true\" not to fill entire width",
+                    "Surround with div element with data-role=\"controlgroup\" to have them stiched together"]
             ]
         },
         {
             "title": "Lists",
             "bullets": [
+                "Common in native apps and have been styled accordingly in jQuery Mobile",
+                ["Usage",
+                    "ul element with data-role=\"listview\"",
+                    "li elements inside",
+                    "a elements inside li will be styled accordingly"]
             ]
         },
         {
             "title": "Dialogs",
             "bullets": [
+                "Similar to the \"page\" but is displayed on top of the content and centered in the window",
+                "Use data-role=\"dialog\" for the containing div element of the dialog"
             ]
         },
         {
@@ -87,7 +124,7 @@
             "bullets": [
                 ["jQuery Mobile supports detecting left and right swipes", "Even works with mouse"],
                 ["Events", "swipeleft, swiperight"],
-                ["Usage", ""]
+                ["Usage", "$(element).bind(\"swipeleft\", function (event) { doSomething(); });"]
             ]
         },
         {
@@ -101,17 +138,56 @@
             ]
         },
         {
-            "title": "Build your own API",
+            "title": "Organizing a client and server",
             "bullets": [
-                ["How to handle server side storage and client side user interface",
-                    "Intermix html/JavaScript with server side script",
-                    "Keep html/JavaScript separate from server side script"]
+                ["Traditional approach",
+                    "Server scripts deliver html with data formatted inside html",
+                    "Forms are posted to the server where data is stored/changed",
+                    "The whole page reloads and we start all over"],
+                ["Separation of client and server",
+                    "Server delivers static html without any specific data",
+                    "Client scripts (JavaScript) requests data from server using API, JSON etc",
+                    "Client scripts formats incoming data and inserts as html into page",
+                    "Forms are sent as Ajax requests to the server scripts implementing the API"]
             ]
         },
         {
-            "title": "Integrating with other services",
+            "title": "Build your own API",
             "bullets": [
-                ["Authentication on your own site", "Unique url (like only having a password)", "Username and password"]
+                "Still server side scripts delivering stuff over http",
+                ["Difference is that all stuff are structured and not dependent on the view",
+                    "Meaning, no html",
+                    "Data delivered as JSON (or possibly XML)"],
+                ["Advantages",
+                    "Easy to use the functionality of the app from other applications",
+                    "All formatting/view code is in one place - the client"]
+            ]
+        },
+        {
+            "title": "Public APIs",
+            "bullets": [
+                "Accessible without authenticating first",
+                ["For JavaScript only: need to support JSONP",
+                    "IP address to API server will be visitor IP"],
+                ["If no JSONP, solve with server script as mediator",
+                    "IP address to API server will always be your own server's",
+                    "Can be blocked or throttled by API service."]
+            ]
+        },
+        {
+            "title": "Public API examples",
+            "bullets": [
+                ["Twitter Search API",
+                    "Retrieve all tweets with specific words",
+                    "https://dev.twitter.com/docs/api/1/get/search",
+                    "http://search.twitter.com/search.json?q=jönköping&lang=en"],
+                ["Google Spreadsheets Data API",
+                    "Retrieve contents of a published Google Spreadsheet",
+                    "http://code.google.com/apis/spreadsheets/",
+                    "http://code.google.com/apis/gdata/samples/spreadsheet_sample.html"],
+                ["Other links",
+                    "http://www.mashup.se/ (Swedish)",
+                    "http://www.programmableweb.com/apis/directory/1?format=JSONP"]
             ]
         },
         {
@@ -121,19 +197,14 @@
                 ["OAuth 1.0b",
                     "Used by Twitter",
                     "Requires some cryptographic signing code (need library)",
-                    "Is considered sequre even over http (no SSL)"],
+                    "Is considered secure even over http (without SSL)"],
                 ["OAuth 2",
                     "Used by Facebook, Google",
                     "Simpler, just building urls, no cryptography needed",
                     "Always over https (SSL)"],
                 ["Usage",
                     "Need to register your site/app at Twitter/Facebook/Google",
-                    "You'll get a public app id and a secret token"]
-            ]
-        },
-        {
-            "title": "Twitter",
-            "bullets": [
+                    "You'll get a public app public id and an app secret token"]
             ]
         }
     ]

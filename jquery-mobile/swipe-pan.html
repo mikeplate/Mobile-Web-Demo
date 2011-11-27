@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Pan</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+        .clip {
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+            background-color: #000;
+        }
+        .pan {
+            width: 400%;
+            -webkit-backface-visibility: hidden;
+            -webkit-perspective: 1000;
+        }
+        .pan img {
+            display: block;
+            float: left;
+            width: 25%;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -webkit-user-drag: none;
+        }
+    </style>
+    <script>
+        var position = 0;
+        var start = 0;
+        var ref = -1;
+
+        function setTranslate(el, value) {
+            el.style.OTransform = value;
+            el.style.MozTransform = value;
+            el.style.WebkitTransform = value;
+        }
+
+        function update() {
+            var pan = document.getElementById("pan");
+            var minpos = -(pan.offsetWidth - pan.offsetWidth/4);
+            var extra = 20;
+            if (position > extra)
+                position = extra;
+            else if (position < (minpos-extra))
+                position = minpos-extra;
+
+            pan.style.OTransition = "";
+            pan.style.OTransitionDuration = "0ms"; // Opera Mobile Emulator bug?
+            pan.style.MozTransition = "";
+            pan.style.WebkitTransition = "";
+            setTranslate(pan, "translateX(" + position + "px)");
+        }
+
+        function adjust() {
+            var pan = document.getElementById("pan");
+            var adjusted = Math.round(position / pan.offsetWidth * 4) * pan.offsetWidth / 4;
+            position = adjusted;
+
+            pan.style.OTransition = "-o-transform 1s";
+            pan.style.MozTransition = "-moz-transform 1s";
+            pan.style.WebkitTransition = "-webkit-transform 1s";
+            setTranslate(pan, "translateX(" + position + "px)");
+            window.setTimeout(function() {
+                pan.style.OTransition = "";
+                pan.style.OTransitionDuration = "0ms"; // Opera Mobile Emulator bug?
+                pan.style.MozTransition = "";
+                pan.style.WebkitTransition = "";
+            }, 1000);
+        }
+
+        function getTapX(event) {
+            if (event.type=="touchstart" || event.type=="touchmove")
+                return event.originalEvent.touches[0].pageX;
+            else if (event.type=="touchend")
+                return event.originalEvent.changedTouches[0].pageX;
+            else
+                return event.pageX;
+        }
+
+        function onDown(event) {
+            ref = getTapX(event);
+            start = position;
+            event.preventDefault();
+        }
+
+        function onMove(event) {
+            if (ref >= 0) {
+                position = start + getTapX(event) - ref;
+                update();
+                event.preventDefault();
+            }
+        }
+
+        function onUp(event) {
+            if (ref >= 0) {
+                ref = -1;
+                adjust();
+                event.preventDefault();
+            }
+        }
+
+        $(function() {
+            $("img").bind("mousedown touchstart ", onDown);
+            $(window).bind("mousemove touchmove", onMove).bind("mouseup touchend", onUp);
+        });
+    </script>
+</head>
+<body>
+	<h1>Pan <a href="index.html">Back</a></h1>
+    <div class="clip">
+        <div id="pan" class="pan">
+            <img src="../images/alexanderplatz.jpg" />
+            <img src="../images/berlin.jpg" />
+            <img src="../images/checkpoint_charlie.jpg" />
+            <img src="../images/spree.jpg" />
+        </div>
+    </div>
+    <p>Pan to the left or right to change between images</p>
+    <p id="msg"></p>
+</body>
+</html>

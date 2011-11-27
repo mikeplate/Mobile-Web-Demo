@@ -10,6 +10,7 @@ $content = json_decode($content);
 <html>
     <head>
         <title><?php echo $content->title ?></title>
+        <meta charset="utf-8" />
         <link rel="stylesheet" href="outline.css" />
     </head>
     <body>

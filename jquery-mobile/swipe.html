@@ -56,6 +56,13 @@
         $(function() {
             $(window).bind("swipeleft", next);
             $(window).bind("swiperight", prev);
+            $(window).bind("keydown", function(event) {
+                if (event.which==37)
+                    prev();
+                else if (event.which==39)
+                    next();
+            });
+            $("img").bind("dragstart", function(ev) { ev.preventDefault(); });
         });
     </script>
 </head>
