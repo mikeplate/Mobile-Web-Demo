@@ -6,25 +6,13 @@
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
         <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
-        <style>
-            .ui-content h2 {
-                margin-top: 0px;
-                font-size: 20px;
-            }
-            .ui-content ul {
-                padding-top: 20px;
-            }
-            .ui-content p {
-                margin-top: 5px;
-            }
-        </style>
     </head>
     <body>
         <div data-role="page" id="Start">
             <div data-role="header"><h1>MobileAppLab Data Service</h1></div>
             <div data-role="content">
-                <p class="message">Welcome to the MobileAppLab Data Service. This serviced can be used by other web applications to store data securely in the cloud.</p>
-                <ul data-role="listview">
+                <p>Welcome to the MobileAppLab Data Service. This serviced can be used by other web applications to store data securely in the cloud.</p>
+                <ul data-role="listview" data-inset="true">
                     <li><a href="#Login">Log in with existing account</a></li>
                     <li><a href="#Register">Register new account</a></li>
                     <li><a href="#Logout">Log out</a></li>

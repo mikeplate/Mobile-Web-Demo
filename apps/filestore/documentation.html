@@ -9,6 +9,7 @@
         <div class="box">
             <label>Base Url (prefix all urls below with this):</label>
             <p>http://mobileapplab.se/apps/filestore/</p>
+            <p>All API calls support JSONP via callback url parameter</p>
         </div>
         <div class="box">
             <label>Logged on status</label>
@@ -28,7 +29,7 @@
         <div class="box">
             <label>Write a single object to the store</label>
             <p>
-                POST api/write.php<br />
+                GET/POST api/write.php<br />
                 name=<i>name of object</i><br />
                 value=<i>json formatted string of object value</i>
             </p>
