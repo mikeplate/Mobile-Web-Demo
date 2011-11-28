@@ -155,12 +155,26 @@
             "title": "Build your own API",
             "bullets": [
                 "Still server side scripts delivering stuff over http",
-                ["Difference is that all stuff are structured and not dependent on the view",
-                    "Meaning, no html",
+                ["Difference is that all data is structured and not dependent on the view",
+                    "No html",
                     "Data delivered as JSON (or possibly XML)"],
                 ["Advantages",
-                    "Easy to use the functionality of the app from other applications",
+                    "Easy to use the functionality of the service from other applications",
                     "All formatting/view code is in one place - the client"]
+            ]
+        },
+        {
+            "title": "Combining local and remote storage",
+            "bullets": [
+                ["Why use both?",
+                    "App usable without network connection",
+                    "App is faster when utilizing local storage first",
+                    "Data accessible from multiple browsers"],
+                ["The difficult part is the syncing of data",
+                    "What happens if the server receives new data from multiple locations at the same time?",
+                    "Make sure data is not overritten",
+                    "Might need to keep track of not just the data, but how it was created",
+                    "List of deletes. List of updates. List of creations"]
             ]
         },
         {
