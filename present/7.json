@@ -39,7 +39,7 @@
             ]
         },
         {
-            "title": "Different filosophies",
+            "title": "Different philosophies",
             "bullets": [
                 ["iOS",
                     "Apps in App Store are audited by Apple before publication",
@@ -48,7 +48,7 @@
                     "Only two devices to target, iPhone(+iPod Touch) and iPad"],
                 ["Android", 
                     "All apps are accepted into Market and published instantly",
-                    "Permission system that limits what an app can do (or at least tells the user what it will be able to do)",
+                    "Permission system that limits what an app can do (accepted by user when installing)",
                     "Has file system. All apps can access SD card. Apps can share both data and functionality.",
                     "Hundreds of devices to target"]
             ]
@@ -73,8 +73,8 @@
                 "Cross platform development",
                 ["Using html, css and javascript but in a web view container, packaged as a native app",
                     "Both iOS and Android support displaying a web view/page inside of a native app"],
-                "Plus: Feature access can be provided to javascript via native code",
-                "Minus: Does nothing for performance and the general \"felling\" of a native user interface"
+                "+ Feature access can be provided to javascript via native code",
+                "- Does nothing for performance and the general \"feeling\" of a native user interface, or any selling limitations"
             ]
         },
         {

@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+session_start();
+?>
 <html>
     <head>
         <title>MobileAppLab Data Service</title>
@@ -12,10 +15,10 @@
             <div data-role="header"><h1>MobileAppLab Data Service</h1></div>
             <div data-role="content">
                 <p>Welcome to the MobileAppLab Data Service. This serviced can be used by other web applications to store data securely in the cloud.</p>
-                <ul data-role="listview" data-inset="true">
-                    <li><a href="#Login">Log in with existing account</a></li>
-                    <li><a href="#Register">Register new account</a></li>
-                    <li><a href="#Logout">Log out</a></li>
+                <ul data-role="listview" data-inset="true" id="CommandList">
+                </ul>
+                <p id="DataListMessage"></p>
+                <ul data-role="listview" data-inset="true" id="DataList">
                 </ul>
             </div>
         </div>
@@ -65,6 +68,19 @@
                 </form>
             </div>
         </div>
+        <div data-role="page" id="ShowData">
+            <div data-role="header">
+                <h1>Show data object</h1>
+                <a data-rel="back" data-icon="arrow-l" data-iconpos="left">Back</a>
+            </div>
+            <div data-role="content">
+                <h2 id="DataName"></h2>
+                <p id="DataMessage" class="message"></p>
+                <form>
+                    <a data-rel="back" data-role="button">Back to start page</a>
+                </form>
+            </div>
+        </div>
 
         <script>
         var callbackUrl = "<?php if (isset($_SERVER['HTTP_REFERER'])) echo $_SERVER['HTTP_REFERER'];  ?>";
@@ -81,7 +97,7 @@
         }
 
         function goToCallback() {
-            if (callbackUrl)
+            if (callbackUrl && (callbackUrl<16 || callbackUrl.substring(callbackUrl.length-16, callbackUrl.length)!="/apps/filestore/"))
                 window.location.href = callbackUrl;
             else
                 $.mobile.changePage("#Start");
@@ -117,6 +133,9 @@
                 dataType: "json",
                 error: onError
             });
+
+            // Update the available commands, depending on if the user is logged in or not
+            updateCommands();
         });
 
         function register(username, password, email, success) {
@@ -132,7 +151,7 @@
             });
         }
 
-        function login(username, password, success) {
+        function login(username, password, successFunc) {
             $.ajax({
                 url: 'api/login.php',
                 data: {
@@ -140,15 +159,68 @@
                     password: password
                 },
                 type: 'post',
-                success: success
+                success: function() {
+                    isLoggedIn = true;
+                    updateCommands();
+                    successFunc();
+                }
             });
         }
 
-        function logout(success) {
+        function logout(successFunc) {
             $.ajax({
                 url: "api/logout.php",
-                success: success
+                success: function() {
+                    isLoggedIn = false;
+                    updateCommands();
+                    successFunc();
+                }
             });
+        }
+
+        function showData(dataName) {
+            $("#DataName").text(dataName);
+            $.mobile.changePage("#ShowData");
+            $.ajax({
+                url: "api/read.php",
+                dataType: "json",
+                data: {
+                    name: dataName
+                },
+                success: function(data) {
+                    $("#DataMessage").text(JSON.stringify(data));
+                }
+            });
+        }
+
+        var commands = [
+            { id: "Login", title: "Log in with existing account" },
+            { id: "Register", title: "Register new account" },
+            { id: "Logout", title: "Log out" }
+        ];
+        function updateCommands() {
+            var html = "";
+            for (var i = 0; i<commands.length; i++) {
+                if ((isLoggedIn && i>0) || (!isLoggedIn && i<2))
+                    html += "<li><a href=\"#" + commands[i].id + "\">" + commands[i].title + "</a></li>";
+            }
+            $("#CommandList").html(html).listview("refresh");
+            $("#DataList").html("");
+            $("#DataListMessage").text("");
+            if (isLoggedIn) {
+                $.ajax({
+                    url: "api/list.php",
+                    dataType: "json",
+                    success: function(datalist) {
+                        var html = "";
+                        for (var i = 0; i<datalist.length; i++) {
+                            html += "<li><a href=\"javascript:showData('" + datalist[i] + "')\">" + datalist[i] + "</a></li>";
+                        }
+                        $("#DataList").html(html).listview("refresh");
+                        $("#DataListMessage").text("You are logged in and have the following " + datalist.length + " objects stored here:");
+                    }
+                });
+            }
         }
 
         // When Register button is pressed
