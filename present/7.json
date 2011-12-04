@@ -5,21 +5,45 @@
         {
             "title": "Content",
             "bullets": [
+                "Business models",
                 "Native applications",
                 "PhoneGap"
+            ]
+        },
+        {
+            "title": "Why build an app?",
+            "bullets": [
+                "Build a brand, marketing, campaign",
+                "Build something entertaining, like media, fun, games, social",
+                "Build something useful, like organizers, information management",
+                ["Who is it for?",
+                    "General applications for a broader public",
+                    "Custom applications for solving a specific problem/task at an organization (in-house)"]
+            ]
+        },
+        {
+            "title": "Business models - ways of earning money",
+            "bullets": [
+                "Free app: Earn your money on other related services/applications",
+                "Free app: Advertisments",
+                "Freemium model: Have limited free app, and charge for version with more features",
+                "In-app purchases: Charge for extra content and/or features inside of the app",
+                "Charge for the app - need to be useful or entertaining enough for users to pay",
+                "Charge for your time building an app for someone else (could be general, but usally a custom app)"
             ]
         },
         {
             "title": "Native applications",
             "bullets": [
                 "An application built with the platform specific tools and technologies",
-                "Package an application for publishing in a store/market"
+                "Package an application for publishing in a store/market",
+                "Full control of the source code"
             ]
         },
         {
             "title": "Native iOS by Apple",
             "bullets": [
-                "Requires membership in the iOS Developer Program $99/year",
+                "Requires membership in the iOS Developer Program, $99/year",
                 ["Tools", "Xcode with iOS SDK"],
                 ["Language", "Objective-C"],
                 ["View definitions (user interface)", "Pixel-placed graphical elements and controls"],
@@ -30,7 +54,7 @@
         {
             "title": "Native Android by Google",
             "bullets": [
-                "Only requires membership in Market for selling $29/year",
+                "Only requires membership for selling in Android Market, $25 one time fee",
                 ["Tools", "Eclipse, Android SDK and the Android plugin for Eclipse (ADT)"],
                 ["Language", "Java (1.5)"],
                 ["View definitions (user interface)", "Xml-based layouts kind of like html, but totally different elements and styling"],
@@ -41,6 +65,7 @@
         {
             "title": "Different philosophies",
             "bullets": [
+                "Many differences can be both positive and negative",
                 ["iOS",
                     "Apps in App Store are audited by Apple before publication",
                     "After acceptance, no permission granularity",
@@ -56,58 +81,171 @@
         {
             "title": "Why native?",
             "bullets": [
-                "Performance",
-                "Features not (yet) available on the mobile web"
+                ["Performance",
+                    "Web browsers are fast and can take quite a lot of JavaScript parsing, but native is still the best"],
+                ["Features not available in an HTML5/Web browser API (yet)",
+                    "Some feature might not ever be available to the browser, and many are still lacking (but coming?)",
+                    "Camera, Accelerometer, TCP/IP sockets, SQL database",
+                    "Heavy 3rd party libraries like voice/face recognition"],
+                "Taking advantage of a specific platform capability"
             ]
         },
         {
             "title": "Why not native?",
             "bullets": [
-                "A lot of work",
-                "Selling limitations"
+                ["A lot of work",
+                    "Native programming is harder, or at least good competence is harder to find",
+                    "Platforms so different that much (if not all) need to be made X times"],
+                ["Styling limitations",
+                    "I'd argue that you simply can't beat HTML5+CSS3 for styling power",
+                    "And to a certain degree, that's why HTML5+CSS3 is behind on performance"],
+                ["Selling limitations",
+                    "At least on iOS, you simply have to share 30% of your revenue with Apple",
+                    "Same on Android Market, even though there you can bypass the market"]
             ]
         },
         {
             "title": "There is a middle ground",
             "bullets": [
-                "Cross platform development",
-                ["Using html, css and javascript but in a web view container, packaged as a native app",
+                ["Cross platform development",
+                    "Using html, css and javascript but in a web view container, packaged as a native app",
                     "Both iOS and Android support displaying a web view/page inside of a native app"],
-                "+ Feature access can be provided to javascript via native code",
-                "- Does nothing for performance and the general \"feeling\" of a native user interface, or any selling limitations"
+                ["Options",
+                    "PhoneGap http://phonegap.com",
+                    "appMobi http://appmobi.com",
+                    "Sencha Touch http://http://www.sencha.com/products/touch/"],
+                ["Yes",
+                    "Feature access can be provided to JavaScript via native code",
+                    "Source code is hidden"],
+                ["But",
+                    "Does nothing for performance and the general \"feeling\" of a responsive native user interface",
+                    "Does nothing for any selling limitations"]
             ]
         },
         {
             "title": "What is PhoneGap?",
             "bullets": [
-                
+                "Open source project",
+                "Recently bought by Adobe and given a new name of \"Callback\"",
+                "Prepackaged projects for Android, iOS and more platforms",
+                ["Native app built with platform-specific tools",
+                    "Or with paid service at http://build.phonegap.com"]
             ]
         },
         {
             "title": "Requirements for PhoneGap",
             "bullets": [
-                
+                ["Building for iOS",
+                    "Mac OS X Snow Leopard",
+                    "Xcode and iOS SDK from Apple",
+                    "Membership in Apple iOS Developer Program $99/year for device installs"],
+                ["Building for Android",
+                    "Java Development Kit (JDK)",
+                    "Eclipse and Android SDK from Google"],
+                ["We'll focus on Android for the remaining part",
+                    "All necessary tools available on Windows, Mac OS X and Linux"]
             ]
         },
         {
-            "title": "Build a PhoneGap application",
+            "title": "Download and install Java and Android SDK",
             "bullets": [
-                
+                ["Java SE JDK", 
+                    "http://www.oracle.com/technetwork/java/javase/downloads/index.html"],
+                ["Android SDK in two steps",
+                    "http://developer.android.com/sdk/index.html",
+                    "Run SDK Manager and download specific platform versions",
+                    "Android 2.1 (API 7), \"SDK Platform\" and \"Google APIs by Google Inc\""],
+                ["Create a virtual device for the Android Emulator",
+                    "Run AVD Manager and create virtual device with specific platform"]
+            ]
+        },
+        {
+            "title": "Download and install Eclipse and PhoneGap",
+            "bullets": [
+                ["Eclipse, larger developer environment written in Java",
+                    "http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/indigosr1"],
+                ["Android ADT plugin for Eclipse",
+                    "Install new software in Eclipse",
+                    "https://dl-ssl.google.com/android/eclipse/"],
+                ["Download from http://phonegap.com",
+                    "Unzip files"]
+            ]
+        },
+        {
+            "title": "Create and build an Android native application",
+            "bullets": [
+                "Eclipse",
+                "File, New Project, Android Project",
+                ["Structure of an Android project",
+                    "src - Java source code, the native part",
+                    "gen - Automatically generated files, don't touch",
+                    "assets - Extra files in the app, used by PhoneGap!",
+                    "bin - The final result, the apk file",
+                    "res - Xml layout and configuration files",
+                    "AndroidManifest.xml - Main configuration for application"]
+            ]
+        },
+        {
+            "title": "Debug and run Android applications",
+            "bullets": [
+                ["Debug and run on emulator",
+                    "Will automatically start most appropriate virtual device in emulator",
+                    "Or attach itself to any running emulator",
+                    "Right-click project the first time and select \"Debug as, Android applicaiton\"",
+                    "On subsequent launches you can use Debug button in toolbar"],
+                ["Install on a device",
+                    "Find apk file inside bin directory",
+                    "Copy apk file to device or put in web site and download with device browser",
+                    "Open on device and accept installing it with the specified permissions",
+                    "Run it with icon in normal place"]
+            ]
+        },
+        {
+            "title": "Add PhoneGap to Android application",
+            "bullets": [
+                ["Assets directory",
+                    "Create www directory",
+                    "Drag/copy the phonegap-1.2.0.js file into it",
+                    "Create your html, css and javascript files",
+                    "Use normal script-element to include phonegap-1.2.0.js into your html"],
+                ["Library reference",
+                    "Create libs directory (not really required)",
+                    "Drag/copy the phonegap-1.2.0.jar file into it",
+                    "May need to right-click file and select \"Build path, Add to build path\""]
             ]
         },
         {
             "title": "PhoneGap APIs",
             "bullets": [
+                "All PhoneGap APIs are \"injected\" into the browser objects, accessible from JavaScript as new APIs/objects/functions",
+                "Most contained inside window or navigator object of browser",
+                "Accelerometer, Camera, Capture, Compass, Connection, Contacts, Device, Events, File, Geolocation, Media, Notification, Storage",
+                "http://docs.phonegap.com/en/1.2.0/index.html"
             ]
         },
         {
             "title": "Compass",
             "bullets": [
+                "Works very similar to the Geolocation API",
+                ["navigator.compass",
+                    "getCurrentHeading to get single reading of compass",
+                    "watchHeading to get continuous readings of compass"],
+                ["Usage",
+                    "navigator.compass.watchHeading(successFunc, errorFunc, \n\t{ frequency: 1000 });",
+                    "function successFunc(result) { alert(\"Got \"+result.magneticHeading); }",
+                    "function errorFunc(error) { alert(\"Error code \"+error); }"]
             ]
         },
         {
             "title": "Camera",
             "bullets": [
+                "A bit more advanced since you also have data (the photo) to deal with",
+                ["navigator.camera",
+                    "getPicture to start the build in camera app and return once a photo has been taken/selected"],
+                ["Usage",
+                    "navigator.camera.getPicture(successFunc, errorFunc, \n\t{ sourceType: Camera.PictureSourceType.CAMERA,\n\tquality: 50,\n\tdestinationType: Camera.DestinationType.DATA_URL });",
+                    "function successFunc(result) { document.getElementById(\"image\").src = result; }",
+                    "function errorFunc(error) { alert(\"Error: \" + error); }"]
             ]
         }
     ]
