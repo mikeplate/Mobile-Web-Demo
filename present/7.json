@@ -247,6 +247,23 @@
                     "function successFunc(result) { document.getElementById(\"image\").src = result; }",
                     "function errorFunc(error) { alert(\"Error: \" + error); }"]
             ]
+        },
+        {
+            "title": "Existing APIs and libraries",
+            "bullets": [
+                ["Existing JavaScript libraries work fine inside of PhoneGap too",
+                    "jQuery",
+                    "jQuery Mobile"],
+                ["Network",
+                    "No cross-domain problems since html file loaded from local file system",
+                    "JSON will work fine anywhere, no need for JSONP to other domains",
+                    "On PhoneGap/iOS, you do need to specify which domains to allow requests to beforehand"],
+                ["Hidden source code",
+                    "Can use OAuth with less risk of misrepresentation (someone else using your app secret id)"]
+            ]
+        },
+        {
+            "title": "Go ahead and build!"
         }
     ]
 }

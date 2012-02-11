@@ -105,6 +105,12 @@ class FileStore {
         file_put_contents($this->getFullPath($name), json_encode($data));
     }
 
+    public function remove($name) {
+        if (!isValidName($name))
+            return;
+        unlink($this->getFullPath($name));
+    }
+
     private function getFullPath($name) {
         return $this->basePath . ($this->useSubDirs ? '/':'-') . $name;
     }

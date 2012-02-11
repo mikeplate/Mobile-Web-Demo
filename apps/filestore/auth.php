@@ -6,9 +6,9 @@ session_start();
     <head>
         <title>MobileAppLab Data Service</title>
         <meta name="viewport" content="user-scalable=yes, width=device-width" />
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
         <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-        <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
     </head>
     <body>
         <div data-role="page" id="Start">
@@ -81,10 +81,27 @@ session_start();
                 </form>
             </div>
         </div>
+        <div data-role="page" id="EditData">
+            <div data-role="header">
+                <h1>Edit data object</h1>
+                <a data-rel="back" data-icon="arrow-l" data-iconpos="left">Back</a>
+            </div>
+            <div data-role="content">
+                <form>
+                    <label>Name of data item</label>
+                    <input type="text" id="EditDataName" />
+                    <label>Content of data item</label>
+                    <textarea id="EditDataValue" cols="20" rows="5"></textarea>
+                    <input type="button" id="SaveDataButton" value="Save" />
+                    <span id="DeleteDataButtonContainer"><input type="button" id="DeleteDataButton" value="Delete" /></span>
+                </form>
+            </div>
+        </div>
 
         <script>
         var callbackUrl = "<?php if (isset($_SERVER['HTTP_REFERER'])) echo $_SERVER['HTTP_REFERER'];  ?>";
         var isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true':'false' ?>;
+        var currentDataName = null;
 
         function onError(xhr, err, statusText) {
             if (err=="error" && statusText)
@@ -133,9 +150,7 @@ session_start();
                 dataType: "json",
                 error: onError
             });
-
-            // Update the available commands, depending on if the user is logged in or not
-            updateCommands();
+            $.mobile.ajaxEnabled = false;
         });
 
         function register(username, password, email, success) {
@@ -161,7 +176,6 @@ session_start();
                 type: 'post',
                 success: function() {
                     isLoggedIn = true;
-                    updateCommands();
                     successFunc();
                 }
             });
@@ -172,7 +186,6 @@ session_start();
                 url: "api/logout.php",
                 success: function() {
                     isLoggedIn = false;
-                    updateCommands();
                     successFunc();
                 }
             });
@@ -198,7 +211,7 @@ session_start();
             { id: "Register", title: "Register new account" },
             { id: "Logout", title: "Log out" }
         ];
-        function updateCommands() {
+        $("#Start").bind("pageshow", function() {
             var html = "";
             for (var i = 0; i<commands.length; i++) {
                 if ((isLoggedIn && i>0) || (!isLoggedIn && i<2))
@@ -214,14 +227,52 @@ session_start();
                     success: function(datalist) {
                         var html = "";
                         for (var i = 0; i<datalist.length; i++) {
-                            html += "<li><a href=\"javascript:showData('" + datalist[i] + "')\">" + datalist[i] + "</a></li>";
+                            html += "<li><a href=\"javascript:editData('" + datalist[i] + "')\">" + datalist[i] + "</a></li>";
                         }
+                        html += "<li><a href=\"javascript:addData()\">Add data</a></li>";
                         $("#DataList").html(html).listview("refresh");
                         $("#DataListMessage").text("You are logged in and have the following " + datalist.length + " objects stored here:");
                     }
                 });
             }
+        });
+
+        // Prepare to add a new data item
+        function addData() {
+            $.mobile.changePage("#EditData", { dataUrl: "#EditData" });
         }
+
+        // Prepare to edit the existing data item
+        function editData(dataName) {
+            $.mobile.changePage("#EditData", { dataUrl: "#EditData?" + dataName });
+        }
+
+        // Initialize the EditData page for a data item to add/edit
+        $("#EditData").bind("pageshow", function() {
+            currentDataName = window.location.hash.indexOf("?") >= 0 ? window.location.hash.substring(window.location.hash.indexOf("?")+1) : null;
+            if (currentDataName == null) {
+                $("#EditDataName").val("").attr("readonly", false);
+                $("#EditDataValue").val("");
+                $("#DeleteDataButtonContainer").hide();
+            }
+            else {
+                $("#EditDataName").val(currentDataName).attr("readonly", true);
+                $("#EditDataValue").val("");
+                $("#SaveDataButton").attr("disabled", true);
+                $("#DeleteDataButtonContainer").show();
+                $.ajax({
+                    url: "api/read.php",
+                    dataType: "json",
+                    data: {
+                        name: currentDataName
+                    },
+                    success: function(data) {
+                        $("#EditDataValue").val(JSON.stringify(data));
+                        $("#SaveDataButton").attr("disabled", false);
+                    }
+                });
+            }
+        });
 
         // When Register button is pressed
         $("#RegisterButton").click(function() {
@@ -253,6 +304,39 @@ session_start();
         $("#LogoutButton").click(function() {
             showMessage("LogoutMessage", "Sending logout request to server...");
             logout(goToCallback);
+        });
+
+        $("#SaveDataButton").click(function() {
+            if ($("#EditDataName").val().length==0) {
+                return;
+            }
+            $.ajax({
+                url: "api/write.php",
+                dataType: "json",
+                data: {
+                    name: $("#EditDataName").val(),
+                    value: $("#EditDataValue").val()
+                },
+                success: function(data) {
+                    $.mobile.changePage("#Start");
+                }
+            });
+        });
+
+        $("#DeleteDataButton").click(function() {
+            if (currentDataName==null) {
+                return;
+            }
+            $.ajax({
+                url: "api/delete.php",
+                dataType: "json",
+                data: {
+                    name: currentDataName
+                },
+                success: function(data) {
+                    $.mobile.changePage("#Start");
+                }
+            });
         });
         </script>
     </body>
