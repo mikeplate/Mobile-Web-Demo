@@ -1,5 +1,6 @@
 <?php
 require_once('filestore.php');
+require_once('config.php');
 
 session_start();
 if (!isset($_SESSION['username'])) {
@@ -11,7 +12,7 @@ if (!isset($_REQUEST['name']) || !isValidName($_REQUEST['name']) || $_REQUEST['n
     die();
 }
 
-$store = new FileStore('storage', false);
+$store = new FileStore($config['root'], false);
 $userstore = $store->open($_SESSION['username']);
 $userstore->remove($_REQUEST['name']);
 

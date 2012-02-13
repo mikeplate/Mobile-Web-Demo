@@ -1,17 +1,17 @@
 <?php
 require_once('filestore.php');
-
-$store = new FileStore('storage', false);
+require_once('config.php');
 
 if (!isset($_POST['username']) || !isValidName($_POST['username'])) {
     header($_SERVER['SERVER_PROTOCOL'] . ' 500 You must specify a valid username', true, 500);
     die();
 }
-if (!isset($_POST['password']) || strlen($_POST['password'])<6 || $_POST['username']==$_POST['password']) {
+if (!isset($_POST['password']) || strlen($_POST['password'])<$config['min_password_length'] || $_POST['username']==$_POST['password']) {
     header($_SERVER['SERVER_PROTOCOL'] . ' 500 You must specify a valid password', true, 500);
     die();
 }
 
+$store = new FileStore($config['root'], false);
 $username = $_POST['username'];
 $userstore = $store->open($username);
 if ($userstore->exists('.user')) {

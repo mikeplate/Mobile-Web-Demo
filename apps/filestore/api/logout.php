@@ -1,5 +1,4 @@
 <?php
-require_once('filestore.php');
 session_start();
 session_destroy();
 

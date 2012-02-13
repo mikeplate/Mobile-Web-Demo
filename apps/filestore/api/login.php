@@ -1,13 +1,14 @@
 <?php
 require_once('filestore.php');
-session_start();
+require_once('config.php');
 
+session_start();
 if (!isset($_POST['username']) || !isValidName($_POST['username'])) {
     header($_SERVER['SERVER_PROTOCOL'] . ' 500 You must specify a valid username', true, 500);
     die();
 }
 
-$store = new FileStore('storage', false);
+$store = new FileStore($config['root'], false);
 
 $username = $_POST['username'];
 $userstore = $store->open($username);
