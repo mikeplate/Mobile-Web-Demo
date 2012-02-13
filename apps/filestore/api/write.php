@@ -14,7 +14,17 @@ if (!isset($_REQUEST['name']) || !isValidName($_REQUEST['name']) || $_REQUEST['n
 
 $store = new FileStore($config['root'], false);
 $userstore = $store->open($_SESSION['username']);
-$userstore->write($_REQUEST['name'], json_decode($_REQUEST['value']));
+
+if ((count($_GET)==2 && isset($_GET['name']) && isset($_GET['value']))
+    || (count($_POST)==2 && isset($_POST['name']) && isset($_POST['value']))) {
+    $userstore->write($_REQUEST['name'], json_decode($_REQUEST['value']));
+}
+else if (count($_GET)==1 && isset($_GET['name'])) {
+    $userstore->write($_GET['name'], $_POST);
+}
+else {
+    $userstore->write($_GET['name'], $_GET);
+}
 
 outputJSON(Array('success' => true));
 ?>
