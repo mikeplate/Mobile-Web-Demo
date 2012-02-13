@@ -22,17 +22,28 @@
             <p>File Store is a very simple REST-inspired service to store JSON data.</p>
             <p>All requests are made to scripts under the base address of "http://mobileapplab.se/apps/filestore/api/". Add all script names below to the end of this address to get the full address for the operation. All scripts also supports JSONP.</p>
             <p><b>NOTE!</b> This service is only for testing purposes and the data stored may be deleted at any time without notice. Only use it to test the service. For real data, host the scripts yourself on another server.</p>
+            <p>Available methods:</p>
+            <ul>
+                <li>Register</li>
+                <li>Login</li>
+                <li>Logout</li>
+                <li>Me</li>
+                <li>List</li>
+                <li>Read</li>
+                <li>Write</li>
+                <li>Delete</li>
+            </ul>
         </dd>
 		<dt>Register</dt>
         <dd>
-            <p>Register a new account for using the service</p>
+            <p>Register a new account that will be able to access the service.</p>
             <p>POST register.php</p>
             <ul>
                 <li><b>username</b> is the requested username for the account. Must be at least one character and is limited to the characters a-z, A-Z, 0-9, underscore (_), dot (.) and hyphen (-).</li>
                 <li><b>password</b> is the requested password for the account. Must be at least six characters.</li>
                 <li><b>email</b> is an optional e-mail address to associate with the account.</li>
             </ul>
-            <p>Response is the same as from the Account information (me.php) call.</p>
+            <p>Returns the same JSON object as the Me method does.</p>
             <p>jQuery example:</p>
             <pre>$.ajax({
     url: "api/register.php",
@@ -47,61 +58,65 @@
     }
 );</pre>
         </dd>
-        <dt>Log in</dt>
+        <dt>Login</dt>
         <dd>
-            <p>Log in to service for future access. Cookies must be preserved at the client in order for the login to be recognized in future requests.</p>
+            <p>Log in to service specifying credentials for a registered account. Cookies must be preserved in the client in order for the login to be recognized in future requests.</p>
             <p>POST login.php</p>
             <ul>
                 <li><b>username</b> is the registered username for the account.</li>
                 <li><b>password</b> is the registered password for the account.</li>
             </ul>
         </dd>
-        <dt>Account information</dt>
+        <dt>Logout</dt>
+        <dd>
+            <p>Log out by removing the cookie used to identify verify access for the account.</p>
+            <p>GET logout.php</p>
+        </dd>
+        <dt>Me</dt>
         <dd>
             <p>Retrieve information about the currently logged in account. Can also be used to check if the client is logged in.</p>
             <p>GET me.php</p>
-            <p>Response is an JSON object with properties:</p>
+            <p>Returns a JSON object with properties:</p>
             <ul>
                 <li><b>username</b> is the username of the currently logged in account.</li>
                 <li><b>email</b> is the (optional) e-mail address of the currently logged in account.</li>
+                <li><b>ip</b> is the ip address used when registering the account.</li>
+                <li><b>useragent</b> is the user agent string that was sent when registering the account.</li>
+                <li><b>created</b> is the time when the account was registered.</li>
             </ul>
         </dd>
-        <dt>List stored items</dt>
+        <dt>List</dt>
         <dd>
             <p>List the names of all stored items for the currenly logged on account.</p>
             <p>GET list.php</p>
-            <p>Response is an JSON array with the names of the stored items as string values.</p>
+            <p>Returns a JSON array of strings where each element is the name of a stored item for the account.</p>
         </dd>
-        <dt>Read stored item</dt>
+        <dt>Read</dt>
         <dd>
-            <p>Read the content of a single stored item.</p>
+            <p>Read the content of a stored item.</p>
             <p>GET read.php</p>
             <ul>
                 <li><b>name</b> is the name of the stored item to retrieve.</li>
             </ul>
-            <p>Response is the JSON of the stored item that was retriveed.</p>
+            <p>Returns the JSON object stored under the specified name.</p>
         </dd>
-        <dt>Write stored item</dt>
+        <dt>Write</dt>
         <dd>
-            <p>Write new content to server and store in a single item.</p>
+            <p>Write new content to server and store in an item.</p>
             <p>POST write.php</p>
             <ul>
                 <li><b>name</b> is the name of the content that is to be stored.</li>
                 <li><b>value</b> is the JSON-formatted string of the content</li>
             </ul>
+            <p>Returns a JSON object with property "success" set to true.</p>
         </dd>
-        <dt>Delete stored item</dt>
+        <dt>Delete</dt>
         <dd>
             <p>Delete an existing item from the server.</p>
             <p>GET delete.php</p>
             <ul>
                 <li><b>name</b> is the name of the stored item to delete.</li>
             </ul>
-        </dd>
-        <dt>Log out</dt>
-        <dd>
-            <p>Log out by removing the cookie used to identify the client as a specific account.</p>
-            <p>GET logout.php</p>
         </dd>
 	</dl>
 </body>

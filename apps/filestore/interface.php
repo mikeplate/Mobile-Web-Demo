@@ -9,6 +9,11 @@ session_start();
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
         <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+        <style>
+            p.padded {
+                padding: 10px;
+            }
+        </style>
     </head>
     <body>
         <div data-role="page" id="Start">
@@ -87,6 +92,7 @@ session_start();
                 <a data-rel="back" data-icon="arrow-l" data-iconpos="left">Back</a>
             </div>
             <div data-role="content">
+                <p id="EditDataMessage" class="message padded" style="display: none;"></p>
                 <form>
                     <label>Name of data item</label>
                     <input type="text" id="EditDataName" />
@@ -128,6 +134,7 @@ session_start();
             if (!msg.defaultMessage)
                 msg.defaultMessage = msg.innerHTML;
             msg.innerHTML = messageText;
+            msg.style.display = "";
             lastMessageId = messageId;
 
             msg.style.backgroundColor = "#E0E000";
@@ -138,7 +145,12 @@ session_start();
                 window.setTimeout(function() {
                     msg.style.MozTransition = "";
                     msg.style.WebkitTransition = "";
-                    msg.innerHTML = msg.defaultMessage;
+                    if (msg.defaultMessage)
+                        msg.innerHTML = msg.defaultMessage;
+                    else {
+                        msg.innerHTML = "";
+                        msg.style.display = "none";
+                    }
                 }, 3000);
             }, 100);
         }
@@ -310,12 +322,21 @@ session_start();
             if ($("#EditDataName").val().length==0) {
                 return;
             }
+            var json = $("#EditDataValue").val();
+            try {
+                JSON.parse(json);
+            }
+            catch (err) {
+                showMessage("EditDataMessage", "Not valid JSON. The value of the data item must be valid JSON.");
+                return;
+            }
+
             $.ajax({
                 url: "api/write.php",
                 dataType: "json",
                 data: {
                     name: $("#EditDataName").val(),
-                    value: $("#EditDataValue").val()
+                    value: json
                 },
                 success: function(data) {
                     $.mobile.changePage("#Start");
