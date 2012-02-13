@@ -1,41 +1,109 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>File Store Demo</title>
-        <meta name="viewport" content="user-scalable=yes, width=device-width" />
-        <link rel="stylesheet" type="text/css" href="style.css" />
-    </head>
-    <body>
-        <h1>File Store Demo</h1>
-        <div class="box">
-            <label>Base Url (prefix all urls below with this):</label>
-            <p>http://mobileapplab.se/apps/filestore/</p>
-            <p>All API calls support JSONP via callback url parameter</p>
-        </div>
-        <div class="box">
-            <label>Logged on status</label>
-            <p>GET api/me.php</p>
-            <blockquote>{ username: <i>anyvalue</i>, email: <i>anyvalue</i> }</blockquote>
-        </div>
-        <div class="box">
-            <label>List all existing objects</label>
-            <p>GET api/list.php</p>
-            <blockquote>[ <i>anyname</i>, ... ]</i></blockquote>
-        </div>
-        <div class="box">
-            <label>Read a single object from the store</label>
-            <p>GET api/read.php?name=<i>name of object</i></p>
-            <blockquote>{ <i>anyprop</i>: <i>anyvalue</i>, ... }</i></blockquote>
-        </div>
-        <div class="box">
-            <label>Write a single object to the store</label>
-            <p>
-                GET/POST api/write.php<br />
-                name=<i>name of object</i><br />
-                value=<i>json formatted string of object value</i>
-            </p>
-            <blockquote>{ success: true }</blockquote>
-        </div>
-    </body>
+<head>
+    <title>File Store</title>
+    <meta name="viewport" content="user-scalable=yes, width=device-width" />
+    <link rel="stylesheet" href="../../style.css" type="text/css" />
+    <style>
+        pre {
+            font-size: 10pt;
+            margin-bottom: 0px;
+        }
+        ul {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+	<h1>File Store <a href="index.html">Back</a></h1>
+	<dl>
+		<dt>Introduction</dt>
+        <dd>
+            <p>File Store is a very simple REST-inspired service to store JSON data.</p>
+            <p>All requests are made to scripts under the base address of "http://mobileapplab.se/apps/filestore/api/". Add all script names below to the end of this address to get the full address for the operation. All scripts also supports JSONP.</p>
+            <p><b>NOTE!</b> This service is only for testing purposes and the data stored may be deleted at any time without notice. Only use it to test the service. For real data, host the scripts yourself on another server.</p>
+        </dd>
+		<dt>Register</dt>
+        <dd>
+            <p>Register a new account for using the service</p>
+            <p>POST register.php</p>
+            <ul>
+                <li><b>username</b> is the requested username for the account. Must be at least one character and is limited to the characters a-z, A-Z, 0-9, underscore (_), dot (.) and hyphen (-).</li>
+                <li><b>password</b> is the requested password for the account. Must be at least six characters.</li>
+                <li><b>email</b> is an optional e-mail address to associate with the account.</li>
+            </ul>
+            <p>Response is the same as from the Account information (me.php) call.</p>
+            <p>jQuery example:</p>
+            <pre>$.ajax({
+    url: "api/register.php",
+    dataType: "json",
+    data: {
+        username: "my-account",
+        password: "ahQTGE5367sG",
+        email: "trial@mobileapplab.se"
+    },
+    success: function(response) {
+        alert("Welcome user " + response.username + "!");
+    }
+);</pre>
+        </dd>
+        <dt>Log in</dt>
+        <dd>
+            <p>Log in to service for future access. Cookies must be preserved at the client in order for the login to be recognized in future requests.</p>
+            <p>POST login.php</p>
+            <ul>
+                <li><b>username</b> is the registered username for the account.</li>
+                <li><b>password</b> is the registered password for the account.</li>
+            </ul>
+        </dd>
+        <dt>Account information</dt>
+        <dd>
+            <p>Retrieve information about the currently logged in account. Can also be used to check if the client is logged in.</p>
+            <p>GET me.php</p>
+            <p>Response is an JSON object with properties:</p>
+            <ul>
+                <li><b>username</b> is the username of the currently logged in account.</li>
+                <li><b>email</b> is the (optional) e-mail address of the currently logged in account.</li>
+            </ul>
+        </dd>
+        <dt>List stored items</dt>
+        <dd>
+            <p>List the names of all stored items for the currenly logged on account.</p>
+            <p>GET list.php</p>
+            <p>Response is an JSON array with the names of the stored items as string values.</p>
+        </dd>
+        <dt>Read stored item</dt>
+        <dd>
+            <p>Read the content of a single stored item.</p>
+            <p>GET read.php</p>
+            <ul>
+                <li><b>name</b> is the name of the stored item to retrieve.</li>
+            </ul>
+            <p>Response is the JSON of the stored item that was retriveed.</p>
+        </dd>
+        <dt>Write stored item</dt>
+        <dd>
+            <p>Write new content to server and store in a single item.</p>
+            <p>POST write.php</p>
+            <ul>
+                <li><b>name</b> is the name of the content that is to be stored.</li>
+                <li><b>value</b> is the JSON-formatted string of the content</li>
+            </ul>
+        </dd>
+        <dt>Delete stored item</dt>
+        <dd>
+            <p>Delete an existing item from the server.</p>
+            <p>GET delete.php</p>
+            <ul>
+                <li><b>name</b> is the name of the stored item to delete.</li>
+            </ul>
+        </dd>
+        <dt>Log out</dt>
+        <dd>
+            <p>Log out by removing the cookie used to identify the client as a specific account.</p>
+            <p>GET logout.php</p>
+        </dd>
+	</dl>
+</body>
 </html>
 
